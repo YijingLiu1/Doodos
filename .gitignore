@@ -4,3 +4,7 @@ Iter 0
 dist
 node_modules
 package-lock.json
+
+api/node_modules
+api/config/default.json
+api/package-lock.json
