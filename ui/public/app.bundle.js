@@ -234,7 +234,7 @@ function Contents() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Groups; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Discover; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
@@ -242,7 +242,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Groups() {
+function Discover() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"], {
     className: "panel panel-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Title, null, "Posts for You")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
@@ -441,7 +441,7 @@ var Item = /*#__PURE__*/function (_React$Component) {
         className: "effect-sadie",
         onClick: this.showModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "./static/images/text.jpg",
+        src: "../static/images/2.jpg",
         alt: "img01"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figcaption", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Post Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "http://localhost:8000/post/1",
@@ -452,7 +452,9 @@ var Item = /*#__PURE__*/function (_React$Component) {
         style: {
           float: 'left'
         }
-      }, "Author Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://localhost:8000/user/1"
+      }, "Author Name")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsSize: "xsmall"
@@ -772,11 +774,13 @@ function NavBar(_ref) {
 }
 
 function Footer() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+    className: "Footer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "text-center"
   }, "UI v0.1.0 with placeholders", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech"
-  }, "GitHub repository (actually not)")));
+  }, "GitHub repository")));
 }
 
 var Page = /*#__PURE__*/function (_React$Component) {
@@ -887,7 +891,8 @@ var Page = /*#__PURE__*/function (_React$Component) {
         user: user,
         onUserChange: this.onUserChange
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Grid"], {
-        fluid: true
+        fluid: true,
+        bsClass: "contents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserContext_js__WEBPACK_IMPORTED_MODULE_5__["default"].Provider, {
         value: user
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Contents_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null));
@@ -1329,6 +1334,132 @@ var Toast = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./src/User.jsx":
+/*!**********************!*\
+  !*** ./src/User.jsx ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
+/* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./withToast.jsx */ "./src/withToast.jsx");
+/* harmony import */ var _UserContext_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UserContext.js */ "./src/UserContext.js");
+/* harmony import */ var _Item_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Item.jsx */ "./src/Item.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+
+var User = /*#__PURE__*/function (_React$Component) {
+  _inherits(User, _React$Component);
+
+  var _super = _createSuper(User);
+
+  function User() {
+    var _this;
+
+    _classCallCheck(this, User);
+
+    _this = _super.call(this);
+    _this.state = {
+      id: 0
+    };
+    return _this;
+  }
+
+  _createClass(User, [{
+    key: "render",
+    value: function render() {
+      var id = this.state.id;
+      var propsId = this.props.match.params.id;
+
+      if (id == null) {
+        if (propsId != null) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "User with ID ".concat(id, " not found."));
+        }
+
+        return null;
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "Profile"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ProfileBanner"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figure", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "../static/images/text.jpg",
+        alt: "img01"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ProfileWrap"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ProfileSidebar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "AvatarContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Image"], {
+        src: "../static/images/3.jpg",
+        alt: "profile pic",
+        circle: true
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "User ID: ", propsId)))) // <Panel>
+      //     <Panel.Heading>
+      //         <Panel.Title>{`Viewing User: ${propsId}`}</Panel.Title>
+      //     </Panel.Heading>
+      //     <Panel.Body>
+      //         <div>Information of the user</div>
+      //         <figure>
+      //             <img src="../static/images/text.jpg" alt="img01"/>
+      //             <figcaption>
+      //                 <p>Post Title</p>
+      //                 <a href="http://localhost:8000/post/1" data-toggle="modal" data-target="#theModal">View more</a>
+      //             </figcaption>
+      //         </figure>
+      //     </Panel.Body>
+      //     <Panel.Footer>
+      //         <div>This is a footer</div>
+      //     </Panel.Footer>
+      // </Panel>
+      ;
+    }
+  }]);
+
+  return User;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var UserWithToast = Object(_withToast_jsx__WEBPACK_IMPORTED_MODULE_4__["default"])(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(User));
+/* harmony default export */ __webpack_exports__["default"] = (UserWithToast);
+
+/***/ }),
+
 /***/ "./src/UserContext.js":
 /*!****************************!*\
   !*** ./src/UserContext.js ***!
@@ -1468,6 +1599,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Discover.jsx */ "./src/Discover.jsx");
 /* harmony import */ var _DoodleMaps_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DoodleMaps.jsx */ "./src/DoodleMaps.jsx");
 /* harmony import */ var _Store_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Store.jsx */ "./src/Store.jsx");
+/* harmony import */ var _User_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./User.jsx */ "./src/User.jsx");
+/* harmony import */ var _Post_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Post.jsx */ "./src/Post.jsx");
+
+
 
 
 
@@ -1485,6 +1620,12 @@ var routes = [{
 }, {
   path: '/store',
   component: _Store_jsx__WEBPACK_IMPORTED_MODULE_4__["default"]
+}, {
+  path: '/post/:id',
+  component: _Post_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
+}, {
+  path: '/user/:id',
+  component: _User_jsx__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '*',
   component: _NotFound_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]

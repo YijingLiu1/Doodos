@@ -1,5 +1,8 @@
 .navbar-default {
     background-color: #69779b;
+    margin: 0;
+    border: None;
+    border-radius: 0;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -25,6 +28,69 @@
 .row > [class*='col-'] {
     display: flex;
     flex-direction: column;
+}
+
+#contents {
+    margin: 0;
+    top: 0;
+}
+
+.Profile {
+    position: relative;
+}
+
+.ProfileBanner {
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+}
+
+.ProfileBanner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    padding: 0;
+    margin: 0;
+}
+
+.ProfileWrap {
+    padding: 60px 50px 50px;
+    position: absolute;
+}
+
+.ProfileSidebar {
+    padding: 25px 30px 16px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    width: 360px;
+    text-align: center;
+}
+
+.AvatarContainer {
+    align-self: flex-start;
+    height: 118px;
+    width: 118px;
+    display: inline-flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.Footer {
+    height: 40px;
+    background: #eee;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    line-height: 30px;
 }
 
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 {

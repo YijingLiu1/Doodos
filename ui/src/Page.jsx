@@ -55,13 +55,12 @@ function NavBar({ user, onUserChange }) {
 
 function Footer() {
     return (
-        <small>
-            <hr />
+        <small className="Footer">
             <p className="text-center">
                 UI v0.1.0 with placeholders
                 {' '}
                 <a href="https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech">
-                    GitHub repository (actually not)
+                    GitHub repository
                 </a>
             </p>
         </small>
@@ -105,7 +104,7 @@ export default class Page extends React.Component {
         return (
             <div>
                 <NavBar user={user} onUserChange={this.onUserChange} />
-                <Grid fluid>
+                <Grid fluid bsClass="contents">
                     <UserContext.Provider value={user}>
                         <Contents />
                     </UserContext.Provider>

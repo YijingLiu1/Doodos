@@ -5,7 +5,7 @@ import {
 } from "react-bootstrap";
 import Item from "./Item.jsx";
 
-export default function Groups() {
+export default function Discover() {
     return (
         <Panel className="panel panel-info">
             <Panel.Heading>

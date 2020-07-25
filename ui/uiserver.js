@@ -25,6 +25,7 @@ const path = require('path');
 const proxy = require('http-proxy-middleware');
 
 app.use(express.static('public'));
+app.use('/img',express.static('public/static/images'));
 
 const apiProxyTarget = process.env.API_PROXY_TARGET;
 if (apiProxyTarget) {
