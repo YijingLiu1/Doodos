@@ -58,7 +58,7 @@ class Item extends React.Component {
             <React.Fragment>
                 <div className="grid">
                     <figure className="effect-sadie" onClick={this.showModal}>
-                        <img src="./static/images/text.jpg" alt="img01"/>
+                        <img src="../static/images/2.jpg" alt="img01"/>
                         <figcaption>
                             <p>Post Title</p>
                             <a href="http://localhost:8000/post/1" data-toggle="modal" data-target="#theModal">View more</a>
@@ -66,7 +66,7 @@ class Item extends React.Component {
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}>Author Name</div>
+                    <div align="left" style={{float: 'left'}}><a href="http://localhost:8000/user/1">Author Name</a></div>
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>

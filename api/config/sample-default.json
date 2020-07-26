@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://haoranyu:<password>@mern-shopping-list.bzwhf.mongodb.net/<databasename>?retryWrites=true&w=majority",
-  "jwtSecret": "secrettoken"
-}
