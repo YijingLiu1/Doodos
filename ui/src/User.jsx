@@ -7,8 +7,7 @@ import {
 } from 'react-bootstrap';
 import withToast from './withToast.jsx';
 import UserContext from './UserContext.js';
-import Item from "./PostItem.jsx";
-import TabContents from "./TabContents.jsx";
+import UserTabContents from "./UserTabContents.jsx";
 
 class User extends React.Component {
     constructor() {
@@ -59,7 +58,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <TabContents tab={tab} />
+                            <UserTabContents tab={tab} />
                         </div>
                     </div>
                 </div>

@@ -84,9 +84,9 @@ class PostItem extends React.Component {
                                 bsStyle="primary"
                                 onClick={this.handleSubmit}
                             >
-                                Submit
+                                Like
                             </Button>
-                            <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
+                            <Button bsStyle="link" onClick={this.hideModal}>Back</Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>

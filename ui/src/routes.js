@@ -14,7 +14,7 @@ const routes = [
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
     { path: '/user/:id/:tab?', component: User },
-    { path: '/event/:id', component: Event },
+    { path: '/event/:id/:tab?', component: Event },
     { path: '*', component: NotFound },
 ];
 

@@ -1,27 +1,55 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import {
-    NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
-    Button, ButtonToolbar, Tooltip, OverlayTrigger, Col, Panel,
+    Col, Panel, Form, FormGroup, FormControl, ControlLabel,
+    ButtonToolbar, Button, Alert, Row, Image,
 } from 'react-bootstrap';
-
-import graphQLFetch from './graphQLFetch.js';
 import withToast from './withToast.jsx';
-import NotFound from "./NotFound.jsx";
+import UserContext from './UserContext.js';
+import Item from "./PostItem.jsx";
+import UserTabContents from "./UserTabContents.jsx";
 
+class Post extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            id: 0
+        }
+    }
 
-export default function Post() {
-    return (
-        <Panel>
-            <Panel.Heading>
-                <Panel.Title>Title</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-                Contents
-            </Panel.Body>
-            <Panel.Footer>
-                Comments
-            </Panel.Footer>
-        </Panel>
-    )
+    render() {
+        // id is for server render matching, not used at the moment
+        const { id } = this.state;
+        const { match: { params: { id: propsId, tab } } } = this.props;
+        if (id == null) {
+            if (propsId != null) {
+                return <h3>{`User with ID ${id} not found.`}</h3>;
+            }
+            return null;
+        }
+
+        return (
+            <div>
+                <div className="EventSlides">
+                    <figure className="effect-marley">
+                        <img src="/static/images/2.jpg" alt="img01"/>
+                    </figure>
+                </div>
+                <div>
+                    <div className="PostBar">
+                        <h3>Post Title</h3>
+                        <p>Description</p>
+                        <p>Time</p>
+                        <p>Location</p>
+                        <p>Comments</p>                    </div>
+                </div>
+            </div>
+        );
+    }
 }
+
+const PostWithToast = withToast(withRouter(Post));
+
+export default PostWithToast;
+

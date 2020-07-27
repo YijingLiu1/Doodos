@@ -1,27 +1,71 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import {
-    NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
-    Button, ButtonToolbar, Tooltip, OverlayTrigger, Col, Panel,
+    Col, Panel, Form, FormGroup, FormControl, ControlLabel,
+    ButtonToolbar, Button, Alert, Row, Image,
 } from 'react-bootstrap';
-
-import graphQLFetch from './graphQLFetch.js';
 import withToast from './withToast.jsx';
-import NotFound from "./NotFound.jsx";
+import EventTabContents from "./EventTabContents.jsx";
 
+class Event extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            id: 0
+        }
+    }
 
-export default function Event() {
-    return (
-        <Panel>
-            <Panel.Heading>
-                <Panel.Title>Title</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-                Contents
-            </Panel.Body>
-            <Panel.Footer>
-                Comments
-            </Panel.Footer>
-        </Panel>
-    )
+    render() {
+        // id is for server render matching, not used at the moment
+        const { id } = this.state;
+        const { match: { params: { id: propsId, tab } } } = this.props;
+        if (id == null) {
+            if (propsId != null) {
+                return <h3>{`User with ID ${id} not found.`}</h3>;
+            }
+            return null;
+        }
+
+        return (
+            <div>
+                <div className="EventSlides">
+                    <figure className="effect-marley">
+                        <img src="/static/images/2.jpg" alt="img01"/>
+                    </figure>
+                </div>
+                <div className="EventWrap">
+                    <div className="EventSidebar">
+                        <div className="AvatarContainer">
+                            <Image src="/static/images/3.jpg" alt="profile pic" circle/>
+                        </div>
+                        <h3>Event Title</h3>
+                        <p>Time</p>
+                        <p>Location</p>
+                        <Button bsStyle="primary">Join +</Button>
+                    </div>
+                    <div className="EventContents">
+                        <ul className="EventTabs">
+                            <li className="tab">
+                                <Link to="./description">Description</Link>
+                            </li>
+                            <li className="tab">
+                                <Link to="./attenders">Attenders</Link>
+                            </li>
+                            <li className="tab">
+                                <Link to="./about">About</Link>
+                            </li>
+                        </ul>
+                        <div className="ProfileTabContents">
+                            <EventTabContents tab={tab} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
+
+const EventWithToast = withToast(withRouter(Event));
+
+export default EventWithToast;
