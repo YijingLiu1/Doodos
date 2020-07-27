@@ -57,7 +57,7 @@ function Footer() {
     return (
         <small className="Footer">
             <p className="text-center">
-                UI v0.2.0 (Profile Page Added)
+                UI v0.3.0 (Event Section Added)
                 {' '}
                 <a href="https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech">
                     GitHub repository
