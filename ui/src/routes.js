@@ -5,6 +5,7 @@ import DoodleMaps from "./DoodleMaps.jsx";
 import Store from "./Store.jsx";
 import User from "./User.jsx";
 import Post from "./Post.jsx";
+import Event from "./Event.jsx";
 
 const routes = [
     { path: '/discover', component: Discover },
@@ -13,6 +14,7 @@ const routes = [
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
     { path: '/user/:id/:tab?', component: User },
+    { path: '/event/:id', component: Event },
     { path: '*', component: NotFound },
 ];
 

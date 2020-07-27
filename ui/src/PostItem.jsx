@@ -10,7 +10,7 @@ import withToast from './withToast.jsx';
 import NotFound from "./NotFound.jsx";
 import Post from "./Post.jsx";
 
-class Item extends React.Component {
+class PostItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,4 +95,4 @@ class Item extends React.Component {
     }
 }
 
-export default withToast(withRouter(Item));
+export default withToast(withRouter(PostItem));

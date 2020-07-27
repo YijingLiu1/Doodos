@@ -11,7 +11,12 @@ export default class EventItem extends React.Component{
 
     prevPage() {
         const { index: prevIndex } = this.state;
+        let event = document.getElementsByClassName("effect-marley");
+        event[0].style.display = "none";
         this.setState({ index: (prevIndex + 2) % 3});
+        setTimeout(function() {
+            event[0].style.display = "block";
+        }, 10);
     }
 
     nextPage() {
@@ -38,7 +43,7 @@ export default class EventItem extends React.Component{
                     <a className="switch next" onClick={this.nextPage}>&#10095;</a>
                     <p>
                         {description[index]}<br />
-                        <Button href="http://localhost:8000/event/1">View more</Button>
+                        <Button href="http://localhost:8000/event/1/">View more</Button>
                     </p>
                 </figcaption>
             </figure>

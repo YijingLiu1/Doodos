@@ -66,7 +66,7 @@ class IssueAddNavItem extends React.Component {
                 </NavItem>
                 <Modal keyboard show={showing} onHide={this.hideModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Create Issue</Modal.Title>
+                        <Modal.Title>Make a New Post</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form name="issueAdd">
@@ -75,8 +75,12 @@ class IssueAddNavItem extends React.Component {
                                 <FormControl name="title" autoFocus />
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Owner</ControlLabel>
-                                <FormControl name="owner" />
+                                <ControlLabel>Artwork</ControlLabel>
+                                <FormControl name="artwork" />
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Description</ControlLabel>
+                                <FormControl name="description" />
                             </FormGroup>
                         </Form>
                     </Modal.Body>

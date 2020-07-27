@@ -3,7 +3,7 @@ import {
     Panel, Row, Col, Thumbnail, Button,
     Glyphicon, Modal, Form, FormGroup, ControlLabel, FormControl, ButtonToolbar,
 } from "react-bootstrap";
-import Item from "./Item.jsx";
+import PostItem from "./PostItem.jsx";
 import EventItem from "./EventItem.jsx";
 
 class Discover extends React.Component {
@@ -24,16 +24,16 @@ class Discover extends React.Component {
                     <Panel.Body>
                         <Row>
                             <Col sm={6} md={3}>
-                                <Item />
+                                <PostItem />
                             </Col>
                             <Col sm={6} md={3}>
-                                <Item />
+                                <PostItem />
                             </Col>
                             <Col sm={6} md={3}>
-                                <Item />
+                                <PostItem />
                             </Col>
                             <Col sm={6} md={3}>
-                                <Item />
+                                <PostItem />
                             </Col>
                         </Row>
                     </Panel.Body>

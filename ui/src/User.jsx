@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import withToast from './withToast.jsx';
 import UserContext from './UserContext.js';
-import Item from "./Item.jsx";
+import Item from "./PostItem.jsx";
 import TabContents from "./TabContents.jsx";
 
 class User extends React.Component {
