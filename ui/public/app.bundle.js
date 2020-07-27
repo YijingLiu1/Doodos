@@ -597,7 +597,7 @@ var Item = /*#__PURE__*/function (_React$Component) {
         src: "/static/images/2.jpg",
         alt: "img01"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figcaption", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Post Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "http://localhost:8000/post/1",
+        href: "http://localhost:8000/post/1/",
         "data-toggle": "modal",
         "data-target": "#theModal"
       }, "View more")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -606,7 +606,7 @@ var Item = /*#__PURE__*/function (_React$Component) {
           float: 'left'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "http://localhost:8000/user/1"
+        href: "http://localhost:8000/user/1/"
       }, "Author Name")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
