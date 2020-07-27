@@ -31,37 +31,33 @@ class User extends React.Component {
             <div className="Profile">
                 <div className="ProfileBanner">
                     <figure>
-                        <img src="../static/images/text.jpg" alt="img01"/>
+                        <img src="/static/images/text.jpg" alt="img01"/>
                     </figure>
                 </div>
                 <div className="ProfileWrap">
                     <div className="ProfileSidebar">
                         <div className="AvatarContainer">
-                            <Image src="../static/images/3.jpg" alt="profile pic" circle/>
+                            <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
-                        <p>User ID: {propsId}</p>
+                        <h3>User ID: {propsId}</h3>
+                        <p>Title</p>
+                        <p>Location</p>
+                        <Button>Follow +</Button>
+                    </div>
+                    <div className="ProfileContents">
+                        <ul className="ProfileTabs">
+                            <li className="tab">
+                                <a href="/user/1/posts">Posts</a>
+                            </li>
+                            <li className="tab"><a>Likes</a></li>
+                            <li className="tab"><a>About</a></li>
+                        </ul>
+                        <div className="ProfileTabContents">
+                            Me too
+                        </div>
                     </div>
                 </div>
             </div>
-
-            // <Panel>
-            //     <Panel.Heading>
-            //         <Panel.Title>{`Viewing User: ${propsId}`}</Panel.Title>
-            //     </Panel.Heading>
-            //     <Panel.Body>
-            //         <div>Information of the user</div>
-            //         <figure>
-            //             <img src="../static/images/text.jpg" alt="img01"/>
-            //             <figcaption>
-            //                 <p>Post Title</p>
-            //                 <a href="http://localhost:8000/post/1" data-toggle="modal" data-target="#theModal">View more</a>
-            //             </figcaption>
-            //         </figure>
-            //     </Panel.Body>
-            //     <Panel.Footer>
-            //         <div>This is a footer</div>
-            //     </Panel.Footer>
-            // </Panel>
         );
     }
 }
