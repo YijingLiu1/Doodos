@@ -8,6 +8,7 @@ import {
 import withToast from './withToast.jsx';
 import UserContext from './UserContext.js';
 import Item from "./Item.jsx";
+import TabContents from "./TabContents.jsx";
 
 class User extends React.Component {
     constructor() {
@@ -18,8 +19,9 @@ class User extends React.Component {
     }
 
     render() {
+        // id is for server render matching, not used at the moment
         const { id } = this.state;
-        const { match: { params: { id: propsId } } } = this.props;
+        const { match: { params: { id: propsId, tab } } } = this.props;
         if (id == null) {
             if (propsId != null) {
                 return <h3>{`User with ID ${id} not found.`}</h3>;
@@ -42,18 +44,22 @@ class User extends React.Component {
                         <h3>User ID: {propsId}</h3>
                         <p>Title</p>
                         <p>Location</p>
-                        <Button>Follow +</Button>
+                        <Button bsStyle="primary">Follow +</Button>
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">
                             <li className="tab">
-                                <a href="/user/1/posts">Posts</a>
+                                <Link to="./posts">Posts</Link>
                             </li>
-                            <li className="tab"><a>Likes</a></li>
-                            <li className="tab"><a>About</a></li>
+                            <li className="tab">
+                                <Link to="./likes">Likes</Link>
+                            </li>
+                            <li className="tab">
+                                <Link to="./about">About</Link>
+                            </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            Me too
+                            <TabContents tab={tab} />
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,10 @@
     color: #ffffff;
 }
 
+body {
+    background-color: #f9f9f9;
+}
+
 .row {
     display: -webkit-box;
     display: -webkit-flex;
@@ -36,9 +40,6 @@
 }
 
 .Profile {
-    background-color: #f9f9f9;
-    color: #191919;
-    min-height: 100%;
     position: relative;
 }
 
@@ -66,6 +67,7 @@
     position: absolute;
     width: 100%;
     display: flex;
+    align-items: flex-start;
 }
 
 .ProfileSidebar {

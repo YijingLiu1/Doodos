@@ -12,7 +12,7 @@ const routes = [
     { path: '/doodlemaps', component: DoodleMaps },
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
-    { path: '/user/:id', component: User },
+    { path: '/user/:id/:tab?', component: User },
     { path: '*', component: NotFound },
 ];
 

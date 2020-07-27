@@ -58,7 +58,7 @@ class Item extends React.Component {
             <React.Fragment>
                 <div className="grid">
                     <figure className="effect-sadie" onClick={this.showModal}>
-                        <img src="../static/images/2.jpg" alt="img01"/>
+                        <img src="/static/images/2.jpg" alt="img01"/>
                         <figcaption>
                             <p>Post Title</p>
                             <a href="http://localhost:8000/post/1" data-toggle="modal" data-target="#theModal">View more</a>
