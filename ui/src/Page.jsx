@@ -4,24 +4,19 @@ import {
     MenuItem, Glyphicon,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import IssueAddNavItem from './ItemAddNavItem.jsx';
+import ItemAddNavItem from './ItemAddNavItem.jsx';
 
-import Contents from './Contents.jsx';
+import Contents from './Routing/Contents.jsx';
 import UserContext from './UserContext.js';
-import SignInNavItem from './SignInNavItem.jsx';
-import graphQLFetch from './graphQLFetch.js';
-import store from './store.js';
+import SignInNavItem from './User/SignInNavItem.jsx';
 
-function NavBar({ user, onUserChange }) {
+function NavBar() {
     return (
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>Doodos</Navbar.Brand>
             </Navbar.Header>
             <Nav>
-                <LinkContainer exact to="/">
-                    <NavItem>Home</NavItem>
-                </LinkContainer>
                 <LinkContainer exact to="/discover">
                     <NavItem>Discover</NavItem>
                 </LinkContainer>
@@ -37,8 +32,8 @@ function NavBar({ user, onUserChange }) {
             </Nav>
 
             <Nav pullRight>
-                <IssueAddNavItem user={user} />
-                <SignInNavItem user={user} onUserChange={onUserChange} />
+                <ItemAddNavItem />
+                <SignInNavItem />
                 <NavDropdown
                     id="user-dropdown"
                     title={<Glyphicon glyph="option-vertical" />}
@@ -68,44 +63,12 @@ function Footer() {
 }
 
 export default class Page extends React.Component {
-    static async fetchData(cookie) {
-        const query = `query { user {
-      signedIn givenName
-    }}`;
-        const data = await graphQLFetch(query, null, null, cookie);
-        return data;
-    }
-
-    constructor(props) {
-        super(props);
-        const user = store.userData ? store.userData.user : null;
-        delete store.userData;
-        this.state = { user };
-
-        this.onUserChange = this.onUserChange.bind(this);
-    }
-
-    async componentDidMount() {
-        const { user } = this.state;
-        if (user == null) {
-            const data = await Page.fetchData();
-            this.setState({ user: data.user });
-        }
-    }
-
-    onUserChange(user) {
-        this.setState({ user });
-    }
-
     render() {
-        const { user } = this.state;
-        if (user == null) return null;
-
         return (
             <div>
-                <NavBar user={user} onUserChange={this.onUserChange} />
+                <NavBar />
                 <Grid fluid bsClass="contents">
-                    <UserContext.Provider value={user}>
+                    <UserContext.Provider>
                         <Contents />
                     </UserContext.Provider>
                 </Grid>

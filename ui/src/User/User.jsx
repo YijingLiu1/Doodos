@@ -5,8 +5,7 @@ import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
     ButtonToolbar, Button, Alert, Row, Image,
 } from 'react-bootstrap';
-import withToast from './withToast.jsx';
-import UserContext from './UserContext.js';
+import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
 
 class User extends React.Component {

@@ -4,8 +4,6 @@ import {
     NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
     Button, ButtonToolbar, Tooltip, OverlayTrigger,
 } from 'react-bootstrap';
-
-import graphQLFetch from './graphQLFetch.js';
 import withToast from './withToast.jsx';
 
 class IssueAddNavItem extends React.Component {
@@ -31,35 +29,23 @@ class IssueAddNavItem extends React.Component {
         e.preventDefault();
         this.hideModal();
         const form = document.forms.issueAdd;
-        const issue = {
-            owner: form.owner.value,
+        const post = {
             title: form.title.value,
-            due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
+            artwork: form.artwork.value,
+            description: form.description.value,
+            created: new Date(),
         };
-
-        const query = `mutation issueAdd($issue: IssueInputs!) {
-        issueAdd(issue: $issue) {
-          id
-        }
-      }`;
-        const { showError } = this.props;
-        const data = await graphQLFetch(query, { issue }, showError);
-        if (data) {
-            const { history } = this.props;
-            history.push(`/edit/${data.issueAdd.id}`);
-        }
     }
 
     render() {
         const { showing } = this.state;
-        const { user: { signedIn } } = this.props;
         return (
             <React.Fragment>
-                <NavItem disabled={!signedIn} onClick={this.showModal}>
+                <NavItem onClick={this.showModal}>
                     <OverlayTrigger
                         placement="left"
                         delayShow={1000}
-                        overlay={<Tooltip id="create-issue">Create Issue</Tooltip>}
+                        overlay={<Tooltip id="create-issue">Make a New Post</Tooltip>}
                     >
                         <Glyphicon glyph="plus" />
                     </OverlayTrigger>
