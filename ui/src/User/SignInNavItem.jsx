@@ -2,7 +2,7 @@ import React from 'react';
 import {
     NavItem, Modal, Button, NavDropdown, MenuItem,
 } from 'react-bootstrap';
-import withToast from './withToast.jsx';
+import withToast from '../withToast.jsx';
 import SignIn from "./SignIn.jsx";
 import {Link} from "react-router-dom";
 
@@ -94,14 +94,14 @@ class SignInNavItem extends React.Component {
     }
 
     render() {
-        const { user } = this.props;
-        if (user.signedIn) {
-            return (
-                <NavDropdown title={user.givenName} id="user">
-                    <MenuItem onClick={this.signOut}>Sign out</MenuItem>
-                </NavDropdown>
-            );
-        }
+        // const { user } = this.props;
+        // if (user.signedIn) {
+        //     return (
+        //         <NavDropdown title={user.givenName} id="user">
+        //             <MenuItem onClick={this.signOut}>Sign out</MenuItem>
+        //         </NavDropdown>
+        //     );
+        // }
 
         const { showing, disabled } = this.state;
         return (

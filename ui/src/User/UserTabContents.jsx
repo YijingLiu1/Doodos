@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
-import PostItem from "./PostItem.jsx";
+import PostItem from "../Discover/PostItem.jsx";
 
 export default function UserTabContents({ tab }) {
     if (tab === "likes") {

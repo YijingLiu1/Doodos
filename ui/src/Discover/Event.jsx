@@ -5,7 +5,7 @@ import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
     ButtonToolbar, Button, Alert, Row, Image,
 } from 'react-bootstrap';
-import withToast from './withToast.jsx';
+import withToast from '../withToast.jsx';
 import EventTabContents from "./EventTabContents.jsx";
 
 class Event extends React.Component {

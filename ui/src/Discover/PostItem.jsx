@@ -5,9 +5,8 @@ import {
     Button, ButtonToolbar, Tooltip, OverlayTrigger, Col,
 } from 'react-bootstrap';
 
-import graphQLFetch from './graphQLFetch.js';
-import withToast from './withToast.jsx';
-import NotFound from "./NotFound.jsx";
+import withToast from '../withToast.jsx';
+import NotFound from "../NotFound.jsx";
 import Post from "./Post.jsx";
 
 class PostItem extends React.Component {
@@ -18,7 +17,6 @@ class PostItem extends React.Component {
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     showModal() {
@@ -27,29 +25,6 @@ class PostItem extends React.Component {
 
     hideModal() {
         this.setState({ showing: false });
-    }
-
-    async handleSubmit(e) {
-        e.preventDefault();
-        this.hideModal();
-        const form = document.forms.issueAdd;
-        const issue = {
-            owner: form.owner.value,
-            title: form.title.value,
-            due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
-        };
-
-        const query = `mutation issueAdd($issue: IssueInputs!) {
-        issueAdd(issue: $issue) {
-          id
-        }
-      }`;
-        const { showError } = this.props;
-        const data = await graphQLFetch(query, { issue }, showError);
-        if (data) {
-            const { history } = this.props;
-            history.push(`/edit/${data.issueAdd.id}`);
-        }
     }
 
     render() {
@@ -70,7 +45,7 @@ class PostItem extends React.Component {
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>
-                <Modal id="theModal" keyboard show={showing} onHide={this.hideModal}>
+                <Modal keyboard show={showing} onHide={this.hideModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Author</Modal.Title>
                     </Modal.Header>
@@ -78,11 +53,10 @@ class PostItem extends React.Component {
                         <Post />
                     </Modal.Body>
                     <Modal.Footer>
-                        <ButtonToolbar>
+                        <ButtonToolbar style={{float: "right"}}>
                             <Button
                                 type="button"
                                 bsStyle="primary"
-                                onClick={this.handleSubmit}
                             >
                                 Like
                             </Button>
