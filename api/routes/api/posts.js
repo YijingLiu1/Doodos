@@ -82,9 +82,24 @@ router.get('/:id', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
   try {
     const post = await Post.find().sort({ date: -1 }); // most recent first
-    res.json(posts);
+
+    if (!post) {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
+
+    // check user
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User is not authorized' });
+    }
+
+    await post.remove();
+
+    res.json({ msg: 'Post removed' });
   } catch (err) {
     console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
     res.status(500).send('Server Error');
   }
 });
