@@ -3,6 +3,8 @@ import {
     NavItem, Modal, Button, NavDropdown, MenuItem,
 } from 'react-bootstrap';
 import withToast from './withToast.jsx';
+import SignIn from "./SignIn.jsx";
+import {Link} from "react-router-dom";
 
 class SignInNavItem extends React.Component {
     constructor(props) {
@@ -109,10 +111,12 @@ class SignInNavItem extends React.Component {
                 </NavItem>
                 <Modal keyboard show={showing} onHide={this.hideModal} bsSize="sm">
                     <Modal.Header closeButton>
-                        <Modal.Title>Sign in</Modal.Title>
+                        <Modal.Title className="large text-primary">Sign in</Modal.Title>
                     </Modal.Header>
                     {/* eslint-disable-next-line react/jsx-pascal-case */}
                     <Modal.Body>
+                        <SignIn />
+                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px"}}>or</p>
                         <Button
                             block
                             disabled={disabled}
@@ -123,7 +127,11 @@ class SignInNavItem extends React.Component {
                         </Button>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
+                        <p className="my-1" style={{float: "left"}}>
+                            Don't have an account? <br/>
+                            <Link to="/register" style={{float: "left"}} onClick={this.hideModal}>Sign Up</Link>
+                        </p>
+                        <Button onClick={this.hideModal} style={{float: "right", height: "40px"}}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
             </>
