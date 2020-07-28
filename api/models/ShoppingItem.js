@@ -16,6 +16,20 @@ const ShoppingItemSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  deliveryMethod: {
+    usps: {
+      type: String,
+    },
+    ups: {
+      type: String,
+    },
+    fedexpress: {
+      type: String,
+    },
+    others: {
+      type: String,
+    },
+  },
 });
 
 let ShopppingItem;
