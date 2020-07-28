@@ -6,10 +6,9 @@ import {
     ButtonToolbar, Button, Alert, Row, Image,
 } from 'react-bootstrap';
 import withToast from './withToast.jsx';
-import UserContext from './UserContext.js';
-import UserTabContents from "./UserTabContents.jsx";
+import EventTabContents from "./EventTabContents.jsx";
 
-class User extends React.Component {
+class Event extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -29,36 +28,36 @@ class User extends React.Component {
         }
 
         return (
-            <div className="Profile">
-                <div className="ProfileBanner">
-                    <figure>
-                        <img src="/static/images/text.jpg" alt="img01"/>
+            <div>
+                <div className="EventSlides">
+                    <figure className="effect-marley">
+                        <img src="/static/images/2.jpg" alt="img01"/>
                     </figure>
                 </div>
-                <div className="ProfileWrap">
-                    <div className="ProfileSidebar">
+                <div className="EventWrap">
+                    <div className="EventSidebar">
                         <div className="AvatarContainer">
                             <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
-                        <h3>User ID: {propsId}</h3>
-                        <p>Title</p>
+                        <h3>Event Title</h3>
+                        <p>Time</p>
                         <p>Location</p>
-                        <Button bsStyle="primary">Follow +</Button>
+                        <Button bsStyle="primary">Join +</Button>
                     </div>
-                    <div className="ProfileContents">
-                        <ul className="ProfileTabs">
+                    <div className="EventContents">
+                        <ul className="EventTabs">
                             <li className="tab">
-                                <Link to="./posts">Posts</Link>
+                                <Link to="./description">Description</Link>
                             </li>
                             <li className="tab">
-                                <Link to="./likes">Likes</Link>
+                                <Link to="./attenders">Attenders</Link>
                             </li>
                             <li className="tab">
                                 <Link to="./about">About</Link>
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} />
+                            <EventTabContents tab={tab} />
                         </div>
                     </div>
                 </div>
@@ -67,6 +66,6 @@ class User extends React.Component {
     }
 }
 
-const UserWithToast = withToast(withRouter(User));
+const EventWithToast = withToast(withRouter(Event));
 
-export default UserWithToast;
+export default EventWithToast;

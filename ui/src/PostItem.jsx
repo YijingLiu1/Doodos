@@ -10,7 +10,7 @@ import withToast from './withToast.jsx';
 import NotFound from "./NotFound.jsx";
 import Post from "./Post.jsx";
 
-class Item extends React.Component {
+class PostItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,15 +58,15 @@ class Item extends React.Component {
             <React.Fragment>
                 <div className="grid">
                     <figure className="effect-sadie" onClick={this.showModal}>
-                        <img src="../static/images/2.jpg" alt="img01"/>
+                        <img src="/static/images/2.jpg" alt="img01"/>
                         <figcaption>
                             <p>Post Title</p>
-                            <a href="http://localhost:8000/post/1" data-toggle="modal" data-target="#theModal">View more</a>
+                            <a href="http://localhost:8000/post/1/" data-toggle="modal" data-target="#theModal">View more</a>
                         </figcaption>
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}><a href="http://localhost:8000/user/1">Author Name</a></div>
+                    <div align="left" style={{float: 'left'}}><a href="http://localhost:8000/user/1/">Author Name</a></div>
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>
@@ -84,9 +84,9 @@ class Item extends React.Component {
                                 bsStyle="primary"
                                 onClick={this.handleSubmit}
                             >
-                                Submit
+                                Like
                             </Button>
-                            <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
+                            <Button bsStyle="link" onClick={this.hideModal}>Back</Button>
                         </ButtonToolbar>
                     </Modal.Footer>
                 </Modal>
@@ -95,4 +95,4 @@ class Item extends React.Component {
     }
 }
 
-export default withToast(withRouter(Item));
+export default withToast(withRouter(PostItem));
