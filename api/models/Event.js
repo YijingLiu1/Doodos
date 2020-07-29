@@ -22,8 +22,13 @@ const EventSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
-  Ticket: {
+  ticket: {
     type: Boolean,
+    default: false,
+    required: true,
+  },
+  ticketPrice: {
+    type: String,
     required: true,
   },
 });
