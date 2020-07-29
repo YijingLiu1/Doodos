@@ -43,7 +43,7 @@ export default class EventItem extends React.Component{
                     <a className="switch next" onClick={this.nextPage}>&#10095;</a>
                     <p>
                         {description[index]}<br />
-                        <Button href="http://localhost:8000/event/1/">View more</Button>
+                        <Button href="/event/1/">View more</Button>
                     </p>
                 </figcaption>
             </figure>

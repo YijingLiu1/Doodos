@@ -506,7 +506,7 @@ var EventItem = /*#__PURE__*/function (_React$Component) {
         className: "switch next",
         onClick: this.nextPage
       }, "\u276F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, description[index], /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-        href: "http://localhost:8000/event/1/"
+        href: "/event/1/"
       }, "View more"))));
     }
   }]);
@@ -732,7 +732,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         src: "/static/images/2.jpg",
         alt: "img01"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figcaption", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Post Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "http://localhost:8000/post/1/",
+        href: "/post/1/",
         "data-toggle": "modal",
         "data-target": "#theModal"
       }, "View more")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -741,7 +741,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           float: 'left'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "http://localhost:8000/user/1/"
+        href: "/user/1/"
       }, "Author Name")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
