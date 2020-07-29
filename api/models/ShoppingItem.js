@@ -16,6 +16,10 @@ const ShoppingItemSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  retailer: {
+    type: String,
+    required: true,
+  },
   deliveryMethod: {
     usps: {
       type: String,
