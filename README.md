@@ -12,13 +12,21 @@ commit history of api before July 22 2020 can be found: https://github.com/hyudu
 ###Schema Design
 
 User includes: String {name, location, ticket, host}, Date{from, to, date} Boolean{ticket}
+
 Profile              => String {user, bio, status, location, website, }, Date{from, to, date} Boolean{ticket}, List{skills, experience, social}
+
 User                 => String {name, email, password, avatar}, Date{date}
+
 Post                 => String {name, text, user, avatar}, Date{date} List{comments, likes}
+
 Group                => String {name}, Date{date}, List{users}
+
 Event                => String {name, location, ticket, host}, Date{from, to, date} Boolean{ticket}
+
 ShoppingItem         => String {name, price, amount, retailer}, Date{date} Boolean{available}, list{delieverymethod}
+
 Trolly               => String {user, sum},List{buyings}
+
 
 
 Event                => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Event.js
