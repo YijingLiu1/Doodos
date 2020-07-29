@@ -9,7 +9,7 @@ The structure of the api referenced this source code
 api_design_reference: https://github.com/bradtraversy/devconnector_2.0
 commit history of api before July 22 2020 can be found: https://github.com/hyudundee/mern-stack-doodos
 
-###Schema Design
+### Schema Design
 
 User includes: String {name, location, ticket, host}, Date{from, to, date} Boolean{ticket}
 
@@ -30,29 +30,45 @@ Trolly               => String {user, sum},List{buyings}
 
 
 Event                => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Event.js
+
 Group                => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Group.js
+
 Post                 => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Post.js
+
 Profile              => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Profile.js
+
 User                 => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/User.js
+
 ShoppingItem         => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/ShoppingItem.js
+
 Trolly               => https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/models/Trolly.js
 
-###Package Installed
 
-####dependencies
+### Package Installed
+
+#### dependencies
 
 bcrypts              => encrypt and decrypt user password
+
 config               => set up connection to Atlas and other default settings
+
 mongoose             => connect to database and create schema, provides object relational map
+
 express              => Backend framework
+
 jsonwebtoken         => generate token to validate user login status
+
 express-validator    => validate user info inlcuding token and input
+
 gravatar             => used to get user profile(connected with google)
 
-####dev-dependencies
+
+#### dev-dependencies
 
 nodemon              => to watch and run program after a change is saved
+
 concurrently         => run 'npm start' command concurrently
+
 
 ### screenshots
 
