@@ -28,7 +28,7 @@ class IssueAddNavItem extends React.Component {
     async handleSubmit(e) {
         e.preventDefault();
         this.hideModal();
-        const form = document.forms.issueAdd;
+        const form = document.forms.postAdd;
         const post = {
             title: form.title.value,
             artwork: form.artwork.value,
@@ -55,7 +55,7 @@ class IssueAddNavItem extends React.Component {
                         <Modal.Title>Make a New Post</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form name="issueAdd">
+                        <Form name="postAdd">
                             <FormGroup>
                                 <ControlLabel>Title</ControlLabel>
                                 <FormControl name="title" autoFocus />
