@@ -36,7 +36,7 @@ Routes so far has access to all pages on NavBar including "/discover", "/groups"
 ![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Profile.JPG)
 
 * Clicking on the post would pop up a modal showing the details.
-![Post Page](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail.JPG)
+![Post Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail.JPG)
 
 * Post details can also be shown in a single page by opening it in a new tab.
 ![Post Page](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail%20on%20Single%20Page.JPG)
@@ -52,9 +52,6 @@ Routes so far has access to all pages on NavBar including "/discover", "/groups"
 
 * After signed in, user name would appear on the NavBar, with a "Sign in success" Toast poped.
 ![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Name%20and%20Toast.JPG)
-
-* Author's profile can be accessed by clicking on the author name.
-![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Profile.JPG)
 
 
 ### API - Haoran Yu
