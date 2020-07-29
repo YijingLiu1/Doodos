@@ -50,7 +50,7 @@ Routes so far has access to all pages on NavBar including "/discover", "/groups"
 * Users can go to the register page by clicking on the Sign Up link.
 ![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20Up.JPG)
 
-* After signed in, user name would appear on the NavBar, with a "Sign in success" Toast poped.
+* After signed in, user name would appear on the NavBar, with a success Toast poped.
 ![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Name%20and%20Toast.JPG)
 
 
