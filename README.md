@@ -17,7 +17,7 @@ User includes: String {name, location, ticket, host}, Date{from, to, date} Boole
 
 Profile              => String {user, bio, status, location, website, }, Date{from, to, date} Boolean{ticket}, List{skills, experience, social}
 
-User                 => String {name, email, password, avatar}, Date{date}
+* User                 => String {name, email, password, avatar}, Date{date}
 
 Post                 => String {name, text, user, avatar}, Date{date} List{comments, likes}
 
