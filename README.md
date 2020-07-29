@@ -6,7 +6,9 @@
 ### API
 
 The structure of the api referenced this source code
+
 api_design_reference: https://github.com/bradtraversy/devconnector_2.0
+
 commit history of api before July 22 2020 can be found: https://github.com/hyudundee/mern-stack-doodos
 
 ### Schema Design
