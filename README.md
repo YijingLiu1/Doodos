@@ -1,9 +1,60 @@
 # GroupProject-ArchiTech
 ## Doodos
+Team Member: Yijing Liu, Haoran Yu
 
-### UI
+## Iter 1
 
-### API
+Our team is trying to build a platform for artists and graffiti lovers to communicate and share their works. The website is expected to have __Discover__ page for viewing posts and events, __Groups__ page to join groups and communicate, __DoodleMaps__ page to let users view posts by location, and __store__ page to purchase tools and merchandises.
+
+For Iteration 1, the work has been divided into UI part and API part. Yijing Liu works on the UI, and Haoran Yu works on the API. 
+
+### UI - Yijing Liu
+
+Deployed UI Link (Sign In Feature not deployed): https://doodos-ui.herokuapp.com/discover
+
+UI designed based on the textbook.
+
+#### Routes
+
+Routes so far has access to all pages on NavBar including "/discover", "/groups", "/doodlemaps", "/store", as well as subpages like "/post", "/event", "/author", "/register".
+
+#### UI Design
+
+* Discover page is the home page of the website, showing posts and events with links to see details.
+![Discover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Discover.JPG)
+
+* Hover on Event Section would show description of the event with a button link to the event page.
+![Event Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Hover%20on%20Event.JPG)
+
+* Events are shown in slides and can be switched with button, event details can be seen by clicking on _View More_.
+![Event Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Event%20Detail.JPG)
+
+* Hover on Posts would show the title of the post, author name and like button are placed under the post.
+![Post Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Hover%20on%20Post.JPG)
+
+* Author's profile can be accessed by clicking on the author name.
+![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Profile.JPG)
+
+* Clicking on the post would pop up a modal showing the details.
+![Post Page](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail.JPG)
+
+* Post details can also be shown in a single page by opening it in a new tab.
+![Post Page](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail%20on%20Single%20Page.JPG)
+
+* Click on __+__ button to make a new post.
+![New Post](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/New%20Post.JPG)
+
+* Sign In feature is on the NavBar. By clicking on it users can either log in with Google or Doodos acounts.
+![Sign In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20In.JPG)
+
+* After signed in, user name would appear on the NavBar, with a "Sign in success" Toast poped.
+![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Name%20and%20Toast.JPG)
+
+* Author's profile can be accessed by clicking on the author name.
+![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Profile.JPG)
+
+
+### API - Haoran Yu
 
 The structure of the api referenced this source code
 
