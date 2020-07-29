@@ -10,7 +10,7 @@ For Iteration 1, the work has been divided into UI part and API part. Yijing Liu
 
 ### UI - Yijing Liu
 
-Deployed UI Link (Sign In Feature not deployed): https://doodos-ui.herokuapp.com/discover
+Deployed UI Link (Sign In Feature not deployed): https://doodos-ui.herokuapp.com/
 
 UI designed based on the textbook.
 
