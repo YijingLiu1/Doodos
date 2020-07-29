@@ -2,6 +2,9 @@
 ## Doodos
 
 ### UI
+Deployed UI Link (Sign In Feature not deployed): https://doodos-ui.herokuapp.com/discover
+UI designed based on the textbook.
+
 
 ### API
 
