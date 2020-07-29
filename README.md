@@ -4,9 +4,9 @@ Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 1
 
-Our team is trying to build a platform for artists and graffiti lovers to communicate and share their works. The website is expected to have __Discover__ page for viewing posts and events, __Groups__ page to join groups and communicate, __DoodleMaps__ page to let users view posts by location, and __store__ page to purchase tools and merchandises.
+Our team is trying to build a platform for artists and graffiti lovers to communicate and share their works. The website is expected to have __Discover__ page for viewing posts and events, __Groups__ page to join groups and communicate, __DoodleMaps__ page to let users view posts by location, and __Store__ page for users to purchase tools and merchandises.
 
-For Iteration 1, the work has been divided into UI part and API part. Yijing Liu works on the UI, and Haoran Yu works on the API. 
+For Iteration 1, the work has been divided into UI part and API part. Yijing Liu works on the UI; Haoran Yu works on the API. 
 
 ### UI - Yijing Liu
 
@@ -46,6 +46,9 @@ Routes so far has access to all pages on NavBar including "/discover", "/groups"
 
 * Sign In feature is on the NavBar. By clicking on it users can either log in with Google or Doodos acounts.
 ![Sign In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20In.JPG)
+
+* Users can go to the register page by clicking on the Sign Up link.
+![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20Up.JPG)
 
 * After signed in, user name would appear on the NavBar, with a "Sign in success" Toast poped.
 ![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Name%20and%20Toast.JPG)
