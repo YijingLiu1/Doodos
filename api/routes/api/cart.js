@@ -10,6 +10,7 @@ const Cart = require('../../models/Cart');
 router.get('/', (req, res) => {
   res.send('hello');
 });
+
 // @route   POST api/cart
 // @desc    Create a cart
 // @access  Private
@@ -26,9 +27,9 @@ router.post('/', auth, async (req, res) => {
 
       if (itemIndex > -1) {
         // product exists in the cart, update the quantity
-        let productItem = cart.products[itemIdex];
+        let productItem = cart.products[itemIndex];
         productItem.quantity += quantity;
-        cart.products[itemIdex] = productItem;
+        cart.products[itemIndex] = productItem;
       } else {
         // product does not exist in the cart, add a new item
         cart.products.push({ productId, name, imagePath, price, quantity });
@@ -48,5 +49,9 @@ router.post('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route   DELETE api/cart
+// @desc    Delete a product from the cart
+// @access  Private
 
 module.exports = router;
