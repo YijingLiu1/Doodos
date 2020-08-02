@@ -11,7 +11,7 @@ try {
       itemName: 'Brush',
       description:
         'High quality brushes without the high end sticker price. \n The value you get in these brushes are unbelievable. \n Dont waste your money on a brush that will last you a hour. \n Professional quality at a reasonable price. \n High Grade Stainless Steel Ferrules for long lasting and many washes',
-      price: '12.5',
+      price: 12.5,
       amount: 30,
       available: true,
       retailer: 'Doodos Official',
@@ -23,7 +23,7 @@ try {
         'Chapin International G362 All Purpose Hose-End Sprayer, 1 Pack, Translucent White',
       description:
         'Fits onto any hose end. \n Adjustable rate precision dial offers 16 mixing ratios. \n Sprays up to 100 gallons. \n Built-in Anti-Siphon feature prevents backflow. \n Built-in Anti-Siphon feature prevents backflow.',
-      price: '23.49',
+      price: 23.49,
       amount: 500,
       available: true,
       retailer: 'Doodos Official',
@@ -35,7 +35,7 @@ try {
       itemName: 'Handy Art Little Masters Tempera Paints Set, 16 oz, Pack of 6',
       description:
         'Blendable formula mixes with other colors for unique creations. \n Opaque colors will not chip, flake or crack when dry for lasting appearance. \n Easy-to-clean formula washes away with soap and water',
-      price: '12.5',
+      price: 12.5,
       amount: 30,
       available: true,
       retailer: 'Doodos Official',
@@ -47,7 +47,7 @@ try {
         'Full Brim Pyramex Hard Hat, Skull Graffiti Sticker Bomb Design Safety Helmet 4pt, By Acerpal',
       description:
         'REMAIN SAFE AND PROTECTED AT ALL TIMES: ABS material hard hats - Strong, big, yet ultra light weight hard hat wide brim for seemingly lightweight protection. Soft brow pad is replaceable. \n SAFE WORKERS HARDHAT TO PROTECT YOUR HEAD: adults men/woman Dimensions: 31 cm x 27 cm x 15.2 cm. Shell Thickness: 1.7 mm - 4 mm. Weight: .83 lbs',
-      price: '47.95',
+      price: 47.95,
       amount: 80,
       available: true,
       retailer: 'ACERPAL',
@@ -58,19 +58,19 @@ try {
       itemName: 'OhPopsi WALS0004 Graffiti Monster Wall Mural',
       description:
         ' Printed on nonwoven material. \n Paste not included. \n Comes with 6 panels. \n Measures 9Ft 10in x 7Ft 10in when assembled',
-      price: '83.13',
+      price: 83.13,
       amount: 90,
       available: true,
       retailer: 'ACERPAL',
     }),
     // https://www.amazon.com/Jasion-Graffiti-Waterproof-Sunlight-Proof-Motorbikes/dp/B0876YSWC6/ref=sr_1_17?crid=3MRITQ1K1Q4G2&dchild=1&keywords=graffiti+stickers&qid=1596336428&sprefix=graffiti%2Caps%2C212&sr=8-17
     new Shoppingitem({
-      imagePath: 'https://ibb.co/mDXG18y',
+      imagePath: 'https://i.ibb.co/WpGrYtx/71-Bquo-AXKPL-AC-SL1001.jpg',
       itemName:
         'Jasion 50-Pcs PVC Pop Graffiti Art Printing Style Keith Haring Stickers Decals Waterproof Sunlight-Proof DIY Ideals for Water Bottles Cars Motorbikes Portable luggages Laptops',
       description:
         '100% new, 50 pcs no-duplicate stickers.\n PVC material, sun protection and waterproof, not fade in the sun.\n Perfect stickers for water bottles, cars, motorcycle, skateboard, portable, luggages, pad and laptops.\n 50 pieces Keith Haring stickers graffiti decals for kids, youth and teenagers, wonderful gift for kids, friends.',
-      price: '7.99',
+      price: 7.99,
       amount: 200,
       available: true,
       retailer: 'Amazon',
