@@ -5,6 +5,8 @@ import {
 import withToast from '../withToast.jsx';
 import SignIn from "./SignIn.jsx";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import {LinkContainer} from "react-router-bootstrap";
 
 class SignInNavItem extends React.Component {
     constructor(props) {
@@ -12,6 +14,9 @@ class SignInNavItem extends React.Component {
         this.state = {
             showing: false,
             disabled: true,
+            signedIn: null,
+            loading: true,
+            user: null,
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
@@ -94,16 +99,20 @@ class SignInNavItem extends React.Component {
     }
 
     render() {
-        // const { user } = this.props;
-        // if (user.signedIn) {
-        //     return (
-        //         <NavDropdown title={user.givenName} id="user">
-        //             <MenuItem onClick={this.signOut}>Sign out</MenuItem>
-        //         </NavDropdown>
-        //     );
-        // }
+        const { user } = this.props;
+        if (user.signedIn) {
+            return (
+                <NavDropdown title={user.name} id="user">
+                    <LinkContainer to="/dashboard">
+                        <MenuItem>Dashboard</MenuItem>
+                    </LinkContainer>
+                    <MenuItem onClick={this.signOut}>Sign out</MenuItem>
+                </NavDropdown>
+            );
+        }
 
         const { showing, disabled } = this.state;
+        const { showSuccess, showError, onUserChange } = this.props;
         return (
             <>
                 <NavItem onClick={this.showModal}>
@@ -115,7 +124,7 @@ class SignInNavItem extends React.Component {
                     </Modal.Header>
                     {/* eslint-disable-next-line react/jsx-pascal-case */}
                     <Modal.Body>
-                        <SignIn />
+                        <SignIn showSuccess={showSuccess} showError={showError} onUserChange={onUserChange}/>
                         <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px"}}>or</p>
                         <Button
                             block

@@ -5,12 +5,14 @@ import {
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import ItemAddNavItem from './ItemAddNavItem.jsx';
-
 import Contents from './Routing/Contents.jsx';
 import UserContext from './UserContext.js';
 import SignInNavItem from './User/SignInNavItem.jsx';
+import store from './store.js';
+import axios from "axios";
+import setAuthToken from "./setAuthToken.js";
 
-function NavBar() {
+function NavBar({ user, onUserChange }) {
     return (
         <Navbar>
             <Navbar.Header>
@@ -33,7 +35,7 @@ function NavBar() {
 
             <Nav pullRight>
                 <ItemAddNavItem />
-                <SignInNavItem />
+                <SignInNavItem user={user} onUserChange={onUserChange} />
                 <NavDropdown
                     id="user-dropdown"
                     title={<Glyphicon glyph="option-vertical" />}
@@ -63,10 +65,55 @@ function Footer() {
 }
 
 export default class Page extends React.Component {
+    // static async fetchData(localStorage) {
+    //     if (localStorage.token !== null) {
+    //         const api = axios.create({
+    //             baseURL: '/api',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'token': localStorage.token
+    //             }
+    //         });
+    //         const data = await api.get("/auth");
+    //         return data;
+    //     }
+    //     return {};
+    // }
+
+    constructor(props) {
+        super(props);
+        const user = store.userData ? store.userData.user : null;
+        delete store.userData;
+        this.state = { user };
+        // setAuthToken(localStorage.token);
+        this.onUserChange = this.onUserChange.bind(this);
+    }
+
+    async componentDidMount() {
+        const { user }  = this.state;
+        if (user == null) {
+            const data = null;
+            // const data = await Page.fetchData(localStorage);
+            if (data) {
+                this.setState({ user: { name: data.data.name, signedIn: true } });
+            } else {
+                this.setState({ user: { signedIn: false } });
+            }
+
+        }
+    }
+
+    onUserChange(user) {
+        this.setState({ user });
+    }
+
     render() {
+        const { user } = this.state;
+        if (user == null) return null;
+
         return (
             <div>
-                <NavBar />
+                <NavBar user={user} onUserChange={this.onUserChange} />
                 <Grid fluid bsClass="contents">
                     <UserContext.Provider>
                         <Contents />

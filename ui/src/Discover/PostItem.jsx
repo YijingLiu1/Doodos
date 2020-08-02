@@ -36,12 +36,12 @@ class PostItem extends React.Component {
                         <img src="/static/images/2.jpg" alt="img01"/>
                         <figcaption>
                             <p>Post Title</p>
-                            <a href="http://localhost:8000/post/1/" data-toggle="modal" data-target="#theModal">View more</a>
+                            <a href="/post/1/" data-toggle="modal" data-target="#theModal">View more</a>
                         </figcaption>
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}><a href="http://localhost:8000/user/1/">Author Name</a></div>
+                    <div align="left" style={{float: 'left'}}><a href="/user/1/">Author Name</a></div>
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>
