@@ -4,9 +4,24 @@ const EventSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
+  imagePath: {
     type: String,
     required: true,
+  },
+  flatNumber: {
+    type: String,
+  },
+  street: {
+    type: String,
+  },
+  postCode: {
+    type: String,
+  },
+  City: {
+    type: String,
+  },
+  state: {
+    type: String,
   },
   host: {
     type: String,
@@ -18,17 +33,18 @@ const EventSchema = mongoose.Schema({
   to: {
     type: Date,
   },
-  date: {
+  modifiedOn: {
     type: Date,
+    default: Date.now,
     required: true,
   },
-  ticket: {
+  ticketrequired: {
     type: Boolean,
     default: false,
     required: true,
   },
   ticketPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
 });

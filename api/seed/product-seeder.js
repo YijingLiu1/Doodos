@@ -2,7 +2,7 @@ const Shoppingitem = require('../models/ShoppingItem');
 const mongoose = require('mongoose');
 
 try {
-  mongoose.connect('mongo-db-atlas-url');
+  mongoose.connect('mongo-db-srv');
 
   const shoppingitems = [
     // 刷子 https://www.amazon.com/Pro-Grade-Professional-Painting-Commercial-Paintbrush/dp/B07JHQ4L4F/ref=sr_1_6?dchild=1&keywords=brush&qid=1596336255&sr=8-6
@@ -74,6 +74,36 @@ try {
       amount: 200,
       available: true,
       retailer: 'Amazon',
+    }),
+    // graffity party ticket
+    new Shoppingitem({
+      imagePath: 'https://i.ibb.co/bFL9HTh/party-ticket.jpg',
+      itemName: 'Doodos Party Ticket',
+      description: 'Tickets for our amazing doodos party',
+      price: 3.99,
+      amount: 100,
+      available: true,
+      retailer: 'Doodos Official',
+    }),
+    new Shoppingitem({
+      imagePath: 'https://i.ibb.co/n12yg6W/BBQ-Tickets.jpg',
+      itemName: 'Doodos BBQ Ticket',
+      description:
+        'Take the ticket and join our fantastic and quality doodos BBQ',
+      price: 20.99,
+      amount: 30,
+      available: true,
+      retailer: 'Doodos Official',
+    }),
+    new Shoppingitem({
+      imagePath: 'https://i.ibb.co/LJ2bs6L/Doodos-Bootcamp.jpg',
+      itemName: 'Doodos Bootcamp',
+      description:
+        'Want to become a street artist and join us? Take the ticket and join our bootcamp!',
+      price: 10.99,
+      amount: 50,
+      available: true,
+      retailer: 'Doodos Official',
     }),
   ];
 
