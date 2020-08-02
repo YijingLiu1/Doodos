@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const ShoppingItemSchema = new mongoose.Schema({
+  imagePath: {
+    type: String,
+    required: true,
+  },
   itemName: {
+    type: String,
+    required: true,
+  },
+  description: {
     type: String,
     required: true,
   },
@@ -9,7 +17,7 @@ const ShoppingItemSchema = new mongoose.Schema({
     required: true,
   },
   amount: {
-    type: String,
+    type: Number,
     required: true,
   },
   available: {
