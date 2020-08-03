@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const User = require('../../models/User');
-const ShoppingItem = require('../../models/ShoppingItem');
+const Product = require('../../models/Product');
 const Cart = require('../../models/Cart');
 
 // @route   GET api/cart
@@ -13,8 +13,7 @@ const Cart = require('../../models/Cart');
 
 router.get('/', auth, async (req, res) => {
   try {
-    const userId = req.user.id;
-    let cart = await Cart.findOne({ userId });
+    let cart = await Cart.findOne({ user: req.user.id });
     if (cart) {
       res.json(cart);
     } else {
@@ -30,16 +29,15 @@ router.get('/', auth, async (req, res) => {
 // @desc    Create a cart
 // @access  Private
 router.post('/', auth, async (req, res) => {
-  const { productId, quantity, name, price, imagePath } = req.body;
-
-  const userId = req.user.id;
+  const { itemName, quantity } = req.body;
+  const product = await Product.findOne({ itemName: itemName });
+  const { price, imagePath } = product;
   try {
-    let cart = await Cart.findOne({ userId });
+    let cart = await Cart.findOne({ user: req.user.id });
 
     if (cart) {
       // cart exists for user
-      let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-
+      let itemIndex = cart.products.findIndex((p) => p.itemName == itemName);
       if (itemIndex > -1) {
         // product exists in the cart, update the quantity
         let productItem = cart.products[itemIndex];
@@ -47,15 +45,15 @@ router.post('/', auth, async (req, res) => {
         cart.products[itemIndex] = productItem;
       } else {
         // product does not exist in the cart, add a new item
-        cart.products.push({ productId, name, imagePath, price, quantity });
+        cart.products.push({ itemName, imagePath, price, quantity });
       }
       await cart.save();
       res.json(cart);
     } else {
       // there is no cart for this user, create a cart
       const newCart = await Cart.create({
-        userId,
-        products: [{ productId, name, imagePath, price, quantity }],
+        user: req.user.id,
+        products: [{ itemName, imagePath, price, quantity }],
       });
       res.json(newCart);
     }
@@ -71,28 +69,25 @@ router.post('/', auth, async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
   try {
-    const { productId, quantity, name, price, imagePath } = req.body;
-    const userId = req.user.id;
-    let cart = await Cart.findOne({ userId });
+    const { itemName, quantity } = req.body;
+    let cart = await Cart.findOne({ user: req.user.id });
 
     if (cart) {
-      let itemIndex = cart.products.findIndex((p) => p.productId === productId);
+      let itemIndex = cart.products.findIndex((p) => p.itemName === itemName);
 
       // check product exist
-      if (productId > -1) {
+      if (itemIndex > -1) {
         let productItem = cart.products[itemIndex];
         // check product quantity
-        if (productItem.quantity === 1) {
-          cart.products.splice(itemIndex, 1);
-          await cart.save();
-          res.json(cart);
-        } else if (productItem.quantity >= quantity) {
+        if (productItem.quantity >= quantity) {
           // remove product
           productItem.quantity -= quantity;
 
+          if (productItem.quantity === 0) {
+            cart.products.splice(itemIndex, 1);
+          }
           await cart.save();
           res.json(cart);
-          // if quantity reduced to 0, remove product from the cart
         } else {
           return res.status(400).json({
             msg: 'quantity error, cannot remove more than the actual quantity',
@@ -109,4 +104,5 @@ router.delete('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 module.exports = router;

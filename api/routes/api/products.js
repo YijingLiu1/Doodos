@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const Shoppingitem = require('../../models/ShoppingItem');
+const Product = require('../../models/Product');
 
-// @route   GET api/shoppingitems
-// @desc    Create shoppingitems from online store
+// @route   GET api/products
+// @desc    Create product from online store
 // @access  Public
 
 router.get('/', async (req, res) => {
   try {
-    const shoppingitems = await Shoppingitem.find().sort({ date: -1 });
-    res.json(shoppingitems);
+    const product = await Product.find().sort({ date: -1 });
+    res.json(product);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

@@ -1,12 +1,14 @@
-const Shoppingitem = require('../models/ShoppingItem');
+const Product = require('../models/Product');
 const mongoose = require('mongoose');
 
 try {
-  mongoose.connect('mongo-db-srv');
+  mongoose.connect(
+    'mongodb+srv://haoranyu:12345677654321@mern-shopping-list.bzwhf.mongodb.net/mern-shopping-list?retryWrites=true&w=majority'
+  );
 
-  const shoppingitems = [
+  const products = [
     // 刷子 https://www.amazon.com/Pro-Grade-Professional-Painting-Commercial-Paintbrush/dp/B07JHQ4L4F/ref=sr_1_6?dchild=1&keywords=brush&qid=1596336255&sr=8-6
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/s6F7qQL/brush.jpg',
       itemName: 'Brush',
       description:
@@ -17,7 +19,7 @@ try {
       retailer: 'Doodos Official',
     }),
     // 喷枪 https://www.amazon.com/Chapin-International-G362-Professional-Translucent/dp/B00UER1S2I/ref=sr_1_12?dchild=1&keywords=sprayer&qid=1596336038&sr=8-12
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/k1dQC9C/71-ZLh-FZnt-UL-AC-SL1500.jpg',
       itemName:
         'Chapin International G362 All Purpose Hose-End Sprayer, 1 Pack, Translucent White',
@@ -30,7 +32,7 @@ try {
     }),
     // paints
     // https://www.amazon.com/Handy-Art-Little-Masters-Tempera/dp/B00HTWO1K2/ref=sxin_9_ac_d_rm?ac_md=3-2-dGVtcGVyYSBwYWludA%3D%3D-ac_d_rm&cv_ct_cx=paint&dchild=1&keywords=paint&pd_rd_i=B00HTWO1K2&pd_rd_r=b3dd5a84-8093-423f-9cd0-f2c8f3d726a6&pd_rd_w=UmYJY&pd_rd_wg=KL9lU&pf_rd_p=e3dc9e0c-9eab-4c3e-b43a-ba36f8522e14&pf_rd_r=V5GDK2HWG8EMA5AN329G&psc=1&qid=1596335855&sr=1-3-12d4272d-8adb-4121-8624-135149aa9081
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/YRQTvH7/71-Ysjx1vza-L-AC-SL1500.jpg',
       itemName: 'Handy Art Little Masters Tempera Paints Set, 16 oz, Pack of 6',
       description:
@@ -41,7 +43,7 @@ try {
       retailer: 'Doodos Official',
     }),
     // 周边 https://www.amazon.com/Pyramex-Graffiti-Sticker-Design-Acerpal/dp/B0861WD6SV/ref=sr_1_11?dchild=1&keywords=graffiti+tool&qid=1596335265&sr=8-11
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/6n1mVBt/helmet.png',
       itemName:
         'Full Brim Pyramex Hard Hat, Skull Graffiti Sticker Bomb Design Safety Helmet 4pt, By Acerpal',
@@ -53,7 +55,7 @@ try {
       retailer: 'ACERPAL',
     }),
     // https://www.amazon.com/OhPopsi-WALS0004-Graffiti-Monster-Mural/dp/B01EN1DICI/ref=sr_1_24?dchild=1&keywords=graffiti+tool&qid=1596335597&sr=8-24
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/c1XcDjS/918-N-d-T9z5-L-AC-SL1500.jpg',
       itemName: 'OhPopsi WALS0004 Graffiti Monster Wall Mural',
       description:
@@ -64,7 +66,7 @@ try {
       retailer: 'ACERPAL',
     }),
     // https://www.amazon.com/Jasion-Graffiti-Waterproof-Sunlight-Proof-Motorbikes/dp/B0876YSWC6/ref=sr_1_17?crid=3MRITQ1K1Q4G2&dchild=1&keywords=graffiti+stickers&qid=1596336428&sprefix=graffiti%2Caps%2C212&sr=8-17
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/WpGrYtx/71-Bquo-AXKPL-AC-SL1001.jpg',
       itemName:
         'Jasion 50-Pcs PVC Pop Graffiti Art Printing Style Keith Haring Stickers Decals Waterproof Sunlight-Proof DIY Ideals for Water Bottles Cars Motorbikes Portable luggages Laptops',
@@ -76,7 +78,7 @@ try {
       retailer: 'Amazon',
     }),
     // graffity party ticket
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/bFL9HTh/party-ticket.jpg',
       itemName: 'Doodos Party Ticket',
       description: 'Tickets for our amazing doodos party',
@@ -85,7 +87,7 @@ try {
       available: true,
       retailer: 'Doodos Official',
     }),
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/n12yg6W/BBQ-Tickets.jpg',
       itemName: 'Doodos BBQ Ticket',
       description:
@@ -95,7 +97,7 @@ try {
       available: true,
       retailer: 'Doodos Official',
     }),
-    new Shoppingitem({
+    new Product({
       imagePath: 'https://i.ibb.co/LJ2bs6L/Doodos-Bootcamp.jpg',
       itemName: 'Doodos Bootcamp',
       description:
@@ -110,10 +112,10 @@ try {
   let i,
     done = 0;
 
-  for (i = 0; i < shoppingitems.length; i++) {
-    shoppingitems[i].save(() => {
+  for (i = 0; i < products.length; i++) {
+    products[i].save(() => {
       done++;
-      if (done === shoppingitems.length) {
+      if (done === products.length) {
         mongoose.disconnect();
       }
     });

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ShoppingItemSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   imagePath: {
     type: String,
     required: true,
@@ -45,7 +45,4 @@ const ShoppingItemSchema = new mongoose.Schema({
 });
 
 let ShopppingItem;
-module.exports = ShopppingItem = mongoose.model(
-  'shoppingItem',
-  ShoppingItemSchema
-);
+module.exports = ShopppingItem = mongoose.model('product', ProductSchema);
