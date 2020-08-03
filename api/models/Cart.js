@@ -33,6 +33,10 @@ const CartSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  sum: {
+    type: Number,
+    default: 0,
+  },
 });
 
 let Cart;

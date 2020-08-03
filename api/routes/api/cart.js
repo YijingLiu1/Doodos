@@ -26,83 +26,139 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route   POST api/cart
-// @desc    Create a cart
+// @desc    if a cart exist of this user, put product in it, else reate a cart and add the product
 // @access  Private
-router.post('/', auth, async (req, res) => {
-  const { itemName, quantity } = req.body;
-  const product = await Product.findOne({ itemName: itemName });
-  const { price, imagePath } = product;
-  try {
-    let cart = await Cart.findOne({ user: req.user.id });
-
-    if (cart) {
-      // cart exists for user
-      let itemIndex = cart.products.findIndex((p) => p.itemName == itemName);
-      if (itemIndex > -1) {
-        // product exists in the cart, update the quantity
-        let productItem = cart.products[itemIndex];
-        productItem.quantity += quantity;
-        cart.products[itemIndex] = productItem;
-      } else {
-        // product does not exist in the cart, add a new item
-        cart.products.push({ itemName, imagePath, price, quantity });
-      }
-      await cart.save();
-      res.json(cart);
-    } else {
-      // there is no cart for this user, create a cart
-      const newCart = await Cart.create({
-        user: req.user.id,
-        products: [{ itemName, imagePath, price, quantity }],
-      });
-      res.json(newCart);
+router.post(
+  '/',
+  [
+    auth,
+    [
+      check('itemName', 'Product name is required').not().isEmpty(),
+      check('quantity', 'Product quantity is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    const { itemName, quantity } = req.body;
+    const product = await Product.findOne({ itemName: itemName });
+    const { price, imagePath } = product;
+    if (quantity > product.amount) {
+      return res.status(400).send('Order quantity exceeds available products');
+    }
+    // update product amount
+    product.amount -= quantity;
+    await product.save();
+
+    try {
+      let cart = await Cart.findOne({ user: req.user.id });
+
+      if (cart) {
+        // cart exists for user
+        let itemIndex = cart.products.findIndex((p) => p.itemName == itemName);
+        if (itemIndex > -1) {
+          // product exists in the cart, update the quantity
+          let productItem = cart.products[itemIndex];
+          productItem.quantity += quantity;
+          cart.products[itemIndex] = productItem;
+        } else {
+          // product does not exist in the cart, add a new item
+          cart.products.push({ itemName, imagePath, price, quantity });
+        }
+
+        // update current sum
+        cart.sum = 0;
+        cart.products.map((p) => {
+          cart.sum += p.price * p.quantity;
+        });
+
+        await cart.save();
+        res.json(cart);
+      } else {
+        // there is no cart for this user, create a cart
+        const newCart = await Cart.create({
+          user: req.user.id,
+          products: [{ itemName, imagePath, price, quantity }],
+        });
+        res.json(newCart);
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
   }
-});
+);
 
 // @route   DELETE api/cart/:id/:product_id
 // @desc    Delete a product from the cart
 // @access  Private
 
-router.delete('/', auth, async (req, res) => {
-  try {
-    const { itemName, quantity } = req.body;
-    let cart = await Cart.findOne({ user: req.user.id });
+router.delete(
+  '/',
+  [
+    auth,
+    [
+      check('itemName', 'Product name is required').not().isEmpty(),
+      check('quantity', 'Product quantity is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { itemName, quantity } = req.body;
+      let cart = await Cart.findOne({ user: req.user.id });
 
-    if (cart) {
-      let itemIndex = cart.products.findIndex((p) => p.itemName === itemName);
+      if (cart) {
+        // if cart is empty
+        if (cart.products.length === 0) {
+          return res.status(400).send('Cart is empty');
+        }
 
-      // check product exist
-      if (itemIndex > -1) {
-        let productItem = cart.products[itemIndex];
-        // check product quantity
-        if (productItem.quantity >= quantity) {
-          // remove product
+        let itemIndex = cart.products.findIndex((p) => p.itemName === itemName);
+        // check product exist in cart
+        if (itemIndex > -1) {
+          const product = await Product.findOne({ itemName: itemName });
+          let productItem = cart.products[itemIndex];
+          if (productItem.quantity < quantity) {
+            return res
+              .status(400)
+              .send('Cannot remove more than prochased quantity');
+          }
+
+          // put back product amount to online store
+          product.amount += quantity;
+          product.save();
+
+          // remove product amount from the shopping cart
           productItem.quantity -= quantity;
 
+          // if product === 0 remove this product from the shopping cart
           if (productItem.quantity === 0) {
             cart.products.splice(itemIndex, 1);
           }
+          // update current sum
+          cart.sum = 0;
+          cart.products.map((p) => {
+            cart.sum += p.price * p.quantity;
+          });
           await cart.save();
           res.json(cart);
-        } else {
-          return res.status(400).json({
-            msg: 'quantity error, cannot remove more than the actual quantity',
-          });
         }
+      } else {
+        return res
+          .status(404)
+          .json({ msg: 'There is not purchase in your cart yet' });
       }
-    } else {
-      return res
-        .status(404)
-        .json({ msg: 'There is not purchase in your cart yet' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
   }
-});
+);
 
 module.exports = router;
