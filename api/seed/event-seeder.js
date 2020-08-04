@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 
 try {
   // connect database
-  mongoose.connect('mongodb-srv');
+  mongoose.connect(
+    'mongodb+srv://haoranyu:12345677654321@mern-shopping-list.bzwhf.mongodb.net/mern-shopping-list?retryWrites=true&w=majority'
+  );
   const events = [
     new Event({
       name: 'Graffiti Party',

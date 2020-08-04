@@ -39,11 +39,12 @@ router.post(
   }
 );
 
+// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts
 // @desc    Get all posts
-// @access  Private
+// @access  Public
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 }); // most recent first
     res.json(posts);
@@ -53,11 +54,12 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts/:id
 // @desc    Get post by ID
-// @access  Private
+// @access  Public
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const posts = await Post.findById(req.params.id);
 
