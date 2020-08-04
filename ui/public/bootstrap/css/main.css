@@ -205,6 +205,16 @@ body {
     line-height: 30px;
 }
 
+.GroupsContentsWrapper {
+    width: 100%;
+    overflow: auto;
+}
+
+.thumbnail {
+    width: 540px;
+    margin: 30px auto;
+}
+
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 {
     font-family: Microsoft YaHei, '宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 }

@@ -2,7 +2,7 @@ import NotFound from '../NotFound.jsx';
 import Groups from "../Groups/Groups.jsx";
 import Discover from "../Discover/Discover.jsx";
 import DoodleMaps from "../DoodleMaps/DoodleMaps.jsx";
-import Store from "../Store.jsx";
+import Store from "../Store/Store.jsx";
 import User from "../User/User.jsx";
 import Post from "../Discover/Post.jsx";
 import Event from "../Discover/Event.jsx";
