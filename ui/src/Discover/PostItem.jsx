@@ -8,15 +8,29 @@ import {
 import withToast from '../withToast.jsx';
 import NotFound from "../NotFound.jsx";
 import Post from "./Post.jsx";
+import api from "../api";
 
 class PostItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showing: false,
+            posts: [],
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+    }
+
+    componentDidMount() {
+        const { posts } = this.state;
+        if (posts.length === 0) this.loadData();
+    }
+
+    async loadData() {
+        const posts = await api.get("/posts");
+        if (posts) {
+            this.setState({ posts: posts.data });
+        }
     }
 
     showModal() {
