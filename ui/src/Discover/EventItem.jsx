@@ -48,11 +48,14 @@ export default class EventItem extends React.Component{
         const titles = [];
         const pics = [];
         const descriptions = [];
+        const ids = [];
         for (let i = 0; i < events.length; i++) {
             titles.push(events[i].name);
             pics.push(events[i].imagePath);
             descriptions.push(events[i].description);
+            ids.push(events[i]._id);
         }
+        const link = `/event/${ids[index]}/`;
         return (
             <figure className="effect-marley">
                 <img src={pics[index]} alt="img01"/>
@@ -64,7 +67,7 @@ export default class EventItem extends React.Component{
                         <li className="eventDescription">
                             {descriptions[index]}
                         </li>
-                        <Button href="/event/1/" style={{marginTop: '8px'}}>View more</Button>
+                        <Button href={link} style={{marginTop: '8px'}}>View more</Button>
                     </p>
                 </figcaption>
             </figure>
