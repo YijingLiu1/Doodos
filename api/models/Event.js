@@ -27,6 +27,12 @@ const EventSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  registered: [
+    {
+      memberName: String,
+      gravatar: String,
+    },
+  ],
   from: {
     type: Date,
   },
