@@ -7,22 +7,43 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
+const categories = [
+  'ideas',
+  'artworks',
+  'spotsaroundyou',
+  'fashion',
+  'activities',
+  'events',
+  'life',
+];
+
 // @route   POST api/posts
 // @desc    Create a post
 // @access  Private
 router.post(
   '/',
-  [auth, check('text', 'Text is required').not().isEmpty()],
+  [
+    auth,
+    check('text', 'Text is required').not().isEmpty(),
+    check('category', 'Category is required').not().isEmpty(),
+    check('title', 'title is required').not().isEmpty(),
+  ],
   async (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    // invalid category
+    if (!categories.includes(req.body.category)) {
+      return res.status(400).json({ msg: 'Please enter a valid category' });
+    }
+
     // we are logged in so we have the id of the user
     const user = await User.findById(req.user.id).select('-password');
-
     try {
       const newPost = new Post({
+        title: req.body.text,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
@@ -39,7 +60,6 @@ router.post(
   }
 );
 
-// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts
 // @desc    Get all posts
 // @access  Public
@@ -54,7 +74,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts/:id
 // @desc    Get post by ID
 // @access  Public
@@ -73,6 +92,27 @@ router.get('/:id', async (req, res) => {
     if (err.kind == 'ObjectId') {
       return res.status(404).json({ msg: 'Post not found' });
     }
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/posts/:category
+// @desc    Get posts by category
+// @access  Public
+
+router.get('/:category', async (res, req) => {
+  try {
+    // invalid category
+    if (!categories.includes(req.body.category)) {
+      return res.status(404).json({ msg: 'Category not found' });
+    }
+
+    const posts = await Post.find();
+    const postsfound = posts.find(post.category.includes(req.params.category));
+
+    res.json(postsfound);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });

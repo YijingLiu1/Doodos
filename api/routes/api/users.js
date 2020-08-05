@@ -81,4 +81,14 @@ router.post(
   }
 );
 
+// remove following
+// @route   DELETE api/users/:id/:followingId
+// @desc    Register route
+// @access  Public
+
+// add following
+// @route   POST api/users/:id/:followingId
+// @desc    Register route
+// @access  Private
+
 module.exports = router;

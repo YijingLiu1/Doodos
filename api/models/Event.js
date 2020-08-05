@@ -8,6 +8,9 @@ const EventSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   flatNumber: {
     type: String,
   },
