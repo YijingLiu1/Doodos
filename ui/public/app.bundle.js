@@ -387,6 +387,8 @@ var Event = /*#__PURE__*/function (_React$Component) {
         eventObject[k] = event[k];
       }
 
+      var dateString = "".concat(eventObject.modifiedOn);
+      var date = new Date(dateString).toDateString();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "EventSlides"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figure", {
@@ -404,7 +406,7 @@ var Event = /*#__PURE__*/function (_React$Component) {
         src: "/static/images/3.jpg",
         alt: "profile pic",
         circle: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, eventObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.modifiedOn), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.street), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, eventObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.street), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.City, " ", eventObject.state, " ", eventObject.postCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         bsStyle: "primary"
       }, "Join +")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "EventContents"
@@ -3467,7 +3469,8 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var tab = this.props.match.params.tab;
-      var user = this.state.user; // Have to convert the object before use
+      var user = this.state.user;
+      console.log(user); // Have to convert the object before use
 
       var userObject = {};
 
@@ -3475,6 +3478,7 @@ var User = /*#__PURE__*/function (_React$Component) {
         userObject[k] = user[k];
       }
 
+      console.log(userObject);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "Profile"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

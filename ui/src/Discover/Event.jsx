@@ -38,6 +38,8 @@ class Event extends React.Component {
         for (let k in event) {
             eventObject[k] = event[k];
         }
+        const dateString = `${eventObject.modifiedOn}`;
+        const date = new Date(dateString).toDateString();
         return (
             <div>
                 <div className="EventSlides">
@@ -51,8 +53,9 @@ class Event extends React.Component {
                             <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
                         <h3>{eventObject.name}</h3>
-                        <p>{eventObject.modifiedOn}</p>
+                        <p>{date}</p>
                         <p>{eventObject.street}</p>
+                        <p>{eventObject.City} {eventObject.state} {eventObject.postCode}</p>
                         <Button bsStyle="primary">Join +</Button>
                     </div>
                     <div className="EventContents">
