@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const auth = require('../../middleware/auth');
 
 const User = require('../../models/User'); // get user model/schema
 
@@ -81,14 +82,83 @@ router.post(
   }
 );
 
-// remove following
-// @route   DELETE api/users/:id/:followingId
-// @desc    Register route
-// @access  Public
-
 // add following
 // @route   POST api/users/:id/:followingId
 // @desc    Register route
 // @access  Private
+
+router.post('/followinig', auth, async (req, res) => {
+  try {
+    const followinguser = await User.findById(req.body.followingId).select(
+      '-password'
+    );
+    const user = await User.findById(req.user.id).select('-password');
+
+    if (!followinguser) {
+      return res.status(404).json({ msg: 'Following user does not exist' });
+    }
+
+    const newFollowing = {
+      user: followinguser,
+      name: followinguser.name,
+      avatar: followinguser.avatar,
+    };
+    /*
+    const removeIndex = profile.experience
+    .map((item) => item.id)
+    .indexOf(req.params.exp_id);
+    */
+
+    let alreadyInFollowing = user.following
+      .map((f) => f.user)
+      .indexOf(req.body.followingId);
+
+    if (alreadyInFollowing > -1) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'User already in following' }] });
+    }
+
+    user.following.unshift(newFollowing);
+
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({ msg: 'Please use a valid followingId' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+// remove following
+// @route   DELETE api/users/:id/:followingId
+// @desc    Register route
+// @access  Private
+
+router.delete('/following', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    const removeIndex = user.following
+      .map((f) => f.user)
+      .indexOf(req.body.followingId);
+    if (removeIndex === -1) {
+      return res
+        .status(400)
+        .json({ msg: 'Cannot remove a not following user' });
+    }
+    user.following.splice(removeIndex, 1);
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(400).send('Please use a valid followingId');
+    }
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

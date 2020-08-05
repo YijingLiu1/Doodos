@@ -23,6 +23,8 @@ const UserSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
       },
+      name: String,
+      avatar: String,
     },
   ],
 });
