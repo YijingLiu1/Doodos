@@ -119,7 +119,6 @@ export default class Page extends React.Component {
                         <Contents />
                     </UserContext.Provider>
                 </Grid>
-                <Footer />
             </div>
         );
     }

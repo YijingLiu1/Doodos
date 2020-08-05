@@ -61,9 +61,9 @@ export default class EventItem extends React.Component{
                     <a className="switch" onClick={this.prevPage}>&#10094;</a>
                     <a className="switch next" onClick={this.nextPage}>&#10095;</a>
                     <p>
-                        <div className="eventDescription">
+                        <li className="eventDescription">
                             {descriptions[index]}
-                        </div>
+                        </li>
                         <Button href="/event/1/" style={{marginTop: '8px'}}>View more</Button>
                     </p>
                 </figcaption>

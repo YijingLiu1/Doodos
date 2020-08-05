@@ -15,22 +15,9 @@ class PostItem extends React.Component {
         super(props);
         this.state = {
             showing: false,
-            posts: [],
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-    }
-
-    componentDidMount() {
-        const { posts } = this.state;
-        if (posts.length === 0) this.loadData();
-    }
-
-    async loadData() {
-        const posts = await api.get("/posts");
-        if (posts) {
-            this.setState({ posts: posts.data });
-        }
     }
 
     showModal() {
@@ -43,28 +30,35 @@ class PostItem extends React.Component {
 
     render() {
         const { showing } = this.state;
+        const { post } = this.props;
+        // Have to convert the object before use
+        const postObject = {};
+        for (let k in post) {
+            postObject[k] = post[k];
+        }
+        const link = `/post/${postObject._id}/`;
         return (
             <React.Fragment>
                 <div className="grid">
                     <figure className="effect-sadie" onClick={this.showModal}>
-                        <img src="/static/images/2.jpg" alt="img01"/>
+                        <img src={postObject.imageUrl} alt="img01"/>
                         <figcaption>
-                            <p>Post Title</p>
-                            <a href="/post/1/" data-toggle="modal" data-target="#theModal">View more</a>
+                            <p>{postObject.title}</p>
+                            <a href={link} data-toggle="modal" data-target="#theModal">View more</a>
                         </figcaption>
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}><a href="/user/1/">Author Name</a></div>
+                    <div align="left" style={{float: 'left'}}><a href="/user/1/">{postObject.name}</a></div>
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>
                 <Modal keyboard show={showing} onHide={this.hideModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Author</Modal.Title>
+                        <Modal.Title>{postObject.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Post />
+                        <Post id={postObject._id} />
                     </Modal.Body>
                     <Modal.Footer>
                         <ButtonToolbar style={{float: "right"}}>
