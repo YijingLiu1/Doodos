@@ -62,13 +62,13 @@ class GroupPage extends React.Component {
                         </div>
                     </div>
                     <div className="GroupSidebar">
-                        <div className="AvatarContainer">
-                            <Image src="/static/images/3.jpg" alt="profile pic" circle/>
-                        </div>
-                        <h3>{`Group ${propsId} Title`}</h3>
-                        <p>Time</p>
+                        <h3>About</h3>
+                        <p> This is introduction of some Groups. And it goes on and
+                            on and on and on and on and on and on and on and on and
+                            on and on and on and on and on and on and on and on and
+                            on and on and on and on and on and on and on and on...</p>
                         <p>Location</p>
-                        <Button bsStyle="primary">Join +</Button>
+                        <p>Privacy</p>
                     </div>
                 </div>
             </div>

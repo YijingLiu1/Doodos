@@ -96,7 +96,7 @@ body {
 .GroupTitle {
     background-color: white;
     margin-top: 8px;
-    padding-bottom: 8px;
+    padding: 0 70px 8px 70px;
     border-bottom: 1px solid lightgray;
 }
 
