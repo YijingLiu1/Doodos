@@ -5,6 +5,13 @@ const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
   },
+  title: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+  },
   text: {
     type: String,
     required: true,

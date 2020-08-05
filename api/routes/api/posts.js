@@ -12,7 +12,11 @@ const User = require('../../models/User');
 // @access  Private
 router.post(
   '/',
-  [auth, check('text', 'Text is required').not().isEmpty()],
+  [
+    auth,
+    check('text', 'Text is required').not().isEmpty(),
+    check('title', 'title is required').not().isEmpty(),
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -23,6 +27,7 @@ router.post(
 
     try {
       const newPost = new Post({
+        title: req.body.text,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
@@ -39,7 +44,6 @@ router.post(
   }
 );
 
-// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts
 // @desc    Get all posts
 // @access  Public
@@ -54,7 +58,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// !!!!!!!!!!!!!!!!!!!!!! 改成public !!!!!!!!!!!!!!!!!!!
 // @route   GET api/posts/:id
 // @desc    Get post by ID
 // @access  Public
