@@ -5,6 +5,49 @@ const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
   },
+
+  /*
+  {
+    ideas: {
+      type: Boolean,
+      default: false,
+    },
+    artworks: {
+      type: Boolean,
+      default: false,
+    },
+    spotsAroundYou: {
+      type: Boolean,
+      default: false,
+    },
+    fashion: {
+      type: Boolean,
+      default: false,
+    },
+    advertisement: {
+      type: Boolean,
+      default: false,
+    },
+    activities: {
+      type: Boolean,
+      default: false,
+    },
+    events: {
+      type: Boolean,
+      default: false,
+    },
+    life: {
+      type: Boolean,
+      default: false,
+    },
+  */
+  categories: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+
   title: {
     type: String,
     required: true,

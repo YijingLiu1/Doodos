@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-const UserSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -17,6 +17,14 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  // following
+  following: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+      },
+    },
+  ],
 });
 
 let User;
