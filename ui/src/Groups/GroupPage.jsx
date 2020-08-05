@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
-    ButtonToolbar, Button, Alert, Row, Image,
+    ButtonToolbar, Button, Alert, Row, Image, Glyphicon, Thumbnail,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 
@@ -33,17 +33,20 @@ class GroupPage extends React.Component {
                         <img src="/static/images/2.jpg" alt="img01"/>
                     </figure>
                 </div>
-                <div className="EventWrap">
-                    <div className="EventSidebar">
-                        <div className="AvatarContainer">
-                            <Image src="/static/images/3.jpg" alt="profile pic" circle/>
-                        </div>
-                        <h3>{`Group ${propsId} Title`}</h3>
-                        <p>Time</p>
-                        <p>Location</p>
-                        <Button bsStyle="primary">Join +</Button>
+                <div className="GroupTitle">
+                    <div
+                        align="left"
+                        style={{float: 'left',
+                            fontSize: '25px',
+                            marginLeft: '15px'}}>
+                        <a href="/user/1/">Group Name</a>
                     </div>
-                    <div className="EventContents">
+                    <div align="right" style={{marginRight: '15px'}}>
+                        <Button bsStyle="primary">+ Join</Button>
+                    </div>
+                </div>
+                <div className="GroupWrap">
+                    <div className="GroupContents">
                         <ul className="EventTabs">
                             <li className="tab">
                                 <Link to="./description">Description</Link>
@@ -57,6 +60,15 @@ class GroupPage extends React.Component {
                         </ul>
                         <div className="ProfileTabContents">
                         </div>
+                    </div>
+                    <div className="GroupSidebar">
+                        <h3>About</h3>
+                        <p> This is introduction of some Groups. And it goes on and
+                            on and on and on and on and on and on and on and on and
+                            on and on and on and on and on and on and on and on and
+                            on and on and on and on and on and on and on and on...</p>
+                        <p>Location</p>
+                        <p>Privacy</p>
                     </div>
                 </div>
             </div>

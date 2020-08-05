@@ -1,26 +1,12 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 
-import api from "../api.js";
-
-export default class EventItem extends React.Component{
+export default class PromotionBanner extends React.Component{
     constructor() {
         super();
-        this.state = { index: 0, events: [] };
+        this.state = { index: 0 };
         this.prevPage = this.prevPage.bind(this);
         this.nextPage = this.nextPage.bind(this);
-    }
-
-    componentDidMount() {
-        const { events } = this.state;
-        if (events.length === 0) this.loadData();
-    }
-
-    async loadData() {
-        const events = await api.get("/events");
-        if (events) {
-            this.setState({ events: events.data });
-        }
     }
 
     prevPage() {
@@ -44,30 +30,20 @@ export default class EventItem extends React.Component{
     }
 
     render() {
-        const { index, events } = this.state;
-        const titles = [];
-        const pics = [];
-        const descriptions = [];
-        const ids = [];
-        for (let i = 0; i < events.length; i++) {
-            titles.push(events[i].name);
-            pics.push(events[i].imagePath);
-            descriptions.push(events[i].description);
-            ids.push(events[i]._id);
-        }
-        const link = `/event/${ids[index]}/`;
+        const { index } = this.state;
+        let pic = `/static/images/${index+1}.jpg`;
+        const description = ["$XX",
+            "$XXX", "$X"];
         return (
             <figure className="effect-marley">
-                <img src={pics[index]} alt="img01"/>
+                <img src={pic} alt="img01"/>
                 <figcaption>
-                    <h2>{titles[index]}</h2>
+                    <h2>Promotion for Item {index + 1}</h2>
                     <a className="switch" onClick={this.prevPage}>&#10094;</a>
                     <a className="switch next" onClick={this.nextPage}>&#10095;</a>
                     <p>
-                        <li className="eventDescription">
-                            {descriptions[index]}
-                        </li>
-                        <Button href={link} style={{marginTop: '8px'}}>View more</Button>
+                        {description[index]}<br />
+                        <Button href="/event/1/">View more</Button>
                     </p>
                 </figcaption>
             </figure>

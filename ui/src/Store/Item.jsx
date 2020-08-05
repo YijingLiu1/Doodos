@@ -4,27 +4,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 import withToast from '../withToast.jsx';
 import UserContext from '../UserContext.js';
 import UserTabContents from "../User/UserTabContents.jsx";
-import api from "../api";
 
-class Post extends React.Component {
+class Item extends React.Component {
     constructor() {
         super();
         this.state = {
-            post: null,
-        }
-    }
-
-    componentDidMount() {
-        const { post } = this.state;
-        if (post == null) this.loadData();
-    }
-
-    async loadData() {
-        let { match: { params: { id } } } = this.props;
-        if (id == null) id = this.props.id;
-        const post = await api.get(`/posts/${id}`);
-        if (post) {
-            this.setState({ post: post.data });
+            id: 0
         }
     }
 
@@ -38,26 +23,21 @@ class Post extends React.Component {
         //     }
         //     return null;
         // }
-        const { post } = this.state;
-        // Have to convert the object before use
-        const postObject = {};
-        for (let k in post) {
-            postObject[k] = post[k];
-        }
+
         return (
             <div>
                 <div className="EventSlides">
                     <figure className="effect-marley">
-                        <img src={postObject.imageUrl} alt="img01"/>
+                        <img src="/static/images/2.jpg" alt="img01"/>
                     </figure>
                 </div>
                 <div>
                     <div className="PostBar">
-                        <h3>{postObject.title}</h3>
-                        <p>{postObject.text}</p>
-                        <p>{postObject.date}</p>
-                        <p>{postObject.name}</p>
-                        <p>{postObject.comments}</p>
+                        <h3>Post Title</h3>
+                        <p>Description</p>
+                        <p>Time</p>
+                        <p>Location</p>
+                        <p>Comments</p>
                     </div>
                 </div>
             </div>
@@ -65,7 +45,7 @@ class Post extends React.Component {
     }
 }
 
-const PostWithToast = withToast(withRouter(Post));
+const ItemWithToast = withToast(withRouter(Item));
 
-export default PostWithToast;
+export default ItemWithToast;
 

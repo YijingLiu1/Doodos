@@ -7,31 +7,42 @@ import {
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 import EventTabContents from "./EventTabContents.jsx";
+import api from "../api";
 
 class Event extends React.Component {
     constructor() {
         super();
         this.state = {
-            id: 0
+            event: null,
+        }
+    }
+
+    componentDidMount() {
+        const { post } = this.state;
+        if (post == null) this.loadData();
+    }
+
+    async loadData() {
+        const { match: { params: { id } } } = this.props;
+        const event = await api.get(`/events/${id}`);
+        if (event) {
+            this.setState({ event: event.data });
         }
     }
 
     render() {
-        // id is for server render matching, not used at the moment
-        const { id } = this.state;
-        const { match: { params: { id: propsId, tab } } } = this.props;
-        if (id == null) {
-            if (propsId != null) {
-                return <h3>{`User with ID ${id} not found.`}</h3>;
-            }
-            return null;
+        const { match: { params: { id, tab } } } = this.props;
+        // Have to convert the object before use
+        const { event } = this.state;
+        const eventObject = {};
+        for (let k in event) {
+            eventObject[k] = event[k];
         }
-
         return (
             <div>
                 <div className="EventSlides">
                     <figure className="effect-marley">
-                        <img src="/static/images/2.jpg" alt="img01"/>
+                        <img src={eventObject.imagePath} alt="img01"/>
                     </figure>
                 </div>
                 <div className="EventWrap">
@@ -39,9 +50,9 @@ class Event extends React.Component {
                         <div className="AvatarContainer">
                             <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
-                        <h3>Event Title</h3>
-                        <p>Time</p>
-                        <p>Location</p>
+                        <h3>{eventObject.name}</h3>
+                        <p>{eventObject.modifiedOn}</p>
+                        <p>{eventObject.street}</p>
                         <Button bsStyle="primary">Join +</Button>
                     </div>
                     <div className="EventContents">
@@ -57,7 +68,7 @@ class Event extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <EventTabContents tab={tab} />
+                            <EventTabContents tab={tab} event={eventObject} />
                         </div>
                     </div>
                 </div>

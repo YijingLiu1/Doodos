@@ -93,6 +93,56 @@ body {
     float: right;
 }
 
+.GroupTitle {
+    background-color: white;
+    margin-top: 8px;
+    padding: 0 70px 8px 70px;
+    border-bottom: 1px solid lightgray;
+}
+
+.GroupWrap {
+    padding: 20px 50px 50px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+.GroupSidebar {
+    padding: 25px 30px 16px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    width: 360px;
+    text-align: center;
+}
+
+.GroupContents {
+    margin: 0 0 50px 50px;
+    width: 720px;
+}
+
+.EventTabs {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    padding-inline-start: 0;
+}
+
+.EventTabs .tab {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 40px 0 0;
+    list-style: none;
+}
+
+.EventTabs .tab a {
+    color: #696969;
+    cursor: pointer;
+}
+
 .EventWrap {
     padding: 20px 50px 50px;
     position: absolute;
@@ -235,11 +285,15 @@ body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 {
 /* Common style */
 .grid figure {
     position: relative;
+    /* the next 3 lines keeps the pics in 16:9 scale */
+    max-width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
     z-index: 1;
     display: inline-block;
     overflow: hidden;
     margin: -0.135em;
-    /* background: #3085a3; this covers the figure with transparency*/
+    /* background: #3085a3; this covers the figure with transparency */
     text-align: center;
     cursor: pointer;
 }
@@ -325,7 +379,7 @@ figure.effect-sadie figcaption::before {
     width: 100%;
     height: 100%;
     background: -webkit-linear-gradient(top, rgba(72,76,97,0) 0%, rgba(72,76,97,0.8) 75%);
-    background: linear-gradient(to bottom, rgba(72,76,97,0) 80%, rgba(72,76,97,0.6) 85%);
+    background: linear-gradient(to bottom, rgba(72,76,97,0) 60%, rgba(72,76,97,0.6) 85%);
     content: '';
     opacity: 0;
     -webkit-transform: translate3d(0,50%,0);
@@ -378,6 +432,19 @@ figure.effect-sadie:hover p {
 /*---------------*/
 /***** Marley *****/
 /*---------------*/
+figure.effect-marley figcaption::before {
+    position: absolute;
+    top: 53px;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: -webkit-linear-gradient(top, rgba(72,76,97,0) 0%, rgba(72,76,97,0.8) 75%);
+    background: linear-gradient(to bottom, rgba(72,76,97,0) 0%, rgba(72,76,97,0.6) 85%);
+    content: '';
+    opacity: 0;
+    -webkit-transform: translate3d(0,50%,0);
+    transform: translate3d(0,50%,0);
+}
 
 figure.effect-marley figcaption {
     text-align: left;
@@ -385,6 +452,7 @@ figure.effect-marley figcaption {
 }
 
 figure.effect-marley h2,
+
 figure.effect-marley p {
     position: absolute;
     right: 30px;
@@ -393,10 +461,24 @@ figure.effect-marley p {
 }
 
 figure.effect-marley p {
-    top: 250px;
-    line-height: 2.5;
+    top: 225px;
+    width: 60%;
+    line-height: 2;
     -webkit-transform: translate3d(0,10%,0);
     transform: translate3d(0,10%,0);
+}
+
+figure.effect-marley p .eventDescription {
+    /*single line:*/
+    /*overflow:hidden;*/
+    /*text-overflow:ellipsis;*/
+    /*white-space:nowrap;*/
+
+    /*multiple lines:*/
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
 }
 
 /* Fading animation */
@@ -446,6 +528,7 @@ figure.effect-marley p {
 
 figure.effect-marley h2 {
     top: 40px;
+    font-weight: bold;
     -webkit-transition: -webkit-transform 0.35s;
     transition: transform 0.35s;
     -webkit-transform: translate3d(0,20px,0);
@@ -476,6 +559,7 @@ figure.effect-marley p {
     transition: opacity 0.35s, transform 0.35s;
 }
 
+figure.effect-marley:hover figcaption::before,
 figure.effect-marley:hover h2::after,
 figure.effect-marley:hover p {
     opacity: 1;
