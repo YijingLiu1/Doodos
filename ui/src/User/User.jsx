@@ -7,24 +7,37 @@ import {
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
+import api from "../api";
 
 class User extends React.Component {
     constructor() {
         super();
         this.state = {
-            id: 0
+            user: null
+        }
+    }
+
+    componentDidMount() {
+        const { user } = this.state;
+        if (user == null) this.loadData();
+    }
+
+    async loadData() {
+        let { match: { params: { id } } } = this.props;
+        if (id == null) id = this.props.id;
+        const user = await api.get(`/profile/user/${id}`);
+        if (user) {
+            this.setState({ user: user.data });
         }
     }
 
     render() {
-        // id is for server render matching, not used at the moment
-        const { id } = this.state;
-        const { match: { params: { id: propsId, tab } } } = this.props;
-        if (id == null) {
-            if (propsId != null) {
-                return <h3>{`User with ID ${id} not found.`}</h3>;
-            }
-            return null;
+        const { match: { params: { tab } } } = this.props;
+        const { user } = this.state;
+        // Have to convert the object before use
+        const userObject = {};
+        for (let k in user) {
+            userObject[k] = user[k];
         }
 
         return (
@@ -39,7 +52,7 @@ class User extends React.Component {
                         <div className="AvatarContainer">
                             <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
-                        <h3>User ID: {propsId}</h3>
+                        <h3>{userObject.name}</h3>
                         <p>Title</p>
                         <p>Location</p>
                         <Button bsStyle="primary">Follow +</Button>

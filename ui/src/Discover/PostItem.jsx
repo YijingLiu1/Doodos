@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import {
     NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
     Button, ButtonToolbar, Tooltip, OverlayTrigger, Col,
@@ -37,6 +37,7 @@ class PostItem extends React.Component {
             postObject[k] = post[k];
         }
         const link = `/post/${postObject._id}/`;
+        const authorLink = `/user/${postObject.user}/`;
         return (
             <React.Fragment>
                 <div className="grid">
@@ -49,7 +50,7 @@ class PostItem extends React.Component {
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}><a href="/user/1/">{postObject.name}</a></div>
+                    <div align="left" style={{float: 'left'}}><Link to={authorLink}>{postObject.name}</Link></div>
                     <div align="right"><Button bsSize="xsmall"><Glyphicon glyph="heart" /></Button></div>
                 </div>
                 <p></p><p></p>
