@@ -67,7 +67,7 @@ class SignInNavItem extends React.Component {
         }
     }
 
-    async signOut() {
+    async googleSignOut() {
         const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
         const { showError } = this.props;
         try {
@@ -82,6 +82,12 @@ class SignInNavItem extends React.Component {
         } catch (error) {
             showError(`Error signing out: ${error}`);
         }
+    }
+
+    async signOut() {
+        const { onUserChange } = this.props;
+        localStorage.removeItem('token');
+        onUserChange({ signedIn: false, givenName: '' });
     }
 
     showModal() {

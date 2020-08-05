@@ -82,24 +82,25 @@ export default class Page extends React.Component {
 
     constructor(props) {
         super(props);
-        const user = store.userData ? store.userData.user : null;
-        delete store.userData;
-        this.state = { user };
-        // setAuthToken(localStorage.token);
+        const token = localStorage.token ? localStorage.token : null;
+        this.state = { user: { token } };
         this.onUserChange = this.onUserChange.bind(this);
     }
 
     async componentDidMount() {
-        const { user }  = this.state;
-        if (user == null) {
-            const data = null;
-            // const data = await Page.fetchData(localStorage);
-            if (data) {
-                this.setState({ user: { name: data.data.name, signedIn: true } });
-            } else {
-                this.setState({ user: { signedIn: false } });
-            }
-
+        const { user: { token } }  = this.state;
+        if (token == null) {
+            this.setState({ user: { signedIn: false } });
+        } else {
+            const sss = axios.create({
+                baseURL: '/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token
+                }
+            });
+            const user = await sss.get('/auth');
+            this.setState({ user: { name: user.data.name, signedIn: true } });
         }
     }
 

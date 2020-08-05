@@ -406,7 +406,7 @@ var Event = /*#__PURE__*/function (_React$Component) {
         src: "/static/images/3.jpg",
         alt: "profile pic",
         circle: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, eventObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.street), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.City, " ", eventObject.state, " ", eventObject.postCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, eventObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, date.substr(4)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.street), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.City, " ", eventObject.state, " ", eventObject.postCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         bsStyle: "primary"
       }, "Join +")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "EventContents"
@@ -1083,7 +1083,8 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
           xs: 12,
           sm: 6,
-          md: 3
+          md: 3,
+          key: post._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_PostItem_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
           post: post
         }));
@@ -2016,12 +2017,12 @@ var Page = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Page);
 
     _this = _super.call(this, props);
-    var user = _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].userData ? _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].userData.user : null;
-    delete _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].userData;
+    var token = localStorage.token ? localStorage.token : null;
     _this.state = {
-      user: user
-    }; // setAuthToken(localStorage.token);
-
+      user: {
+        token: token
+      }
+    };
     _this.onUserChange = _this.onUserChange.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -2030,33 +2031,47 @@ var Page = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var user, data;
+        var token, sss, user;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                user = this.state.user;
+                token = this.state.user.token;
 
-                if (user == null) {
-                  data = null; // const data = await Page.fetchData(localStorage);
-
-                  if (data) {
-                    this.setState({
-                      user: {
-                        name: data.data.name,
-                        signedIn: true
-                      }
-                    });
-                  } else {
-                    this.setState({
-                      user: {
-                        signedIn: false
-                      }
-                    });
-                  }
+                if (!(token == null)) {
+                  _context.next = 5;
+                  break;
                 }
 
-              case 2:
+                this.setState({
+                  user: {
+                    signedIn: false
+                  }
+                });
+                _context.next = 10;
+                break;
+
+              case 5:
+                sss = axios__WEBPACK_IMPORTED_MODULE_8___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token
+                  }
+                });
+                _context.next = 8;
+                return sss.get('/auth');
+
+              case 8:
+                user = _context.sent;
+                this.setState({
+                  user: {
+                    name: user.data.name,
+                    signedIn: true
+                  }
+                });
+
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -2813,6 +2828,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.js */ "./src/api.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _setAuthToken_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../setAuthToken.js */ "./src/setAuthToken.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2838,6 +2854,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2935,6 +2952,8 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
 
               case 9:
                 user = _context2.sent;
+                Object(_setAuthToken_js__WEBPACK_IMPORTED_MODULE_4__["default"])(res.data.token);
+                console.log(localStorage);
                 onUserChange({
                   signedIn: true,
                   loading: false,
@@ -2942,20 +2961,20 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
                   name: user.data.name
                 });
                 showSuccess("Signed in success");
-                _context2.next = 17;
+                _context2.next = 19;
                 break;
 
-              case 14:
-                _context2.prev = 14;
+              case 16:
+                _context2.prev = 16;
                 _context2.t0 = _context2["catch"](2);
                 showError("Failed to sign in: ".concat(_context2.t0.message));
 
-              case 17:
+              case 19:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[2, 14]]);
+        }, _callee2, this, [[2, 16]]);
       }));
 
       function signIn(_x, _x2) {
@@ -3201,9 +3220,9 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
       return signIn;
     }()
   }, {
-    key: "signOut",
+    key: "googleSignOut",
     value: function () {
-      var _signOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var _googleSignOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var apiEndpoint, showError, auth2, onUserChange;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -3243,6 +3262,36 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
             }
           }
         }, _callee2, this, [[2, 12]]);
+      }));
+
+      function googleSignOut() {
+        return _googleSignOut.apply(this, arguments);
+      }
+
+      return googleSignOut;
+    }()
+  }, {
+    key: "signOut",
+    value: function () {
+      var _signOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var onUserChange;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                onUserChange = this.props.onUserChange;
+                localStorage.removeItem('token');
+                onUserChange({
+                  signedIn: false,
+                  givenName: ''
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
       }));
 
       function signOut() {
@@ -3469,8 +3518,7 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var tab = this.props.match.params.tab;
-      var user = this.state.user;
-      console.log(user); // Have to convert the object before use
+      var user = this.state.user; // Have to convert the object before use
 
       var userObject = {};
 
@@ -3478,7 +3526,6 @@ var User = /*#__PURE__*/function (_React$Component) {
         userObject[k] = user[k];
       }
 
-      console.log(userObject);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "Profile"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

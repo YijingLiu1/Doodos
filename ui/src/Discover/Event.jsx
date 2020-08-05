@@ -53,7 +53,7 @@ class Event extends React.Component {
                             <Image src="/static/images/3.jpg" alt="profile pic" circle/>
                         </div>
                         <h3>{eventObject.name}</h3>
-                        <p>{date}</p>
+                        <p>{date.substr(4)}</p>
                         <p>{eventObject.street}</p>
                         <p>{eventObject.City} {eventObject.state} {eventObject.postCode}</p>
                         <Button bsStyle="primary">Join +</Button>

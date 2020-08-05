@@ -39,7 +39,7 @@ export default class PostPanel extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={3}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={3} key={post._id}><PostItem post={post} /></Col>
         ));
         return (
             <Panel>

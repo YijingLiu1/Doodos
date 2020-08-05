@@ -34,13 +34,11 @@ class User extends React.Component {
     render() {
         const { match: { params: { tab } } } = this.props;
         const { user } = this.state;
-        console.log(user);
         // Have to convert the object before use
         const userObject = {};
         for (let k in user) {
             userObject[k] = user[k];
         }
-        console.log(userObject);
         return (
             <div className="Profile">
                 <div className="ProfileBanner">
