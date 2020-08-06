@@ -127,7 +127,7 @@ router.get('/bycategory/:category', async (res, req) => {
 router.get('/byuser/:id', async (req, res) => {
   try {
     const posts = await Post.find();
-    const postsfound = await posts.find((post) => post.user == req.params.id);
+    const postsfound = await posts.filter((post) => post.user == req.params.id);
 
     if (!postsfound) {
       return res.status(404).json({ msg: 'No posts under this user' });
