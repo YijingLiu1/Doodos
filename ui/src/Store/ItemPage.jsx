@@ -4,12 +4,27 @@ import { LinkContainer } from 'react-router-bootstrap';
 import withToast from '../withToast.jsx';
 import UserContext from '../UserContext.js';
 import UserTabContents from "../User/UserTabContents.jsx";
+import api from "../api";
 
 class ItemPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            id: 0
+            item: null,
+        }
+    }
+
+    componentDidMount() {
+        const { item } = this.state;
+        if (item == null) this.loadData();
+    }
+
+    async loadData() {
+        let { match: { params: { id } } } = this.props;
+        if (id == null) id = this.props.id;
+        const item = await api.get(`/products/${id}`);
+        if (item) {
+            this.setState({ item: item.data });
         }
     }
 
@@ -23,21 +38,24 @@ class ItemPage extends React.Component {
         //     }
         //     return null;
         // }
-
+        const { item } = this.state;
+        // Have to convert the object before use
+        const itemObject = {};
+        for (let k in item) {
+            itemObject[k] = item[k];
+        }
         return (
             <div>
                 <div className="EventSlides">
                     <figure className="effect-marley">
-                        <img src="/static/images/2.jpg" alt="img01"/>
+                        <img src={itemObject.imagePath} alt="img01"/>
                     </figure>
                 </div>
                 <div>
                     <div className="PostBar">
-                        <h3>Post Title</h3>
-                        <p>Description</p>
-                        <p>Time</p>
-                        <p>Location</p>
-                        <p>Comments</p>
+                        <h3>{itemObject.itemName}</h3>
+                        <p>{itemObject.description}</p>
+                        <p>${itemObject.price}</p>
                     </div>
                 </div>
             </div>

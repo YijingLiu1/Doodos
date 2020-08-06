@@ -48,14 +48,14 @@ export default class PromotionBanner extends React.Component{
         const titles = [];
         const pics = [];
         const descriptions = [];
-        const ids = [];
+        const tickets = [];
         for (let i = 0; i < events.length; i++) {
             titles.push(events[i].name);
             pics.push(events[i].imagePath);
             descriptions.push(events[i].description);
-            ids.push(events[i]._id);
+            tickets.push(events[i].ticket);
         }
-        const link = `/event/${ids[index]}/`;
+        const link = `/item/${tickets[index]}/`;
         return (
             <figure className="effect-marley">
                 <img src={pics[index]} alt="img01"/>

@@ -9,6 +9,7 @@ import Event from "../Discover/Event.jsx";
 import Register from "../User/Register.jsx";
 import About from "../About.jsx";
 import Dashboard from "../User/Dashboard.jsx";
+import Item from '../Store/ItemPage.jsx';
 
 const routes = [
     { path: '/discover', component: Discover },
@@ -16,6 +17,7 @@ const routes = [
     { path: '/doodlemaps', component: DoodleMaps },
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
+    { path: '/item/:id', component: Item },
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },
     { path: '/register', component: Register },
