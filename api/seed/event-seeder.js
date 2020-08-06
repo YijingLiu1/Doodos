@@ -23,6 +23,7 @@ try {
       // ticket can be found at online store
       ticketrequired: true,
       ticketPrice: 3.99,
+      ticket: '5f29e0b5c59cef2a80965aa7',
       from: new Date(2020, 08, 20, 19, 00),
       to: new Date(2020, 08, 20, 23, 00),
       positionremains: 50,
@@ -42,6 +43,7 @@ try {
       host: 'Doodos Official',
       ticketrequired: true,
       ticketPrice: 20.99,
+      ticket: '5f29e0b5c59cef2a80965aa8',
       from: new Date(2020, 09, 21, 15, 00),
       to: new Date(2020, 09, 21, 20, 00),
       positionremains: 60,
@@ -60,6 +62,7 @@ try {
       host: 'Doodos Official',
       ticketrequired: true,
       ticketPrice: 10.99,
+      ticket: '5f29e0b5c59cef2a80965aa9',
       from: new Date(2020, 10, 20),
       to: new Date(2020, 12, 20),
       positionremains: 40,

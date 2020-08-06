@@ -70,6 +70,10 @@ const EventSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  ticket: {
+    type: Schema.Types.ObjectId,
+    ref: 'product',
+  },
 });
 
 module.exports = Event = mongoose.model('event', EventSchema);

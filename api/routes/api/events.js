@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth');
 
 const Event = require('../../models/Event');
 const User = require('../../models/User');
+const Product = require('../../models/Product');
 
 // @route   POST api/events/:eventid
 // @desc    register event by ID
@@ -86,6 +87,24 @@ router.get('/:id', async (req, res) => {
       return res.status(404).json({ msg: 'There is no event under this ID' });
     }
     res.json(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/events/ticket/:id
+// @desc    Get event ticket by ID
+// @access  Public
+
+router.get('/:id/:ticketId', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    const ticket = await Product.findById(req.params.ticketId);
+    if (!event) {
+      return res.status(404).json({ msg: 'Requested event does not exist' });
+    }
+    res.json(ticket);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
