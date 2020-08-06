@@ -37,7 +37,7 @@ const EventSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
       },
       name: String,
-      gravatar: String,
+      avatar: String,
     },
   ],
   totalregistration: {

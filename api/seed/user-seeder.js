@@ -6,6 +6,7 @@ try {
     'mongodb+srv://haoranyu:12345677654321@mern-shopping-list.bzwhf.mongodb.net/mern-shopping-list?retryWrites=true&w=majority'
   );
   const users = [
+    /*
     new User({
       name: 'Joe Murphy',
       email: 'joemurphy@gmail.com',
@@ -91,6 +92,37 @@ try {
       password: '123456789',
       avatar:
         'https://i.ibb.co/D5qN6XY/01-shutterstock-476340928-Irina-Bg-1024x683.jpg',
+    }),
+    */
+    new User({
+      name: 'Jessie Fry',
+      email: 'jessiefry@gmail.com',
+      password: '123456789',
+      avatar: 'https://i.ibb.co/VQ13qdy/Mou-Aysha-portrait-photography-2.jpg',
+    }),
+    new User({
+      name: 'Hugo Orr',
+      email: 'hugoorr@gmail.com',
+      password: '123456789',
+      avatar: 'https://i.ibb.co/nRr97Jb/h800-1057408-MJNSa-JOs.jpg',
+    }),
+    new User({
+      name: 'Addison Case',
+      email: 'addisoncase@gmail.com',
+      password: '123456789',
+      avatar: 'https://i.ibb.co/SDkcbyN/860870066df05a7a29bcb5bb9ea2e9a7.jpg',
+    }),
+    new User({
+      name: 'Brittany Schmidt',
+      email: 'schmidt@gmail.com',
+      password: '123456789',
+      avatar: 'https://i.ibb.co/s65t4Xg/ebc8b0e560709ce497563a883d18f93a.jpg',
+    }),
+    new User({
+      name: 'Millie Richardson',
+      email: 'millierichardson@gmail.com',
+      password: '123456789',
+      avatar: 'https://i.ibb.co/yfGbXWg/3db77df2a496f33b09c1861acc7a7b1c.jpg',
     }),
   ];
   let i,

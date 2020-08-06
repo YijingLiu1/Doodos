@@ -25,8 +25,8 @@ router.post(
   [
     auth,
     check('text', 'Text is required').not().isEmpty(),
-    check('category', 'Category is required').not().isEmpty(),
     check('title', 'title is required').not().isEmpty(),
+    check('imageUrl', 'image is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -35,16 +35,18 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // invalid category
-    if (!categories.includes(req.body.category)) {
-      return res.status(400).json({ msg: 'Please enter a valid category' });
-    }
+    // if (!categories.includes(req.body.category)) {
+    //  return res.status(400).json({ msg: 'Please enter a valid category' });
+    // }
 
     // we are logged in so we have the id of the user
     const user = await User.findById(req.user.id).select('-password');
     try {
       const newPost = new Post({
-        title: req.body.text,
+        title: req.body.title,
         text: req.body.text,
+        category: req.body.category,
+        imageUrl: req.body.imageUrl,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
@@ -100,7 +102,7 @@ router.get('/:id', async (req, res) => {
 // @desc    Get posts by category
 // @access  Public
 
-router.get('/:category', async (res, req) => {
+router.get('/bycategory/:category', async (res, req) => {
   try {
     // invalid category
     if (!categories.includes(req.body.category)) {
@@ -108,11 +110,34 @@ router.get('/:category', async (res, req) => {
     }
 
     const posts = await Post.find();
-    const postsfound = posts.find(post.category.includes(req.params.category));
+    const postsfound = await posts.find((post) =>
+      post.category.includes(req.params.category)
+    );
 
     res.json(postsfound);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET api/posts/byuser/:id
+// @desc    Get posts by user
+// @access  Public
+router.get('/byuser/:id', async (req, res) => {
+  try {
+    const posts = await Post.find();
+    const postsfound = await posts.find((post) => post.user == req.params.id);
+
+    if (!postsfound) {
+      return res.status(404).json({ msg: 'No posts under this user' });
+    }
+    res.status(200).json(postsfound);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
     res.status(500).send('Server Error');
   }
 });
