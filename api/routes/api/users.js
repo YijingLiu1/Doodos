@@ -68,7 +68,7 @@ router.post(
 
       jwt.sign(
         payload,
-          process.env.jwtSecret,
+        process.env.jwtSecret,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
@@ -103,11 +103,6 @@ router.post('/followinig', auth, async (req, res) => {
       name: followinguser.name,
       avatar: followinguser.avatar,
     };
-    /*
-    const removeIndex = profile.experience
-    .map((item) => item.id)
-    .indexOf(req.params.exp_id);
-    */
 
     let alreadyInFollowing = user.following
       .map((f) => f.user)
@@ -132,6 +127,29 @@ router.post('/followinig', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route   GET api/users/:id/
+// @desc    Get user by ID
+// @access  Public
+
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res(404).json({ msg: 'No user under this ID' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({ msg: 'User id is invalid' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
 // remove following
 // @route   DELETE api/users/:id/:followingId
 // @desc    Register route
