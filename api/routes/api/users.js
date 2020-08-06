@@ -3,7 +3,7 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+require('dotenv').config();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
@@ -68,7 +68,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+          process.env.jwtSecret,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
@@ -82,27 +82,6 @@ router.post(
   }
 );
 
-// @route   GET api/users/:id/
-// @desc    Get user by ID
-// @access  Public
-
-router.get('/:id', async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-      return res(404).json({ msg: 'No user under this ID' });
-    }
-
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(400).json({ msg: 'User id is invalid' });
-    }
-    res.status(500).send('Server Error');
-  }
-});
 // add following
 // @route   POST api/users/:id/:followingId
 // @desc    Register route

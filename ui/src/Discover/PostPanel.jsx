@@ -34,10 +34,13 @@ export default class PostPanel extends React.Component {
         //     ids.push(posts[i]._id);
         // }
         // Have to convert the object before use
-        const postsObject = {};
+        const postsObject = [];
         for (let k in posts) {
-            postsObject[k] = posts[k];
+            postsObject.push(posts[k]);
         }
+        const postItems = postsObject.map((post) => (
+            <Col xs={12} sm={6} md={3} key={post._id}><PostItem post={post} /></Col>
+        ));
         return (
             <Panel>
                 <Panel.Heading>
@@ -45,10 +48,7 @@ export default class PostPanel extends React.Component {
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>
-                        <Col sm={6} md={3}><PostItem post={postsObject[0]} /></Col>
-                        <Col sm={6} md={3}><PostItem post={postsObject[1]} /></Col>
-                        <Col sm={6} md={3}><PostItem post={postsObject[2]} /></Col>
-                        <Col sm={6} md={3}><PostItem post={postsObject[3]} /></Col>
+                        {postItems}
                     </Row>
                 </Panel.Body>
             </Panel>

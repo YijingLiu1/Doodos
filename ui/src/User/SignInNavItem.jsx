@@ -18,6 +18,10 @@ class SignInNavItem extends React.Component {
             loading: true,
             user: null,
         };
+        if (localStorage.token) {
+            this.state ={ user: { token: localStorage.token }};
+            console.log(`set ${this.state.user}`);
+        }
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.signIn = this.signIn.bind(this);
@@ -67,7 +71,7 @@ class SignInNavItem extends React.Component {
         }
     }
 
-    async signOut() {
+    async googleSignOut() {
         const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
         const { showError } = this.props;
         try {
@@ -82,6 +86,12 @@ class SignInNavItem extends React.Component {
         } catch (error) {
             showError(`Error signing out: ${error}`);
         }
+    }
+
+    async signOut() {
+        const { onUserChange } = this.props;
+        localStorage.removeItem('token');
+        onUserChange({ signedIn: false, givenName: '' });
     }
 
     showModal() {
@@ -100,7 +110,9 @@ class SignInNavItem extends React.Component {
 
     render() {
         const { user } = this.props;
-        if (user.signedIn) {
+        console.log(user);
+        console.log(localStorage.token);
+        if (user.token && user.signedIn) {
             return (
                 <NavDropdown title={user.name} id="user">
                     <LinkContainer to="/dashboard">
@@ -132,7 +144,7 @@ class SignInNavItem extends React.Component {
                             bsStyle="primary"
                             onClick={this.signIn}
                         >
-                            <img src="https://goo.gl/4yjp6B" alt="Sign In" />
+                            <img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" alt="Sign In" />
                         </Button>
                     </Modal.Body>
                     <Modal.Footer>

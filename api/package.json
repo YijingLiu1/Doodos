@@ -13,7 +13,11 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
+<<<<<<< HEAD
     "dotenv": "^8.2.0",
+=======
+    "dotenv": "^6.2.0",
+>>>>>>> e0ee0e92f938bb8f3c5db0f63db9d6e93bfed7f5
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "gravatar": "^1.8.1",

@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from 'react-router-dom';
 import api from "../api.js";
 import axios from "axios";
+import setAuthToken from "../setAuthToken.js";
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -33,6 +34,8 @@ class SignIn extends React.Component {
                 }
             });
             const user = await sss.get('/auth');
+            setAuthToken(res.data.token);
+            console.log(localStorage);
             onUserChange({ signedIn: true, loading: false, token: res.data.token, name: user.data.name })
             showSuccess("Signed in success");
         } catch (err) {

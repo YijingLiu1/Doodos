@@ -2,6 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 
 import api from "../api.js";
+import { Link } from "react-router-dom";
 
 export default class EventItem extends React.Component{
     constructor() {
@@ -67,7 +68,7 @@ export default class EventItem extends React.Component{
                         <li className="eventDescription">
                             {descriptions[index]}
                         </li>
-                        <Button href={link} style={{marginTop: '8px'}}>View more</Button>
+                        <Link to={link}><Button style={{marginTop: '8px'}}>View more</Button></Link>
                     </p>
                 </figcaption>
             </figure>
