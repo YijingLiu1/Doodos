@@ -155,6 +155,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/About.jsx":
+/*!***********************!*\
+  !*** ./src/About.jsx ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function About() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "UI v0.6.0 (Post Add feature added)");
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (About);
+
+/***/ }),
+
 /***/ "./src/App.jsx":
 /*!*********************!*\
   !*** ./src/App.jsx ***!
@@ -2363,6 +2384,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_Post_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Discover/Post.jsx */ "./src/Discover/Post.jsx");
 /* harmony import */ var _Discover_Event_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Discover/Event.jsx */ "./src/Discover/Event.jsx");
 /* harmony import */ var _User_Register_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../User/Register.jsx */ "./src/User/Register.jsx");
+/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../About.jsx */ "./src/About.jsx");
+
 
 
 
@@ -2396,6 +2419,9 @@ var routes = [{
 }, {
   path: '/register',
   component: _User_Register_jsx__WEBPACK_IMPORTED_MODULE_8__["default"]
+}, {
+  path: '/about',
+  component: _About_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '*',
   component: _NotFound_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]
