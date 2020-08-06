@@ -4,7 +4,7 @@ import {
     MenuItem, Glyphicon,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import ItemAddNavItem from './ItemAddNavItem.jsx';
+import PostAddNavItem from './Discover/PostAddNavItem.jsx';
 import Contents from './Routing/Contents.jsx';
 import UserContext from './UserContext.js';
 import SignInNavItem from './User/SignInNavItem.jsx';
@@ -34,7 +34,7 @@ function NavBar({ user, onUserChange }) {
             </Nav>
 
             <Nav pullRight>
-                <ItemAddNavItem />
+                <PostAddNavItem user={user} onUserChange={onUserChange} />
                 <SignInNavItem user={user} onUserChange={onUserChange} />
                 <NavDropdown
                     id="user-dropdown"

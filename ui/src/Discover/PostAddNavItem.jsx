@@ -1,10 +1,12 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {
     NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
     Button, ButtonToolbar, Tooltip, OverlayTrigger,
 } from 'react-bootstrap';
-import withToast from './withToast.jsx';
+import withToast from '../withToast.jsx';
+import SignIn from "../User/SignIn.jsx";
+import PicUpload from "./PicUpload.jsx";
 
 class IssueAddNavItem extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class IssueAddNavItem extends React.Component {
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showWarning = this.showWarning.bind(this);
     }
 
     showModal() {
@@ -37,8 +40,29 @@ class IssueAddNavItem extends React.Component {
         };
     }
 
+    showWarning() {
+        const { showError } = this.props;
+        showError("Sign in to make a new post.");
+    }
+
     render() {
         const { showing } = this.state;
+        const { user } = this.props;
+        if (!user.signedIn) {
+            return (
+                <React.Fragment>
+                    <NavItem onClick={this.showWarning}>
+                        <OverlayTrigger
+                            placement="left"
+                            delayShow={1000}
+                            overlay={<Tooltip id="create-issue">Make a New Post</Tooltip>}
+                        >
+                            <Glyphicon glyph="plus" />
+                        </OverlayTrigger>
+                    </NavItem>
+                </React.Fragment>
+            );
+        }
         return (
             <React.Fragment>
                 <NavItem onClick={this.showModal}>
@@ -62,7 +86,7 @@ class IssueAddNavItem extends React.Component {
                             </FormGroup>
                             <FormGroup>
                                 <ControlLabel>Artwork</ControlLabel>
-                                <FormControl name="artwork" />
+                                <PicUpload />
                             </FormGroup>
                             <FormGroup>
                                 <ControlLabel>Description</ControlLabel>
