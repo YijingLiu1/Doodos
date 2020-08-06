@@ -218,6 +218,12 @@ body {
     vertical-align: top;
 }
 
+.AvatarContainer .img-circle {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 .ProfileContents {
     margin: 149px 0 50px 50px;
     flex: 1;

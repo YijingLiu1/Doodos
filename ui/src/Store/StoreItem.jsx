@@ -7,7 +7,7 @@ import {
 
 import withToast from '../withToast.jsx';
 import NotFound from "../NotFound.jsx";
-import Item from "./Item.jsx";
+import Item from "./ItemPage.jsx";
 import NumInput from "../NumInput.jsx";
 
 class StoreItem extends React.Component {
@@ -30,30 +30,40 @@ class StoreItem extends React.Component {
 
     render() {
         const { showing } = this.state;
+        const { product } = this.props;
+        // Have to convert the object before use
+        const productObject = {};
+        for (let k in product) {
+            productObject[k] = product[k];
+        }
+        const link = `/item/${productObject._id}/`;
+        const authorLink = `/user/${productObject.user}/`;
         return (
             <React.Fragment>
                 <div className="grid">
                     <figure className="effect-sadie" onClick={this.showModal}>
-                        <img src="/static/images/2.jpg" alt="img01"/>
+                        <img src={product.imagePath} alt="img01"/>
                         <figcaption>
-                            <p>Item Title</p>
-                            <a href="/post/1/" data-toggle="modal" data-target="#theModal">View more</a>
+                            <p>{product.itemName}</p>
+                            <a href={link} data-toggle="modal" data-target="#theModal">View more</a>
                         </figcaption>
                     </figure>
                 </div>
                 <div>
-                    <div align="left" style={{float: 'left'}}><a href="/user/1/">$XX.xx</a></div>
+                    <div align="left" style={{float: 'left'}}>${product.price}</div>
                     <div align="right">
                         <Form inline>
                             <Button bsSize="xsmall"><Glyphicon glyph="minus" /></Button>
                             <FormGroup bsSize="sm">
                                 <FormControl
+                                    style={{width: "50px", height: "25px"}}
                                     componentClass={NumInput}
-                                    name="effort"
+                                    name="number"
                                     onChange={this.onChange}
                                 />
                             </FormGroup>
                             <Button bsSize="xsmall"><Glyphicon glyph="plus" /></Button>
+                            <Button bsSize="xsmall" bsStyle="primary">Add to Cart</Button>
                         </Form>
                     </div>
                 </div>
