@@ -2,7 +2,7 @@ import React from "react";
 import {Col, Row} from "react-bootstrap";
 import PostItem from "../Discover/PostItem.jsx";
 
-export default function UserTabContents({ tab }) {
+export default function UserTabContents({ tab, social, socialValue }) {
     if (tab === "likes") {
         return (
             <h3>This is a placeholder for likes</h3>
@@ -10,7 +10,10 @@ export default function UserTabContents({ tab }) {
     }
     else if (tab === "about") {
         return (
-            <h3>This is a placeholder for about</h3>
+            <div>
+                <h3>Social Network:</h3>
+                <div>{social}</div>
+            </div>
         )
     }
     else if (tab === "description") {

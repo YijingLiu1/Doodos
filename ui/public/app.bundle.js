@@ -3717,7 +3717,7 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var id, user;
+        var id, profile;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -3728,11 +3728,11 @@ var User = /*#__PURE__*/function (_React$Component) {
                 return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/profile/user/".concat(id));
 
               case 4:
-                user = _context.sent;
+                profile = _context.sent;
 
-                if (user) {
+                if (profile) {
                   this.setState({
-                    user: user.data
+                    profile: profile.data
                   });
                 }
 
@@ -3754,14 +3754,23 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var tab = this.props.match.params.tab;
-      var user = this.state.user; // Have to convert the object before use
+      var profile = this.state.profile; // Have to convert the object before use
 
-      var userObject = {};
+      var profileObject = {};
+      var social = [];
 
-      for (var k in user) {
-        userObject[k] = user[k];
+      for (var k in profile) {
+        profileObject[k] = profile[k];
       }
 
+      for (var _k in profileObject.social) {
+        social.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          key: _k
+        }, _k, ": ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, profileObject.social[_k])));
+      }
+
+      console.log(profileObject);
+      console.log(social);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "Profile"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3779,7 +3788,7 @@ var User = /*#__PURE__*/function (_React$Component) {
         src: "/static/images/3.jpg",
         alt: "profile pic",
         circle: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, userObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, profileObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.bio), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.status), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         bsStyle: "primary"
       }, "Follow +")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "ProfileContents"
@@ -3800,7 +3809,8 @@ var User = /*#__PURE__*/function (_React$Component) {
       }, "About"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "ProfileTabContents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserTabContents_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        tab: tab
+        tab: tab,
+        social: social
       })))));
     }
   }]);
@@ -3831,12 +3841,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function UserTabContents(_ref) {
-  var tab = _ref.tab;
+  var tab = _ref.tab,
+      social = _ref.social,
+      socialValue = _ref.socialValue;
 
   if (tab === "likes") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "This is a placeholder for likes");
   } else if (tab === "about") {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "This is a placeholder for about");
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Social Network:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, social));
   } else if (tab === "description") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "This is a placeholder for description");
   } else if (tab === "attenders") {
