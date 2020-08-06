@@ -8,6 +8,7 @@ import {
 import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
+import PostItem from "../Discover/PostItem.jsx";
 
 class User extends React.Component {
     constructor() {
@@ -28,24 +29,42 @@ class User extends React.Component {
         const profile = await api.get(`/profile/user/${id}`);
         if (profile) {
             this.setState({ profile: profile.data });
+            const user = await api.get(`/users/${id}`);
+            const posts = await api.get(`/posts/byuser/${id}`);
+            if (user) {
+                this.setState({ user: user.data });
+            }
+            if (posts) {
+                this.setState({ posts: posts.data });
+            }
         }
     }
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { profile } = this.state;
+        const { user, profile, posts } = this.state;
         // Have to convert the object before use
+        const userObject = {};
         const profileObject = {};
         const social = [];
+        for (let k in user) {
+            userObject[k] = user[k];
+        }
         for (let k in profile) {
             profileObject[k] = profile[k];
         }
         for (let k in profileObject.social) {
             social.push(<p key={k}>{k}: <a>{profileObject.social[k]}</a></p>)
         }
-        console.log(profileObject);
-        console.log(social);
-
+        const postsObject = [];
+        for (let k in posts) {
+            postsObject.push(posts[k]);
+        }
+        console.log(posts);
+        console.log(postsObject);
+        const postItems = postsObject.map((post) => (
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
+        ));
         return (
             <div className="Profile">
                 <div className="ProfileBanner">
@@ -56,9 +75,9 @@ class User extends React.Component {
                 <div className="ProfileWrap">
                     <div className="ProfileSidebar">
                         <div className="AvatarContainer">
-                            <Image src="/static/images/3.jpg" alt="profile pic" circle/>
+                            <Image className="img-circle" src={userObject.avatar} alt="profile pic" circle/>
                         </div>
-                        <h3>{profileObject.name}</h3>
+                        <h3>{userObject.name}</h3>
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
@@ -77,7 +96,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} />
+                            <UserTabContents tab={tab} social={social} posts={postItems} />
                         </div>
                     </div>
                 </div>

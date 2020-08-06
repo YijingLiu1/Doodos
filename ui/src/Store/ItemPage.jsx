@@ -5,7 +5,7 @@ import withToast from '../withToast.jsx';
 import UserContext from '../UserContext.js';
 import UserTabContents from "../User/UserTabContents.jsx";
 
-class Item extends React.Component {
+class ItemPage extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -45,7 +45,7 @@ class Item extends React.Component {
     }
 }
 
-const ItemWithToast = withToast(withRouter(Item));
+const ItemWithToast = withToast(withRouter(ItemPage));
 
 export default ItemWithToast;
 

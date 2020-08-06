@@ -23,16 +23,6 @@ export default class PostPanel extends React.Component {
 
     render() {
         const { posts } = this.state;
-        // const titles = [];
-        // const pics = [];
-        // const authors = [];
-        // const ids = [];
-        // for (let i = 0; i < posts.length; i++) {
-        //     titles.push(posts[i].title);
-        //     pics.push(posts[i].imageUrl);
-        //     authors.push(posts[i].name);
-        //     ids.push(posts[i]._id);
-        // }
         // Have to convert the object before use
         const postsObject = [];
         for (let k in posts) {
