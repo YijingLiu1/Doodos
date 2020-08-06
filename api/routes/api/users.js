@@ -143,11 +143,13 @@ router.delete('/following', auth, async (req, res) => {
     const removeIndex = user.following
       .map((f) => f.user)
       .indexOf(req.body.followingId);
+
     if (removeIndex === -1) {
       return res
         .status(400)
         .json({ msg: 'Cannot remove a not following user' });
     }
+
     user.following.splice(removeIndex, 1);
     await user.save();
 
