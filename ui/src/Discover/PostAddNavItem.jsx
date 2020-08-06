@@ -40,8 +40,6 @@ class PostAddNavItem extends React.Component {
         e.preventDefault();
         this.hideModal();
         const form = document.forms.postAdd;
-        console.log(form.title.value);
-        console.log(this.state.imageUrl.imageUrl);
         const post = {
             title: form.title.value,
             imageUrl: this.state.imageUrl.imageUrl,
@@ -49,7 +47,6 @@ class PostAddNavItem extends React.Component {
             date: new Date(),
         };
         const { user } = this.props;
-        console.log(user);
         const api = axios.create({
             baseURL: '/api',
             headers: {

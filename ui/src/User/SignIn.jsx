@@ -35,7 +35,6 @@ class SignIn extends React.Component {
             });
             const user = await sss.get('/auth');
             setAuthToken(res.data.token);
-            console.log(localStorage);
             onUserChange({ signedIn: true, loading: false, token: res.data.token, name: user.data.name })
             showSuccess("Signed in success");
         } catch (err) {

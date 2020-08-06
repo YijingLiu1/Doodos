@@ -8,6 +8,7 @@ import Post from "../Discover/Post.jsx";
 import Event from "../Discover/Event.jsx";
 import Register from "../User/Register.jsx";
 import About from "../About.jsx";
+import Dashboard from "../User/Dashboard.jsx";
 
 const routes = [
     { path: '/discover', component: Discover },
@@ -18,6 +19,7 @@ const routes = [
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },
     { path: '/register', component: Register },
+    { path: '/dashboard/:tab?', component: Dashboard },
     { path: '/about', component: About },
     { path: '*', component: NotFound },
 ];
