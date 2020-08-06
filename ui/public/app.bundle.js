@@ -3608,7 +3608,7 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
         bsStyle: "primary",
         onClick: this.signIn
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "https://goo.gl/4yjp6B",
+        src: "https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png",
         alt: "Sign In"
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "my-1",
