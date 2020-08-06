@@ -162,7 +162,7 @@ try {
       user: '5f29fb5a3cb26f10bc4ee8a9',
       categories: ['artworks', 'spotsaroundyou', 'fashion'],
       title: 'North Park Mural Project',
-      imageUrl: 'https://i.ibb.co/cxp8Kxk/lariver93-003.jpg',
+      imageUrl: 'https://i.ibb.co/cC2gzGH/murals-northpark-727x545.jpg',
       text:
         "North Park is one of the area's most well known arts districts, anchored by the galleries and shops along Ray Street, alternative art space Art Produce, gallery/retail hybrids like Pigment and Visual, and live music and theater at the Observatory North Park. And from buildings to utility boxes, it has a wealth of street art. Local favorites include a 50-foot pink dinosaur by Mark Paul Deren, who goes by Madsteez, on the north end of Ray Street, and a group of murals on the side of art gallery/studio space The Studio Door. These happy kids are posing in front of a piece by artistic duo Monty Montgomery and Jason Feather, who call themselves Kreashun. \n Where: 3750 30th Street, San Diego, CA 92104",
       // name of the user
@@ -235,9 +235,9 @@ try {
       user: '5f2b5bdc2368e63300c77879',
       categories: ['fashion', 'activities', 'events'],
       title: 'Live Event Ideas',
-      imageUrl: 'https://i.ibb.co/pjPHgY5/nb-nyrr-bronx-2.jpg',
+      imageUrl: 'https://i.ibb.co/W2M8Qhw/nba-motg-2-1024x683.jpg',
       text:
-        'Live Event Ideas – Look no further! We partnered with one of our favorite clients New Balance, to create an engaging mural. We painted an interactive photo op at the finish line of this year’s Bronx 10 mile race. The canvases were two layers of murals that worked together.\n The background 8×12 mural was designed & painted by Bronx native CES. Painted in an illustrative and classic graffiti style. Depicting iconic elements that make up the Bronx.  In the foreground, the mural was a design by Greetings Tour and executed by our Graffiti USA team. The BRONX letters in the font style often used for their Greetings murals. The mural was an 8×8 clear plexiglass canvas. By not filling in portions of the design, the foreground piece was see through. It allowed participants to take photos in front of or behind the piece. This gave everyone an opportunity to become part of the artwork!\n If you’re looking for live event ideas we are your go to. Let your next event stand out with live graffiti street art.',
+        'This past all-star weekend, we painted a basketball court mural. Creating this project for a Nike x House of Hoops by Footlocker activation at Hollywood & Highland in Los Angeles was a blast. First, we fabricated a faux concrete wall that sat courtside. Next, we painted a custom graphic on both sides of the wall to finish the basketball court mural. The artwork mimicked the design vibe of the Kyrie 4 All Star 2018 shoes that were released that weekend. During the event, Kyrie Irving dropped by himself to shoot some hoops with some lucky local basketball teams! \n After the game was over, we had a workshop setup inside the Footlocker store. During this part of the event, we custom painted some regulation backboards as gifts for the two local teams. We had two live artists on site completing the pieces. We had no idea how heavy these backboards would be (over 200 lbs each!) As a result, we fabricated some custom steel easels had to display them properly. The teams walked over to the store along w/ Kyrie to sign their gifted backboards. This was an awesome project/opportunity in collaboration w/ Game Seven Marketing. Check out all the event photos below',
       // name of the user
       name: 'Brittany Schmidt',
       avatar: 'https://i.ibb.co/s65t4Xg/ebc8b0e560709ce497563a883d18f93a.jpg',
