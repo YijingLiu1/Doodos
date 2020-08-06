@@ -18,6 +18,10 @@ class SignInNavItem extends React.Component {
             loading: true,
             user: null,
         };
+        if (localStorage.token) {
+            this.state ={ user: { token: localStorage.token }};
+            console.log(`set ${this.state.user}`);
+        }
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.signIn = this.signIn.bind(this);
@@ -106,7 +110,9 @@ class SignInNavItem extends React.Component {
 
     render() {
         const { user } = this.props;
-        if (user.signedIn) {
+        console.log(user);
+        console.log(localStorage.token);
+        if (user.token && user.signedIn) {
             return (
                 <NavDropdown title={user.name} id="user">
                     <LinkContainer to="/dashboard">

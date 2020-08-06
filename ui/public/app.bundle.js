@@ -737,6 +737,11 @@ var PicUpload = /*#__PURE__*/function (_React$Component) {
           _this2.setState({
             uploadedFileCloudinaryUrl: response.body.secure_url
           });
+
+          var onUrlChange = _this2.props.onUrlChange;
+          onUrlChange({
+            imageUrl: response.body.secure_url
+          });
         }
       });
     }
@@ -943,6 +948,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
 /* harmony import */ var _User_SignIn_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../User/SignIn.jsx */ "./src/User/SignIn.jsx");
 /* harmony import */ var _PicUpload_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PicUpload.jsx */ "./src/Discover/PicUpload.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -976,28 +983,31 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var IssueAddNavItem = /*#__PURE__*/function (_React$Component) {
-  _inherits(IssueAddNavItem, _React$Component);
 
-  var _super = _createSuper(IssueAddNavItem);
+var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(PostAddNavItem, _React$Component);
 
-  function IssueAddNavItem(props) {
+  var _super = _createSuper(PostAddNavItem);
+
+  function PostAddNavItem(props) {
     var _this;
 
-    _classCallCheck(this, IssueAddNavItem);
+    _classCallCheck(this, PostAddNavItem);
 
     _this = _super.call(this, props);
     _this.state = {
-      showing: false
+      showing: false,
+      imageUrl: ''
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.showWarning = _this.showWarning.bind(_assertThisInitialized(_this));
+    _this.onUrlChange = _this.onUrlChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(IssueAddNavItem, [{
+  _createClass(PostAddNavItem, [{
     key: "showModal",
     value: function showModal() {
       this.setState({
@@ -1012,10 +1022,17 @@ var IssueAddNavItem = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "onUrlChange",
+    value: function onUrlChange(imageUrl) {
+      this.setState({
+        imageUrl: imageUrl
+      });
+    }
+  }, {
     key: "handleSubmit",
     value: function () {
       var _handleSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var form, post;
+        var form, post, user, api, res, showSuccess, id, link;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1023,14 +1040,43 @@ var IssueAddNavItem = /*#__PURE__*/function (_React$Component) {
                 e.preventDefault();
                 this.hideModal();
                 form = document.forms.postAdd;
+                console.log(form.title.value);
+                console.log(this.state.imageUrl.imageUrl);
                 post = {
                   title: form.title.value,
-                  artwork: form.artwork.value,
-                  description: form.description.value,
-                  created: new Date()
+                  imageUrl: this.state.imageUrl.imageUrl,
+                  text: form.description.value,
+                  date: new Date()
                 };
+                user = this.props.user;
+                console.log(user);
+                api = axios__WEBPACK_IMPORTED_MODULE_6___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': user.token
+                  }
+                });
+                _context.next = 11;
+                return api.post('/posts', post);
 
-              case 4:
+              case 11:
+                res = _context.sent;
+
+                if (!res) {
+                  _context.next = 18;
+                  break;
+                }
+
+                showSuccess = this.props.showSuccess;
+                showSuccess("New post made.");
+                id = res.data._id;
+                link = "/post/".concat(id);
+                return _context.abrupt("return", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+                  to: link
+                }));
+
+              case 18:
               case "end":
                 return _context.stop();
             }
@@ -1091,7 +1137,9 @@ var IssueAddNavItem = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
         name: "title",
         autoFocus: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Artwork"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PicUpload_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Artwork"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PicUpload_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onUrlChange: this.onUrlChange
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
         name: "description"
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "button",
@@ -1104,10 +1152,10 @@ var IssueAddNavItem = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return IssueAddNavItem;
+  return PostAddNavItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_withToast_jsx__WEBPACK_IMPORTED_MODULE_3__["default"])(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(IssueAddNavItem)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(_withToast_jsx__WEBPACK_IMPORTED_MODULE_3__["default"])(Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(PostAddNavItem)));
 
 /***/ }),
 
@@ -2216,7 +2264,8 @@ var Page = /*#__PURE__*/function (_React$Component) {
                 this.setState({
                   user: {
                     name: user.data.name,
-                    signedIn: true
+                    signedIn: true,
+                    token: token
                   }
                 });
 
@@ -3264,6 +3313,16 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
       loading: true,
       user: null
     };
+
+    if (localStorage.token) {
+      _this.state = {
+        user: {
+          token: localStorage.token
+        }
+      };
+      console.log("set ".concat(_this.state.user));
+    }
+
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     _this.signIn = _this.signIn.bind(_assertThisInitialized(_this));
@@ -3475,8 +3534,10 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var user = this.props.user;
+      console.log(user);
+      console.log(localStorage.token);
 
-      if (user.signedIn) {
+      if (user.token && user.signedIn) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavDropdown"], {
           title: user.name,
           id: "user"

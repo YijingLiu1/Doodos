@@ -25,7 +25,6 @@ router.post(
   [
     auth,
     check('text', 'Text is required').not().isEmpty(),
-    check('category', 'Category is required').not().isEmpty(),
     check('title', 'title is required').not().isEmpty(),
   ],
   async (req, res) => {
@@ -35,19 +34,20 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // invalid category
-    if (!categories.includes(req.body.category)) {
-      return res.status(400).json({ msg: 'Please enter a valid category' });
-    }
+    // if (!categories.includes(req.body.category)) {
+    //   return res.status(400).json({ msg: 'Please enter a valid category' });
+    // }
 
     // we are logged in so we have the id of the user
     const user = await User.findById(req.user.id).select('-password');
     try {
       const newPost = new Post({
-        title: req.body.text,
+        title: req.body.title,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
+        imageUrl: req.body.imageUrl,
       });
 
       const post = await newPost.save();

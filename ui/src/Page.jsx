@@ -100,7 +100,7 @@ export default class Page extends React.Component {
                 }
             });
             const user = await sss.get('/auth');
-            this.setState({ user: { name: user.data.name, signedIn: true } });
+            this.setState({ user: { name: user.data.name, signedIn: true, token } });
         }
     }
 

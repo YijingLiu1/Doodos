@@ -33,6 +33,8 @@ export default class PicUpload extends React.Component {
                 this.setState({
                     uploadedFileCloudinaryUrl: response.body.secure_url
                 });
+                const { onUrlChange } = this.props;
+                onUrlChange({ imageUrl: response.body.secure_url })
             }
         });
     }
