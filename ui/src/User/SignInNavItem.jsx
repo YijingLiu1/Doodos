@@ -24,23 +24,25 @@ class SignInNavItem extends React.Component {
         }
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-        this.signIn = this.signIn.bind(this);
+        this.googleSignIn = this.googleSignIn.bind(this);
+        this.googleSignOut = this.googleSignOut.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
     componentDidMount() {
-        const clientId = window.ENV.GOOGLE_CLIENT_ID;
-        if (!clientId) return;
-        window.gapi.load('auth2', () => {
-            if (!window.gapi.auth2.getAuthInstance()) {
-                window.gapi.auth2.init({ client_id: clientId }).then(() => {
-                    this.setState({ disabled: false });
-                });
-            }
-        });
+        // const clientId = window.ENV.GOOGLE_CLIENT_ID;
+        // if (!clientId) return;
+        // window.gapi.load('auth2', () => {
+        //     if (!window.gapi.auth2.getAuthInstance()) {
+        //         window.gapi.auth2.init({ client_id: clientId }).then(() => {
+        //             this.setState({ disabled: false });
+        //         });
+        //     }
+        // });
     }
 
-    async signIn() {
+    // Currently unused
+    async googleSignIn() {
         this.hideModal();
         const { showError } = this.props;
         let googleToken;
@@ -71,6 +73,7 @@ class SignInNavItem extends React.Component {
         }
     }
 
+    // Currently unused
     async googleSignOut() {
         const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
         const { showError } = this.props;

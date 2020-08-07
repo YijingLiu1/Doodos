@@ -47,6 +47,16 @@ class CategoryPage extends React.Component {
     }
 
     render() {
+        const categoryDict = {
+            "all": "All Categories",
+            "ideas": "Ideas",
+            "artworks": "Artworks",
+            "spotsaroundyou": "Spots Around You",
+            "fashion": "Fashion",
+            "activities": "Activities",
+            "events": "Events",
+            "life": "Life"
+        };
         const { posts } = this.state;
         // Have to convert the object before use
         const { match: { params: { category } } } = this.props;
@@ -55,12 +65,12 @@ class CategoryPage extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={3} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
         ));
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title>{category}</Panel.Title>
+                    <Panel.Title>{categoryDict[category]}</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>

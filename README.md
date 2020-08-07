@@ -89,6 +89,9 @@ add-item-to-cart
 * View the total number of places remained and people's avatars who get registered.
 
 
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/register-an-event.png)
+
+register-an-event
 
 ### Data fufillment and User relation set up
 
@@ -121,6 +124,11 @@ profile-data-example
 
 user-data-example
 
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/user-data-example.png)
+
+user-data-example
+
+image source: https://haoran-yu.imgbb.com/albums
 
 At the next stage, a final checkout and pay method of either Paypal or Alipay will be added to the app, where the user could pay their purchases and finish the shopping process. And we will also try to add google map api to this app, besides improving the backend objects, schemas and routes extra to improve the app.
 

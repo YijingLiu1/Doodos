@@ -6,14 +6,14 @@ import {
     ButtonToolbar, Button, Alert, Row, Image, Grid,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
-import GroupItem from "./GroupItem.jsx";
 import api from "../api.js";
 import PostItem from "../Discover/PostItem.jsx";
+import axios from "axios";
 
 class CategoryDashboard extends React.Component {
     constructor() {
         super();
-        this.state = { posts: [] };
+        this.state = { posts: [], categories: [] };
     }
 
     componentDidMount() {
@@ -22,9 +22,39 @@ class CategoryDashboard extends React.Component {
     }
 
     async loadData() {
-        const posts = await api.get("/posts");
-        if (posts) {
-            this.setState({ posts: posts.data });
+        if (!localStorage.token) {
+            const posts = await api.get("/posts");
+            if (posts) {
+                this.setState({ posts: posts.data });
+            }
+        } else {
+            const api = axios.create({
+                baseURL: '/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                }
+            });
+            const profile = await api.get('/profile/me');
+            const favoriteCategories = [];
+            for (let k in profile.data.favoriteCategories) {
+                favoriteCategories.push(profile.data.favoriteCategories[k]);
+            }
+            console.log(favoriteCategories);
+            const checked = {};
+            for (let k in favoriteCategories) {
+                let category = favoriteCategories[k];
+                console.log(`category: ${category}`);
+                const postsByCategory = await api.get(`/posts/bycategory/${category}`);
+                const { posts } = this.state;
+                for (let k in postsByCategory.data) {
+                    if (!checked[postsByCategory.data[k]._id]) {
+                        checked[postsByCategory.data[k]._id] = true;
+                        posts.push(postsByCategory.data[k]);
+                    }
+                }
+                console.log(this.state.posts);
+            }
         }
     }
 
