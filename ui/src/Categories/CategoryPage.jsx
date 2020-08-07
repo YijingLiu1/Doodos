@@ -20,6 +20,15 @@ class CategoryPage extends React.Component {
         if (posts.length === 0) this.loadData();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { match: { params: { category: prevCate } } } = prevProps;
+        const { match: { params: { category } } } = this.props;
+        if (prevCate !== category) {
+            this.loadData();
+        }
+
+    }
+
     async loadData() {
         const { match: { params: { category } } } = this.props;
         if (category === "all") {
@@ -28,7 +37,9 @@ class CategoryPage extends React.Component {
                 this.setState({ posts: posts.data });
             }
         } else {
+            console.log(category);
             const posts = await api.get(`/posts/bycategory/${category}`);
+            console.log(posts);
             if (posts) {
                 this.setState({ posts: posts.data });
             }
@@ -38,6 +49,7 @@ class CategoryPage extends React.Component {
     render() {
         const { posts } = this.state;
         // Have to convert the object before use
+        const { match: { params: { category } } } = this.props;
         const postsObject = [];
         for (let k in posts) {
             postsObject.push(posts[k]);
@@ -48,7 +60,7 @@ class CategoryPage extends React.Component {
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title>Posts for You</Panel.Title>
+                    <Panel.Title>{category}</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>
