@@ -111,7 +111,7 @@ router.get('/bycategory/:category', async (req, res) => {
 
     const posts = await Post.find();
     const postsfound = await posts.filter((post) =>
-      post.categories.includes(req.params.category)
+        post.categories.includes(req.params.category)
     );
 
     res.json(postsfound);

@@ -634,6 +634,16 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
       if (posts.length === 0) this.loadData();
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      var prevCate = prevProps.match.params.category;
+      var category = this.props.match.params.category;
+
+      if (prevCate !== category) {
+        this.loadData();
+      }
+    }
+  }, {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -662,15 +672,17 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 12;
+                _context.next = 14;
                 break;
 
               case 8:
-                _context.next = 10;
+                console.log(category);
+                _context.next = 11;
                 return _api__WEBPACK_IMPORTED_MODULE_5__["default"].get("/posts/bycategory/".concat(category));
 
-              case 10:
+              case 11:
                 _posts = _context.sent;
+                console.log(_posts);
 
                 if (_posts) {
                   this.setState({
@@ -678,7 +690,7 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 12:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -697,6 +709,7 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var posts = this.state.posts; // Have to convert the object before use
 
+      var category = this.props.match.params.category;
       var postsObject = [];
 
       for (var k in posts) {
@@ -713,7 +726,7 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
           post: post
         }));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, "Posts for You")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
     }
   }]);
 
@@ -3578,7 +3591,12 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           user = _this$state.user,
           profile = _this$state.profile,
-          posts = _this$state.posts; // Have to convert the object before use
+          posts = _this$state.posts;
+
+      if (user == null) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Sign in to access Dashboard.");
+      } // Have to convert the object before use
+
 
       var userObject = {};
       var profileObject = {};
