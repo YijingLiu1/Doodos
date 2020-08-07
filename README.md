@@ -9,9 +9,16 @@ After Iteration 2, most UI components now connects to data on MongoDB through AP
 
 ### UI - Yijing Liu
 
-Deployed UI Link: https://doodos-ui.herokuapp.com/
+Deployed UI Link (Might take a while for data from database to load): https://doodos-ui.herokuapp.com/
 
-UI designed based on the textbook.
+UI structure designed based on the textbook sourcecode along with other tools.
+
+#### Other Tools
+* __"react-Dropzone"__, __"superagent"__ is used in "PostAddNavItem" component for uploading artworks of the post.
+* __"react-pro-sidebar"__ is used as a category bar in Category page.
+
+#### UI Design
+
 
 
 
