@@ -45,7 +45,7 @@ router.post(
       const newPost = new Post({
         title: req.body.title,
         text: req.body.text,
-        category: req.body.category,
+        categories: req.body.categories,
         imageUrl: req.body.imageUrl,
         name: user.name,
         avatar: user.avatar,
