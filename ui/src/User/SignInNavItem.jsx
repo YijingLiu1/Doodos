@@ -115,7 +115,7 @@ class SignInNavItem extends React.Component {
         if (user.token && user.signedIn) {
             return (
                 <NavDropdown title={user.name} id="user">
-                    <LinkContainer to="/dashboard">
+                    <LinkContainer to="/dashboard/">
                         <MenuItem>Dashboard</MenuItem>
                     </LinkContainer>
                     <MenuItem onClick={this.signOut}>Sign out</MenuItem>
@@ -150,7 +150,7 @@ class SignInNavItem extends React.Component {
                     <Modal.Footer>
                         <p className="my-1" style={{float: "left"}}>
                             Don't have an account? <br/>
-                            <Link to="/register" style={{float: "left"}} onClick={this.hideModal}>Sign Up</Link>
+                            <Link to="/register/" style={{float: "left"}} onClick={this.hideModal}>Sign Up</Link>
                         </p>
                         <Button onClick={this.hideModal} style={{float: "right", height: "40px"}}>Cancel</Button>
                     </Modal.Footer>

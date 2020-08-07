@@ -9,8 +9,9 @@ import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
 import PostItem from "../Discover/PostItem.jsx";
+import axios from "axios";
 
-class User extends React.Component {
+class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -24,11 +25,21 @@ class User extends React.Component {
     }
 
     async loadData() {
-        let { match: { params: { id } } } = this.props;
-        if (id == null) id = this.props.id;
-        const profile = await api.get(`/profile/user/${id}`);
+        const api = axios.create({
+            baseURL: '/api',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.token
+            }
+        });
+        const profile = await api.get('/profile/me');
         if (profile) {
             this.setState({ profile: profile.data });
+            const profileObject = {};
+            for (let k in profile.data) {
+                profileObject[k] = profile.data[k];
+            }
+            const id = profileObject.user._id;
             const user = await api.get(`/users/${id}`);
             const posts = await api.get(`/posts/byuser/${id}`);
             if (user) {
@@ -79,7 +90,7 @@ class User extends React.Component {
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
-                        <Button bsStyle="primary">Follow +</Button>
+                        <Button bsStyle="primary">Edit</Button>
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">
@@ -103,6 +114,6 @@ class User extends React.Component {
     }
 }
 
-const UserWithToast = withToast(withRouter(User));
+const DashboardWithToast = withToast(withRouter(Dashboard));
 
-export default UserWithToast;
+export default DashboardWithToast;

@@ -37,7 +37,6 @@ class StoreItem extends React.Component {
             productObject[k] = product[k];
         }
         const link = `/item/${productObject._id}/`;
-        const authorLink = `/user/${productObject.user}/`;
         return (
             <React.Fragment>
                 <div className="grid">
@@ -73,7 +72,7 @@ class StoreItem extends React.Component {
                         <Modal.Title>Author</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Item />
+                        <Item id={productObject._id} />
                     </Modal.Body>
                     <Modal.Footer>
                         <ButtonToolbar style={{float: "right"}}>
