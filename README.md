@@ -81,7 +81,7 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * View the total number of places remained and people's avatars who get registered.
 
 
-## Data fufillment and User relation set up
+### Data fufillment and User relation set up
 
 To functionalize the app and test it, vivid user datas and profiles, and infos are generated manually. In a total of 20 users, 20 profiles, 23 posts, 9 products and 3 events 1 cart are created for this web app.
 
