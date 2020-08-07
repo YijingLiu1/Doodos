@@ -22,6 +22,7 @@ UI structure designed based on the textbook sourcecode along with other tools in
 
 ### API - Haoran Yu
 
+Deployed APP Link (api database connected): https://doodos-ui.herokuapp.com/
 
 ### Changes to the app
 
