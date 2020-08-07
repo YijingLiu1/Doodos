@@ -4,8 +4,28 @@ Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 2
 
+__Contribution on Project:__
+* UI/Deployment - Yijing Liu
+* API - Haoran Yu
+
+__Progress since Iter 1:__
 By the end of Iteration 1, UI and API are only connected through Sign In API. 
 After Iteration 2, most UI components now connects to data on MongoDB through APIs including users, events, posts, products, etc.. 
+
+Some progress in the App:
+* All contents of posts, events, profiles, store items have now been fetched from database through API.
+* Make a New Post is now added and functioning, with picture upload feature.
+* Category page is added, offering filters on posts by category.
+* A signed in user can see posts in his/her favorite categories in Category page under _Your Feed_.
+* User profile page would show posts by the user under _Posts_ tab, and social network links under _About_ tab.
+* Store page is added, displaying items selling on the website.
+
+__What's next:__
+* More features including update, delete, like for post; edit for profile; join for event; follow for user; purchase for store.
+* DoodleMaps page for showing posts on the map by location.
+* Register feature for new users to sign up.
+* Google sign-in feature if time left.
+
 
 ### UI - Yijing Liu
 
@@ -56,7 +76,7 @@ __Category Page__
 * User could switch category by clicking on the sidebar. Favorite categories would be listed under _"Your Category"_ for easier access. Or user can select other categories under _"Explore by Category"_. By clicking on the category the page would show posts under the category only. 
 ![Posts by Category](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Posts%20by%20Category.JPG)
 
-__Category Page__
+__Store Page__
 
 * The Store Page displays items selling on the website. The slides on the top are promotions for tickets of the events. All items are shown with pictures and prices, as well as names when hover on it. Add to cart and purchase features are still in progress.
 ![Store](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Store.JPG)
