@@ -23,6 +23,9 @@ UI structure designed based on the textbook sourcecode along with other tools in
 ### API - Haoran Yu
 
 
+
+For deployment purpose, the original api/config/default.json is changed to api/.env.
+
 ## Iter 1
 
 Our team is trying to build a platform for artists and graffiti lovers to communicate and share their works. The website is expected to have __Discover__ page for viewing posts and events, __Groups__ page to join groups and communicate, __DoodleMaps__ page to let users view posts by location, and __Store__ page for users to purchase tools and merchandises.
