@@ -9,7 +9,7 @@ __Contribution on Project:__
 * API - Haoran Yu
 
 __Progress since Iter 1:__<br/>
-By the end of Iteration 1, UI and API are only connected through Sign In API. 
+By the end of Iteration 1, UI and API are only connected through Sign In API. <br/>
 After Iteration 2, most UI components now connects to data on MongoDB through APIs including users, events, posts, products, etc.. 
 
 Some progress in the App:
