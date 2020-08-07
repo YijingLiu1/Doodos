@@ -22,6 +22,7 @@ UI structure designed based on the textbook sourcecode along with other tools in
 
 ### API - Haoran Yu
 
+Deployed APP Link (api database connected): https://doodos-ui.herokuapp.com/
 
 ### Changes to the app
 
@@ -32,6 +33,7 @@ Group is replaced by favoriteCategories in users' profiles, where user could add
 ### Heroku deloyment
 
 For conveniency of deployment api/config/default.js is replaced by api/.env. This is also reflected in package.json besides config, the dotenv package is also installed.
+
 
 
 ### In the Social part, user could:
@@ -55,6 +57,7 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * Set their favorite categories of post in their profile, where they could have shortcut for posts filtered by the category.
 
 
+
 ### In the Online store part, user could:
 
 * Get all kinds of products and choose what they want to buy.
@@ -72,6 +75,11 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * Delete different products to their cart. And after every move, the new total sum ,the number of products in user's cart and the online store will all get updated in no time
 
 
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/onlinestore/add-item-to-cart1.png)
+
+add-item-to-cart
+
+
 ### In the Online Events, user could:
 
 * Register an event and they place will be reserved
@@ -81,11 +89,37 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * View the total number of places remained and people's avatars who get registered.
 
 
+
 ### Data fufillment and User relation set up
 
 To functionalize the app and test it, vivid user datas and profiles, and infos are generated manually. In a total of 20 users, 20 profiles, 23 posts, 9 products and 3 events 1 cart are created for this web app.
 
 Below is a snapshot of the data example
+
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/cart-data-example.png)
+
+cart-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/event-data-type.png)
+
+event-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/post-data-example.png)
+
+post-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/product-example.png)
+
+product-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/profile-data-example.png)
+
+profile-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/user-data-example.png)
+
+user-data-example
 
 
 At the next stage, a final checkout and pay method of either Paypal or Alipay will be added to the app, where the user could pay their purchases and finish the shopping process. And we will also try to add google map api to this app, besides improving the backend objects, schemas and routes extra to improve the app.
