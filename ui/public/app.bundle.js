@@ -213,10 +213,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./src/Categories/Category.jsx":
-/*!*************************************!*\
-  !*** ./src/Categories/Category.jsx ***!
-  \*************************************/
+/***/ "./src/Category/Category.jsx":
+/*!***********************************!*\
+  !*** ./src/Category/Category.jsx ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -229,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Discover/PostItem.jsx */ "./src/Discover/PostItem.jsx");
 /* harmony import */ var _Discover_EventItem_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Discover/EventItem.jsx */ "./src/Discover/EventItem.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _GroupsContents_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GroupsContents.jsx */ "./src/Categories/GroupsContents.jsx");
+/* harmony import */ var _GroupsContents_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GroupsContents.jsx */ "./src/Category/GroupsContents.jsx");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -429,10 +429,10 @@ var Category = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./src/Categories/CategoryDashboard.jsx":
-/*!**********************************************!*\
-  !*** ./src/Categories/CategoryDashboard.jsx ***!
-  \**********************************************/
+/***/ "./src/Category/CategoryDashboard.jsx":
+/*!********************************************!*\
+  !*** ./src/Category/CategoryDashboard.jsx ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -636,10 +636,10 @@ var DashboardWithToast = Object(_withToast_jsx__WEBPACK_IMPORTED_MODULE_4__["def
 
 /***/ }),
 
-/***/ "./src/Categories/CategoryPage.jsx":
-/*!*****************************************!*\
-  !*** ./src/Categories/CategoryPage.jsx ***!
-  \*****************************************/
+/***/ "./src/Category/CategoryPage.jsx":
+/*!***************************************!*\
+  !*** ./src/Category/CategoryPage.jsx ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -826,10 +826,10 @@ var EventWithToast = Object(_withToast_jsx__WEBPACK_IMPORTED_MODULE_4__["default
 
 /***/ }),
 
-/***/ "./src/Categories/GroupsContents.jsx":
-/*!*******************************************!*\
-  !*** ./src/Categories/GroupsContents.jsx ***!
-  \*******************************************/
+/***/ "./src/Category/GroupsContents.jsx":
+/*!*****************************************!*\
+  !*** ./src/Category/GroupsContents.jsx ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -839,7 +839,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _categoryRoutes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./categoryRoutes.js */ "./src/Categories/categoryRoutes.js");
+/* harmony import */ var _categoryRoutes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./categoryRoutes.js */ "./src/Category/categoryRoutes.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -855,18 +855,18 @@ function GroupsContents() {
 
 /***/ }),
 
-/***/ "./src/Categories/categoryRoutes.js":
-/*!******************************************!*\
-  !*** ./src/Categories/categoryRoutes.js ***!
-  \******************************************/
+/***/ "./src/Category/categoryRoutes.js":
+/*!****************************************!*\
+  !*** ./src/Category/categoryRoutes.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotFound_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotFound.jsx */ "./src/NotFound.jsx");
-/* harmony import */ var _CategoryPage_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CategoryPage.jsx */ "./src/Categories/CategoryPage.jsx");
-/* harmony import */ var _CategoryDashboard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategoryDashboard.jsx */ "./src/Categories/CategoryDashboard.jsx");
+/* harmony import */ var _CategoryPage_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CategoryPage.jsx */ "./src/Category/CategoryPage.jsx");
+/* harmony import */ var _CategoryDashboard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategoryDashboard.jsx */ "./src/Category/CategoryDashboard.jsx");
 /* harmony import */ var _User_User_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../User/User.jsx */ "./src/User/User.jsx");
 /* harmony import */ var _Discover_Post_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Discover/Post.jsx */ "./src/Discover/Post.jsx");
 /* harmony import */ var _Discover_Event_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Discover/Event.jsx */ "./src/Discover/Event.jsx");
@@ -2553,7 +2553,7 @@ function Contents() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotFound_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotFound.jsx */ "./src/NotFound.jsx");
-/* harmony import */ var _Categories_Category_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Categories/Category.jsx */ "./src/Categories/Category.jsx");
+/* harmony import */ var _Category_Category_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Category/Category.jsx */ "./src/Category/Category.jsx");
 /* harmony import */ var _Discover_Discover_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Discover/Discover.jsx */ "./src/Discover/Discover.jsx");
 /* harmony import */ var _DoodleMaps_DoodleMaps_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../DoodleMaps/DoodleMaps.jsx */ "./src/DoodleMaps/DoodleMaps.jsx");
 /* harmony import */ var _Store_Store_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Store/Store.jsx */ "./src/Store/Store.jsx");
@@ -2581,7 +2581,7 @@ var routes = [{
   component: _Discover_Discover_jsx__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/category',
-  component: _Categories_Category_jsx__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _Category_Category_jsx__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/doodlemaps',
   component: _DoodleMaps_DoodleMaps_jsx__WEBPACK_IMPORTED_MODULE_3__["default"]
