@@ -432,6 +432,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GroupItem_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./GroupItem.jsx */ "./src/Categories/GroupItem.jsx");
 /* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../api.js */ "./src/api.js");
 /* harmony import */ var _Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Discover/PostItem.jsx */ "./src/Discover/PostItem.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -467,6 +469,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
   _inherits(CategoryDashboard, _React$Component);
 
@@ -479,7 +482,8 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      posts: []
+      posts: [],
+      categories: []
     };
     return _this;
   }
@@ -494,15 +498,21 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var posts;
+        var posts, _api, profile, favoriteCategories, k, checked, _k, category, postsByCategory, _posts, _k2;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (localStorage.token) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _context.next = 3;
                 return _api_js__WEBPACK_IMPORTED_MODULE_6__["default"].get("/posts");
 
-              case 2:
+              case 3:
                 posts = _context.sent;
 
                 if (posts) {
@@ -511,7 +521,61 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 4:
+                _context.next = 28;
+                break;
+
+              case 7:
+                _api = axios__WEBPACK_IMPORTED_MODULE_8___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context.next = 10;
+                return _api.get('/profile/me');
+
+              case 10:
+                profile = _context.sent;
+                favoriteCategories = [];
+
+                for (k in profile.data.favoriteCategories) {
+                  favoriteCategories.push(profile.data.favoriteCategories[k]);
+                }
+
+                console.log(favoriteCategories);
+                checked = {};
+                _context.t0 = regeneratorRuntime.keys(favoriteCategories);
+
+              case 16:
+                if ((_context.t1 = _context.t0()).done) {
+                  _context.next = 28;
+                  break;
+                }
+
+                _k = _context.t1.value;
+                category = favoriteCategories[_k];
+                console.log("category: ".concat(category));
+                _context.next = 22;
+                return _api.get("/posts/bycategory/".concat(category));
+
+              case 22:
+                postsByCategory = _context.sent;
+                _posts = this.state.posts;
+
+                for (_k2 in postsByCategory.data) {
+                  if (!checked[postsByCategory.data[_k2]._id]) {
+                    checked[postsByCategory.data[_k2]._id] = true;
+
+                    _posts.push(postsByCategory.data[_k2]);
+                  }
+                }
+
+                console.log(this.state.posts);
+                _context.next = 16;
+                break;
+
+              case 28:
               case "end":
                 return _context.stop();
             }
@@ -726,7 +790,7 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
           post: post
         }));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, "#", category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
     }
   }]);
 

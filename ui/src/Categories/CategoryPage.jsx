@@ -60,7 +60,7 @@ class CategoryPage extends React.Component {
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title>{category}</Panel.Title>
+                    <Panel.Title>#{category}</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>
