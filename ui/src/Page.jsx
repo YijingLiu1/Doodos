@@ -19,16 +19,16 @@ function NavBar({ user, onUserChange }) {
                 <Navbar.Brand>Doodos</Navbar.Brand>
             </Navbar.Header>
             <Nav>
-                <LinkContainer exact to="/discover">
+                <LinkContainer exact to="/discover/">
                     <NavItem>Discover</NavItem>
                 </LinkContainer>
-                <LinkContainer exact to="/category">
+                <LinkContainer to="/category/">
                     <NavItem>Category</NavItem>
                 </LinkContainer>
-                <LinkContainer exact to="/doodlemaps">
+                <LinkContainer exact to="/doodlemaps/">
                     <NavItem>DoodleMaps</NavItem>
                 </LinkContainer>
-                <LinkContainer exact to="/store">
+                <LinkContainer exact to="/store/">
                     <NavItem>Store</NavItem>
                 </LinkContainer>
             </Nav>

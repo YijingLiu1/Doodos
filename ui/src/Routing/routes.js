@@ -13,7 +13,7 @@ import Item from '../Store/ItemPage.jsx';
 
 const routes = [
     { path: '/discover', component: Discover },
-    { path: '/category', component: Category },
+    { path: '/category/:category?', component: Category },
     { path: '/doodlemaps', component: DoodleMaps },
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },

@@ -7,7 +7,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import PostItem from "../Discover/PostItem.jsx";
 import EventItem from "../Discover/EventItem.jsx";
 import { Link } from 'react-router-dom';
-import GroupsContents from './GroupsContents.jsx';
+import CategoryContents from './CategoryContents.jsx';
 import axios from "axios";
 
 class Category extends React.Component {
@@ -80,14 +80,14 @@ class Category extends React.Component {
                                 <Link to="/category/" />
                             </MenuItem>
                             <SubMenu title="Explore by Category">
-                                <MenuItem>All Categories<Link to="./all/" /></MenuItem>
-                                <MenuItem>Ideas<Link to="/category/ideas/" /></MenuItem>
-                                <MenuItem>Artworks<Link to="/category/artworks/" /></MenuItem>
-                                <MenuItem>Spots Around You<Link to="/category/spotsaroundyou/" /></MenuItem>
-                                <MenuItem>Fashion<Link to="/category/fashion/" /></MenuItem>
-                                <MenuItem>Activities<Link to="/category/activities/" /></MenuItem>
-                                <MenuItem>Events<Link to="/category/events/" /></MenuItem>
-                                <MenuItem>Life<Link to="/category/life/" /></MenuItem>
+                                <MenuItem>All Categories<Link to="./all" /></MenuItem>
+                                <MenuItem>Ideas<Link to="./ideas" /></MenuItem>
+                                <MenuItem>Artworks<Link to="./artworks" /></MenuItem>
+                                <MenuItem>Spots Around You<Link to="./spotsaroundyou" /></MenuItem>
+                                <MenuItem>Fashion<Link to="./fashion" /></MenuItem>
+                                <MenuItem>Activities<Link to="./activities" /></MenuItem>
+                                <MenuItem>Events<Link to="./events" /></MenuItem>
+                                <MenuItem>Life<Link to="./life" /></MenuItem>
                             </SubMenu>
                             <SubMenu title="Your Category" defaultOpen={true}>
                                 {menuItems}
@@ -96,7 +96,7 @@ class Category extends React.Component {
                     </SidebarContent>
                 </ProSidebar>
                 <div className="GroupsContentsWrapper">
-                    <GroupsContents />
+                    <CategoryContents />
                 </div>
             </div>
         )
