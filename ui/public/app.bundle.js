@@ -3578,7 +3578,12 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           user = _this$state.user,
           profile = _this$state.profile,
-          posts = _this$state.posts; // Have to convert the object before use
+          posts = _this$state.posts;
+
+      if (user == null) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Sign in to access Dashboard.");
+      } // Have to convert the object before use
+
 
       var userObject = {};
       var profileObject = {};

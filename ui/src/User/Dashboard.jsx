@@ -54,6 +54,9 @@ class Dashboard extends React.Component {
     render() {
         const { match: { params: { tab } } } = this.props;
         const { user, profile, posts } = this.state;
+        if (user == null) {
+            return <h1>Sign in to access Dashboard.</h1>
+        }
         // Have to convert the object before use
         const userObject = {};
         const profileObject = {};
