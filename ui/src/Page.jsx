@@ -22,8 +22,8 @@ function NavBar({ user, onUserChange }) {
                 <LinkContainer exact to="/discover">
                     <NavItem>Discover</NavItem>
                 </LinkContainer>
-                <LinkContainer exact to="/groups">
-                    <NavItem>Groups</NavItem>
+                <LinkContainer exact to="/category">
+                    <NavItem>Category</NavItem>
                 </LinkContainer>
                 <LinkContainer exact to="/doodlemaps">
                     <NavItem>DoodleMaps</NavItem>

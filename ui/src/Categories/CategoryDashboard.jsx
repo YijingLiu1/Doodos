@@ -1,9 +1,16 @@
-import PostItem from "./PostItem.jsx";
-import {Col, Panel, Row} from "react-bootstrap";
-import React from "react";
-import api from "../api";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+    Col, Panel, Form, FormGroup, FormControl, ControlLabel,
+    ButtonToolbar, Button, Alert, Row, Image, Grid,
+} from 'react-bootstrap';
+import withToast from '../withToast.jsx';
+import GroupItem from "./GroupItem.jsx";
+import api from "../api.js";
+import PostItem from "../Discover/PostItem.jsx";
 
-export default class PostPanel extends React.Component {
+class CategoryDashboard extends React.Component {
     constructor() {
         super();
         this.state = { posts: [] };
@@ -29,12 +36,12 @@ export default class PostPanel extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={3} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
         ));
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title>What's New</Panel.Title>
+                    <Panel.Title>Posts for You</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>
@@ -45,3 +52,7 @@ export default class PostPanel extends React.Component {
         );
     }
 }
+
+const DashboardWithToast = withToast(withRouter(CategoryDashboard));
+
+export default DashboardWithToast;

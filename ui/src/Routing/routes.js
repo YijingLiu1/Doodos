@@ -1,5 +1,5 @@
 import NotFound from '../NotFound.jsx';
-import Groups from "../Groups/Groups.jsx";
+import Category from "../Categories/Category.jsx";
 import Discover from "../Discover/Discover.jsx";
 import DoodleMaps from "../DoodleMaps/DoodleMaps.jsx";
 import Store from "../Store/Store.jsx";
@@ -13,7 +13,7 @@ import Item from '../Store/ItemPage.jsx';
 
 const routes = [
     { path: '/discover', component: Discover },
-    { path: '/groups', component: Groups },
+    { path: '/category', component: Category },
     { path: '/doodlemaps', component: DoodleMaps },
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
