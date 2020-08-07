@@ -23,8 +23,73 @@ UI structure designed based on the textbook sourcecode along with other tools in
 ### API - Haoran Yu
 
 
+### Changes to the app
 
-For deployment purpose, the original api/config/default.json is changed to api/.env.
+After the iter 1, in the sake of conveniency, the __Trolly.js__ schema is renamed to __Cart.js__, __shoppingItems.js__ to __product.js__.
+
+Group is replaced by favoriteCategories in users' profiles, where user could add different categories to their favorites to filter the posts they are exposed to. 
+
+### Heroku deloyment
+
+For conveniency of deployment api/config/default.js is replaced by api/.env. This is also reflected in package.json besides config, the dotenv package is also installed.
+
+
+### In the Social part, user could:
+
+* In the line Store ,various products is provided to the users, inluding the tickets for events.
+
+* Create post with image and text they want to share with the community.
+
+* Choose a category their posts belongs to
+
+* Filter posts by their categories
+
+* Retrieve and update their post after it is created
+
+* like other people's posts, (CRUD support, user either create, retrieve, update or delete the info)
+
+* comment below other people's posts, (CRUD support, user either create, retrieve, update or delete the info)
+
+* Follow people they are interested in, the data is stored in their user information.
+
+* Set their favorite categories of post in their profile, where they could have shortcut for posts filtered by the category.
+
+
+### In the Online store part, user could:
+
+* Get all kinds of products and choose what they want to buy.
+
+* If there is no more product in the store, user will be notified when adding that product
+
+* If there is no more product in the cart to remove, user will also be notified when they are trying to remove
+
+* If one product's amount is reduced to 0, it will be removed from the cart
+
+* Get any product's detailed info by get by its Id
+
+* Add, different products to their cart. And after every move, the new total sum ,the number of products in user's cart and the online store will all get updated in no time
+
+* Delete different products to their cart. And after every move, the new total sum ,the number of products in user's cart and the online store will all get updated in no time
+
+
+### In the Online Events, user could:
+
+* Register an event and they place will be reserved
+
+* Buy the ticket by clicking the link and get redirected to the online store page
+
+* View the total number of places remained and people's avatars who get registered.
+
+
+## Data fufillment and User relation set up
+
+To functionalize the app and test it, vivid user datas and profiles, and infos are generated manually. In a total of 20 users, 20 profiles, 23 posts, 9 products and 3 events 1 cart are created for this web app.
+
+Below is a snapshot of the data example
+
+
+At the next stage, a final checkout and pay method of either Paypal or Alipay will be added to the app, where the user could pay their purchases and finish the shopping process. And we will also try to add google map api to this app, besides improving the backend objects, schemas and routes extra to improve the app.
+
 
 ## Iter 1
 
