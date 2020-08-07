@@ -6,7 +6,6 @@ import {
     ButtonToolbar, Button, Alert, Row, Image, Grid,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
-import GroupItem from "./GroupItem.jsx";
 import api from "../api.js";
 import PostItem from "../Discover/PostItem.jsx";
 import axios from "axios";

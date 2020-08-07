@@ -14,7 +14,8 @@ class Category extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: null
+            user: null,
+            category: []
         }
     }
 
@@ -33,11 +34,11 @@ class Category extends React.Component {
         });
         const profile = await api.get('/profile/me');
         if (profile) {
-            this.setState({ profile: profile.data });
             const profileObject = {};
             for (let k in profile.data) {
                 profileObject[k] = profile.data[k];
             }
+            this.setState({ profile: profile.data, category: profileObject.favoriteCategories });
             const id = profileObject.user._id;
             const user = await api.get(`/users/${id}`);
             const posts = await api.get(`/posts/byuser/${id}`);
@@ -51,6 +52,23 @@ class Category extends React.Component {
     }
 
     render() {
+        const categoryDict = {
+            "all": "All Categories",
+            "ideas": "Ideas",
+            "artworks": "Artworks",
+            "spotsaroundyou": "Spots Around You",
+            "fashion": "Fashion",
+            "activities": "Activities",
+            "events": "Events",
+            "life": "Life"
+        };
+        const { category } = this.state;
+        const menuItems = [];
+        for (let k in category) {
+            let link = `./${category[k]}`;
+            menuItems.push(<MenuItem key={category[k]}>{categoryDict[category[k]]}<Link to={link} /></MenuItem>)
+        }
+
         return (
             <div className="WithSideBar">
                 <ProSidebar>
@@ -62,7 +80,7 @@ class Category extends React.Component {
                                 <Link to="/category/" />
                             </MenuItem>
                             <SubMenu title="Explore by Category">
-                                <MenuItem>All Categories<Link to="/category/all/" /></MenuItem>
+                                <MenuItem>All Categories<Link to="./all/" /></MenuItem>
                                 <MenuItem>Ideas<Link to="/category/ideas/" /></MenuItem>
                                 <MenuItem>Artworks<Link to="/category/artworks/" /></MenuItem>
                                 <MenuItem>Spots Around You<Link to="/category/spotsaroundyou/" /></MenuItem>
@@ -72,22 +90,7 @@ class Category extends React.Component {
                                 <MenuItem>Life<Link to="/category/life/" /></MenuItem>
                             </SubMenu>
                             <SubMenu title="Your Category" defaultOpen={true}>
-                                <MenuItem>
-                                    Category 1
-                                    <Link to="/category/1" />
-                                </MenuItem>
-                                <MenuItem>
-                                    Category 2
-                                    <Link to="/category/2" />
-                                </MenuItem>
-                                <MenuItem>
-                                    Category 3
-                                    <Link to="/category/3" />
-                                </MenuItem>
-                                <MenuItem>
-                                    Category 4
-                                    <Link to="/category/4" />
-                                </MenuItem>
+                                {menuItems}
                             </SubMenu>
                         </Menu>
                     </SidebarContent>
