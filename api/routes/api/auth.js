@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const config = require('config');
 
 const User = require('../../models/User');
 
 // @route   GET api/auth
 // @desc    Test route
-// @access  Public
+// @access  Private
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -66,7 +66,7 @@ router.post(
 
       jwt.sign(
         payload,
-          process.env.jwtSecret,
+        config.get('jwtSecret'),
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
