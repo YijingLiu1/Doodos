@@ -34,6 +34,7 @@ Group is replaced by favoriteCategories in users' profiles, where user could add
 For conveniency of deployment api/config/default.js is replaced by api/.env. This is also reflected in package.json besides config, the dotenv package is also installed.
 
 
+
 ### In the Social part, user could:
 
 * In the line Store ,various products is provided to the users, inluding the tickets for events.
@@ -55,6 +56,7 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * Set their favorite categories of post in their profile, where they could have shortcut for posts filtered by the category.
 
 
+
 ### In the Online store part, user could:
 
 * Get all kinds of products and choose what they want to buy.
@@ -72,6 +74,7 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * Delete different products to their cart. And after every move, the new total sum ,the number of products in user's cart and the online store will all get updated in no time
 
 
+
 ### In the Online Events, user could:
 
 * Register an event and they place will be reserved
@@ -81,11 +84,22 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * View the total number of places remained and people's avatars who get registered.
 
 
+
 ### Data fufillment and User relation set up
 
 To functionalize the app and test it, vivid user datas and profiles, and infos are generated manually. In a total of 20 users, 20 profiles, 23 posts, 9 products and 3 events 1 cart are created for this web app.
 
 Below is a snapshot of the data example
+
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/cart-data-example.png)
+cart-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/event-data-type.png)
+event-data-example
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/post-data-example.png)
+post-data-example
 
 
 At the next stage, a final checkout and pay method of either Paypal or Alipay will be added to the app, where the user could pay their purchases and finish the shopping process. And we will also try to add google map api to this app, besides improving the backend objects, schemas and routes extra to improve the app.
