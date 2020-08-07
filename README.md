@@ -75,6 +75,10 @@ For conveniency of deployment api/config/default.js is replaced by api/.env. Thi
 * Delete different products to their cart. And after every move, the new total sum ,the number of products in user's cart and the online store will all get updated in no time
 
 
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/onlinestore/add-item-to-cart1.png)
+
+add-item-to-cart
+
 
 ### In the Online Events, user could:
 
