@@ -89,6 +89,9 @@ add-item-to-cart
 * View the total number of places remained and people's avatars who get registered.
 
 
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/register-an-event.png)
+
+register-an-event
 
 ### Data fufillment and User relation set up
 
