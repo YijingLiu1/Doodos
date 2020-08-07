@@ -98,20 +98,20 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route   GET api/posts/:category
+// @route   GET api/bycategory/:category
 // @desc    Get posts by category
 // @access  Public
 
-router.get('/bycategory/:category', async (res, req) => {
+router.get('/bycategory/:category', async (req, res) => {
   try {
     // invalid category
-    if (!categories.includes(req.body.category)) {
+    if (!categories.indexOf(req.params.category) < 0) {
       return res.status(404).json({ msg: 'Category not found' });
     }
 
     const posts = await Post.find();
-    const postsfound = await posts.find((post) =>
-      post.category.includes(req.params.category)
+    const postsfound = await posts.filter((post) =>
+      post.categories.includes(req.params.category) > -1
     );
 
     res.json(postsfound);

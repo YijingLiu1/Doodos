@@ -17,12 +17,9 @@ const PostSchema = new Schema({
     life
     */
 
-  categories: [
-    {
-      type: String,
-    },
-  ],
-
+  categories: {
+    type: [String],
+  },
   title: {
     type: String,
     required: true,

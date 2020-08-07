@@ -6,6 +6,16 @@ const { check, validationResult } = require('express-validator');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
+const categories = [
+  'ideas',
+  'artworks',
+  'spotsaroundyou',
+  'fashion',
+  'activities',
+  'events',
+  'life',
+];
+
 // @route   GET api/profile/me
 // @desc    Get current user's profile
 // @access  Private
@@ -50,6 +60,7 @@ router.post(
       skills,
       location,
       website,
+      experience,
       title,
       description,
       linkedin,
@@ -57,6 +68,7 @@ router.post(
       twitter,
       facebook,
       instagram,
+      favoriteCategories,
     } = req.body;
 
     // Build profile object
@@ -71,6 +83,10 @@ router.post(
       profileFields.skills = skills.split(',').map((skill) => skill.trim());
     }
 
+    if (favoriteCategories) {
+      profileFields.favoriteCategories = favoriteCategories.split(',').map((category) => category.trim());
+    }
+    
     // Build social object
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
@@ -78,10 +94,8 @@ router.post(
     if (facebook) profileFields.social.facebok = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
-
     try {
       let profile = await Profile.findOne({ user: req.user.id });
-
       if (profile) {
         // update
         profile = await Profile.findOneAndUpdate(
