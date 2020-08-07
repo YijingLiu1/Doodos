@@ -2,6 +2,22 @@
 ## Doodos
 Team Member: Yijing Liu, Haoran Yu
 
+## Iter 2
+
+By the end of Iteration 1, UI and API are only connected through Sign In API. 
+After Iteration 2, most UI components now connects to data on MongoDB through APIs including users, events, posts, products, etc.. 
+
+### UI - Yijing Liu
+
+Deployed UI Link: https://doodos-ui.herokuapp.com/
+
+UI designed based on the textbook.
+
+
+
+### API - Haoran Yu
+
+
 ## Iter 1
 
 Our team is trying to build a platform for artists and graffiti lovers to communicate and share their works. The website is expected to have __Discover__ page for viewing posts and events, __Groups__ page to join groups and communicate, __DoodleMaps__ page to let users view posts by location, and __Store__ page for users to purchase tools and merchandises.
