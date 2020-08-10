@@ -20,8 +20,7 @@ class Post extends React.Component {
     }
 
     async loadData() {
-        let { match: { params: { id } } } = this.props;
-        if (id == null) id = this.props.id;
+        const { id } = this.props;
         const post = await api.get(`/posts/${id}`);
         if (post) {
             this.setState({ post: post.data });

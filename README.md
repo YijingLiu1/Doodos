@@ -4,12 +4,32 @@ Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 2
 
-By the end of Iteration 1, UI and API are only connected through Sign In API. 
+__Contribution on Project:__
+* UI/Deployment - Yijing Liu
+* API - Haoran Yu
+
+__Progress since Iter 1:__<br/>
+By the end of Iteration 1, UI and API are only connected through Sign In API. <br/>
 After Iteration 2, most UI components now connects to data on MongoDB through APIs including users, events, posts, products, etc.. 
+
+Some progress in the App:
+* All contents of posts, events, profiles, store items have now been fetched from database through API.
+* Make a New Post is now added and functioning, with picture upload feature.
+* Category page is added, offering filters on posts by category.
+* A signed in user can see posts in his/her favorite categories in Category page under _Your Feed_.
+* User profile page would show posts by the user under _Posts_ tab, and social network links under _About_ tab.
+* Store page is added, displaying items selling on the website.
+
+__What's next:__
+* More features including update, delete, like for post; edit for profile; join for event; follow for user; purchase for store.
+* DoodleMaps page for showing posts on the map by location.
+* Register feature for new users to sign up.
+* Google sign-in feature if time left.
+
 
 ### UI - Yijing Liu
 
-Deployed UI Link (Might take a while for data from database to load): https://doodos-ui.herokuapp.com/
+Deployed App/UI Link (Might take a while for data from database to load): https://doodos-ui.herokuapp.com/
 
 UI structure designed based on the textbook sourcecode along with other tools including:
 * __"react-Dropzone"__, __"superagent"__ are used in "PostAddNavItem" component for uploading artworks of the post.
@@ -17,12 +37,58 @@ UI structure designed based on the textbook sourcecode along with other tools in
 
 #### UI Design
 
+__Discover Page__
+
+* The Home/Discover page now has post and event items fetched from database. First 3 items are posted from Front-End with user logged in as Da Vincci. This page would show posts in created time order, from the latest posts to the oldest.
+![Discover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+
+* To make a post, one has to sign in, otherwise will get an error toast when clicking on the __+__ sign.
+![Post Add Verification](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Post%20Add%20Verification.JPG)
+
+* Make a new post by filling in the title, description and uploading a picture. More features like selecting categories will be added in the future.
+![Post Add](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Post%20Add.JPG)
+
+* Clicking on posts would show a modal with more information of the post including description and post date. The _Like_ feature is still in progress.
+![Post](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Post.JPG)
+
+* Clicking on __View More__ on the event slides would guide user to the event page with more details of the event. The _Join_ feature is still in progress.
+![Event](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Event.JPG)
+
+__User Page__
+
+* Sign in feature currently only supports standard users. Google sign-in feature still in progress. To test user, one can login using _"Dvinci@gmail.com"_ or _"joemurphy@gmail.com"_ as email, and _"1234567"_ as password.
+![Sign In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Sign%20In.JPG)
+
+* Clicking on the author below would direct to a user profile page, with all of the user's work shown.
+![User](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/User.JPG)
+
+* About tab would show the user's other information including social network links.
+![Social](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Social.JPG)
+
+* A signed in user could access to his/her own dashboard by clicking on the user name and then the dropdown. The current dashboard page is similar to the user profile page. Features like editing profile and posts would be added in the future.
+![Dashboard](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Dashboard.JPG)
+
+__Category Page__
+
+* The Category page would show posts by category. The page is directed to _"Your Feed"_ by default. A signed in user would have posts in his/her favorite categories on this page, while a guest would only see all posts unfiltered when directed to Category page.
+![Category Dashboard](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Category%20Dashboard.JPG)
+
+* User could switch category by clicking on the sidebar. Favorite categories would be listed under _"Your Category"_ for easier access. Or user can select other categories under _"Explore by Category"_. By clicking on the category the page would show posts under the category only. 
+![Posts by Category](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Posts%20by%20Category.JPG)
+
+__Store Page__
+
+* The Store Page displays items selling on the website. The slides on the top are promotions for tickets of the events. All items are shown with pictures and prices, as well as names when hover on it. Add to cart and purchase features are still in progress.
+![Store](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Store.JPG)
+
+* Clicking on items would show more information about the items. UI for the modal is still in progress. 
+![Item](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Item.JPG)
 
 
 
 ### API - Haoran Yu
 
-Deployed APP Link (api database connected): https://doodos-ui.herokuapp.com/
+Deployed API Link: https://doodos-api.herokuapp.com/
 
 ### Changes to the app
 
@@ -30,7 +96,7 @@ After the iter 1, in the sake of conveniency, the __Trolly.js__ schema is rename
 
 Group is replaced by favoriteCategories in users' profiles, where user could add different categories to their favorites to filter the posts they are exposed to. 
 
-### Heroku deloyment
+### Heroku deployment
 
 For conveniency of deployment api/config/default.js is replaced by api/.env. This is also reflected in package.json besides config, the dotenv package is also installed.
 
@@ -124,11 +190,10 @@ profile-data-example
 
 user-data-example
 
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/user-data-example.png)
-
-user-data-example
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/supplement%20for%20iter2/srcimage.png)
 
 image source: https://haoran-yu.imgbb.com/albums
+
 
 At the next stage, a final checkout and pay method of either Paypal or Alipay will be added to the app, where the user could pay their purchases and finish the shopping process. And we will also try to add google map api to this app, besides improving the backend objects, schemas and routes extra to improve the app.
 
@@ -152,37 +217,37 @@ Routes so far has access to all pages on NavBar including "/discover", "/groups"
 #### UI Design
 
 * Discover page is the home page of the website, showing posts and events with links to see details.
-![Discover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Discover.JPG)
+![Discover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Discover.JPG)
 
 * Hover on Event Section would show description of the event with a button link to the event page.
-![Event Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Hover%20on%20Event.JPG)
+![Event Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Hover%20on%20Event.JPG)
 
 * Events are shown in slides and can be switched with button, event details can be seen by clicking on _View More_.
-![Event Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Event%20Detail.JPG)
+![Event Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Event%20Detail.JPG)
 
 * Hover on Posts would show the title of the post, author name and like button are placed under the post.
-![Post Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Hover%20on%20Post.JPG)
+![Post Hover](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Hover%20on%20Post.JPG)
 
 * Author's profile can be accessed by clicking on the author name.
-![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Profile.JPG)
+![User Profile](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/User%20Profile.JPG)
 
 * Clicking on the post would pop up a modal showing the details.
-![Post Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail.JPG)
+![Post Detail](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Post%20Detail.JPG)
 
 * Post details can also be shown in a single page by opening it in a new tab.
 ![Post Page](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Post%20Detail%20on%20Single%20Page.JPG)
 
 * Click on __+__ button to make a new post.
-![New Post](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/New%20Post.JPG)
+![New Post](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/New%20Post.JPG)
 
 * Sign In feature is on the NavBar. By clicking on it users can either log in with Google or Doodos acounts.
-![Sign In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20In.JPG)
+![Sign In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Sign%20In.JPG)
 
 * Users can go to the register page by clicking on the Sign Up link.
-![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Sign%20Up.JPG)
+![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/Sign%20Up.JPG)
 
 * After signed in, user name would appear on the NavBar, with a success Toast poped.
-![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/User%20Name%20and%20Toast.JPG)
+![Signed In](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%201/User%20Name%20and%20Toast.JPG)
 
 
 ### API - Haoran Yu

@@ -8,7 +8,7 @@ import {
 import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
-import PostItem from "../Discover/PostItem.jsx";
+import EditItem from "./EditItem.jsx";
 import axios from "axios";
 
 class Dashboard extends React.Component {
@@ -75,7 +75,7 @@ class Dashboard extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><EditItem post={post} /></Col>
         ));
         return (
             <div className="Profile">
