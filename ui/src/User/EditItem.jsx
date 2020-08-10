@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 
 import withToast from '../withToast.jsx';
-import Post from "./Post.jsx";
+import Post from "../discover/Post.jsx";
 
 class PostItem extends React.Component {
     constructor(props) {
@@ -62,10 +62,14 @@ class PostItem extends React.Component {
                     <Modal.Footer>
                         <ButtonToolbar style={{float: "right"}}>
                             <Button
-                                type="button"
                                 bsStyle="primary"
                             >
-                                Like
+                                Edit
+                            </Button>
+                            <Button
+                                bsStyle="danger"
+                            >
+                                Delete
                             </Button>
                             <Button bsStyle="link" onClick={this.hideModal}>Back</Button>
                         </ButtonToolbar>
