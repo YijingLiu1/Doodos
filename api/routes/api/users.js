@@ -87,7 +87,7 @@ router.post(
 // @desc    Register route
 // @access  Private
 
-router.post('/followinig', auth, async (req, res) => {
+router.post('/following', auth, async (req, res) => {
   try {
     const followinguser = await User.findById(req.body.followingId).select(
       '-password'
