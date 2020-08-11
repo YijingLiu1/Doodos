@@ -18,11 +18,16 @@ class Dashboard extends React.Component {
             user: null,
             loading: true
         }
+        this.dataChange = this.dataChange.bind(this);
     }
 
     componentDidMount() {
         const { user } = this.state;
         if (user == null) this.loadData();
+    }
+
+    dataChange() {
+        this.loadData();
     }
 
     async loadData() {

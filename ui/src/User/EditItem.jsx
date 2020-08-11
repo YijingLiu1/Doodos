@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import {withRouter, Link, Redirect} from 'react-router-dom';
 import {
     NavItem, Glyphicon, Modal, Form, FormGroup, FormControl, ControlLabel,
     Button, ButtonToolbar, Tooltip, OverlayTrigger, Col,
@@ -7,11 +7,13 @@ import {
 
 import withToast from '../withToast.jsx';
 import Post from "../Discover/Post.jsx";
+import axios from "axios";
 
 class PostItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            postDeleted: false,
             showing: false,
             showingDelete: false
         };
@@ -19,6 +21,7 @@ class PostItem extends React.Component {
         this.hideModal = this.hideModal.bind(this);
         this.showDelete = this.showDelete.bind(this);
         this.hideDelete = this.hideDelete.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     showModal() {
@@ -37,9 +40,36 @@ class PostItem extends React.Component {
         this.setState({ showingDelete: false });
     }
 
+    async handleDelete(e) {
+        const { post, showSuccess } = this.props;
+        const postObject = {};
+        for (let k in post) {
+            postObject[k] = post[k];
+        }
+        e.preventDefault();
+        const api = axios.create({
+            baseURL: '/api',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.token
+            }
+        });
+        try {
+            await api.delete(`/posts/${postObject._id}`);
+            this.setState({ postDeleted: true });
+            showSuccess("Post deleted.");
+        }
+        catch (err) {
+            console.error(err);
+        }
+
+    }
+
     render() {
-        const { showing, showingDelete } = this.state;
+        const { showing, showingDelete, postDeleted } = this.state;
         const { post } = this.props;
+
+        if (postDeleted) return <meta httpEquiv="refresh" content="1"/>;
         // Have to convert the object before use
         const postObject = {};
         for (let k in post) {
@@ -62,8 +92,8 @@ class PostItem extends React.Component {
                 <div>
                     <div align="left" style={{float: 'left'}}><Link to={authorLink}>{postObject.name}</Link></div>
                     <div align="right">
-                        <Button bsSize="xsmall"><Glyphicon glyph="edit" /></Button>
-                        <Button bsSize="xsmall"><Glyphicon glyph="trash" /></Button>
+                        <Button bsSize="xsmall" onClick={this.showModal}><Glyphicon glyph="edit" /></Button>
+                        <Button bsSize="xsmall" onClick={this.showDelete}><Glyphicon glyph="trash" /></Button>
                     </div>
                 </div>
                 <p></p><p></p>
@@ -97,7 +127,7 @@ class PostItem extends React.Component {
                         <ButtonToolbar style={{float: "right"}}>
                             <Button
                                 bsStyle="danger"
-                                onClick={this.hideDelete}
+                                onClick={this.handleDelete}
                             >
                                 Yes
                             </Button>

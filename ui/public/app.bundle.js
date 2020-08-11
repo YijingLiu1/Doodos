@@ -1728,6 +1728,8 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       showing: false,
+      postAdded: false,
+      linK: '',
       imageUrl: ''
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
@@ -1791,20 +1793,18 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
               case 8:
                 res = _context.sent;
 
-                if (!res) {
-                  _context.next = 15;
-                  break;
+                if (res) {
+                  showSuccess = this.props.showSuccess;
+                  showSuccess("New post made.");
+                  id = res.data._id;
+                  link = "/post/".concat(id);
+                  this.setState({
+                    postAdded: true,
+                    link: link
+                  });
                 }
 
-                showSuccess = this.props.showSuccess;
-                showSuccess("New post made.");
-                id = res.data._id;
-                link = "/post/".concat(id);
-                return _context.abrupt("return", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-                  to: link
-                }));
-
-              case 15:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -1827,7 +1827,10 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var showing = this.state.showing;
+      var _this$state = this.state,
+          showing = _this$state.showing,
+          postAdded = _this$state.postAdded,
+          link = _this$state.link;
       var user = this.props.user;
 
       if (!user.signedIn) {
@@ -1844,6 +1847,9 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
         }))));
       }
 
+      if (postAdded) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+        to: link
+      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavItem"], {
         onClick: this.showModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["OverlayTrigger"], {
@@ -3636,6 +3642,7 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       user: null,
       loading: true
     };
+    _this.dataChange = _this.dataChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3644,6 +3651,11 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var user = this.state.user;
       if (user == null) this.loadData();
+    }
+  }, {
+    key: "dataChange",
+    value: function dataChange() {
+      this.loadData();
     }
   }, {
     key: "loadData",
@@ -4258,7 +4270,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 /* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
 /* harmony import */ var _Discover_Post_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Discover/Post.jsx */ "./src/Discover/Post.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4286,6 +4304,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var PostItem = /*#__PURE__*/function (_React$Component) {
   _inherits(PostItem, _React$Component);
 
@@ -4298,6 +4317,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      postDeleted: false,
       showing: false,
       showingDelete: false
     };
@@ -4305,6 +4325,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     _this.showDelete = _this.showDelete.bind(_assertThisInitialized(_this));
     _this.hideDelete = _this.hideDelete.bind(_assertThisInitialized(_this));
+    _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -4337,12 +4358,73 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handleDelete",
+    value: function () {
+      var _handleDelete = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+        var _this$props, post, showSuccess, postObject, k, api;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this$props = this.props, post = _this$props.post, showSuccess = _this$props.showSuccess;
+                postObject = {};
+
+                for (k in post) {
+                  postObject[k] = post[k];
+                }
+
+                e.preventDefault();
+                api = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context.prev = 5;
+                _context.next = 8;
+                return api.delete("/posts/".concat(postObject._id));
+
+              case 8:
+                this.setState({
+                  postDeleted: true
+                });
+                showSuccess("Post deleted.");
+                _context.next = 15;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](5);
+                console.error(_context.t0);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[5, 12]]);
+      }));
+
+      function handleDelete(_x) {
+        return _handleDelete.apply(this, arguments);
+      }
+
+      return handleDelete;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
           showing = _this$state.showing,
-          showingDelete = _this$state.showingDelete;
-      var post = this.props.post; // Have to convert the object before use
+          showingDelete = _this$state.showingDelete,
+          postDeleted = _this$state.postDeleted;
+      var post = this.props.post;
+      if (postDeleted) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
+        httpEquiv: "refresh",
+        content: "1"
+      }); // Have to convert the object before use
 
       var postObject = {};
 
@@ -4375,11 +4457,13 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       }, postObject.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        bsSize: "xsmall"
+        bsSize: "xsmall",
+        onClick: this.showModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
         glyph: "edit"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        bsSize: "xsmall"
+        bsSize: "xsmall",
+        onClick: this.showDelete
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
         glyph: "trash"
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
@@ -4417,7 +4501,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "danger",
-        onClick: this.hideDelete
+        onClick: this.handleDelete
       }, "Yes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "primary",
         onClick: this.hideDelete

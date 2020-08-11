@@ -14,6 +14,8 @@ class PostAddNavItem extends React.Component {
         super(props);
         this.state = {
             showing: false,
+            postAdded: false,
+            linK: '',
             imageUrl: ''
         };
         this.showModal = this.showModal.bind(this);
@@ -60,8 +62,9 @@ class PostAddNavItem extends React.Component {
             showSuccess("New post made.");
             const id = res.data._id;
             const link = `/post/${id}`;
-            return <Redirect to={link} />;
+            this.setState({ postAdded: true, link});
         }
+
     }
 
     showWarning() {
@@ -70,7 +73,7 @@ class PostAddNavItem extends React.Component {
     }
 
     render() {
-        const { showing } = this.state;
+        const { showing, postAdded, link } = this.state;
         const { user } = this.props;
         if (!user.signedIn) {
             return (
@@ -87,6 +90,9 @@ class PostAddNavItem extends React.Component {
                 </React.Fragment>
             );
         }
+
+        if (postAdded) return <Redirect to={link} />;
+
         return (
             <React.Fragment>
                 <NavItem onClick={this.showModal}>
