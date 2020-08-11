@@ -55,6 +55,13 @@ const ProfileSchema = new mongoose.Schema({
   favoriteCategories: {
     type: [String],
   },
+  myLikes: [
+    {
+      post: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
