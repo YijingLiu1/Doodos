@@ -8,9 +8,8 @@ import PostAddNavItem from './Discover/PostAddNavItem.jsx';
 import Contents from './Routing/Contents.jsx';
 import UserContext from './UserContext.js';
 import SignInNavItem from './User/SignInNavItem.jsx';
-import store from './store.js';
 import axios from "axios";
-import setAuthToken from "./setAuthToken.js";
+import CartNavItem from "./Store/CartNavItem.jsx";
 
 function NavBar({ user, onUserChange }) {
     return (
@@ -35,6 +34,7 @@ function NavBar({ user, onUserChange }) {
 
             <Nav pullRight>
                 <PostAddNavItem user={user} onUserChange={onUserChange} />
+                <CartNavItem user={user} onUserChange={onUserChange} />
                 <SignInNavItem user={user} onUserChange={onUserChange} />
                 <NavDropdown
                     id="user-dropdown"

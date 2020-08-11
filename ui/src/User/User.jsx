@@ -9,12 +9,14 @@ import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
 import PostItem from "../Discover/PostItem.jsx";
+import axios from "axios";
 
 class User extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: null
+            user: null,
+            me: null
         }
     }
 
@@ -37,6 +39,47 @@ class User extends React.Component {
             if (posts) {
                 this.setState({ posts: posts.data });
             }
+        }
+        if (localStorage.token) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                const profile = await api.get('/profile/me');
+                const profileObject = {};
+                for (let k in profile.data) {
+                    profileObject[k] = profile.data[k];
+                }
+                this.setState({ me: profileObject.user._id });
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+    }
+
+    async followUser() {
+        const { match: { params: { id } } } = this.props;
+        const { me } = this.state;
+        if (me != null) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                await api.post(`/events/registration/${id}`);
+            } catch (err) {
+                console.error(err.message);
+            }
+            this.setState({ liked: true});
+        } else {
+            showError("Must sign in to join events.");
         }
     }
 
@@ -61,7 +104,7 @@ class User extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} /></Col>
         ));
         return (
             <div className="Profile">
@@ -79,7 +122,7 @@ class User extends React.Component {
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
-                        <Button bsStyle="primary">Follow +</Button>
+                        <Button bsStyle="primary" onClick={this.followUser}>Follow +</Button>
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">
@@ -94,7 +137,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} posts={postItems} />
+                            <UserTabContents tab={tab} social={social} user={user} posts={postItems} />
                         </div>
                     </div>
                 </div>

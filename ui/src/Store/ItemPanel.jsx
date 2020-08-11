@@ -27,17 +27,17 @@ export default class ItemPanel extends React.Component {
         for (let k in products) {
             productsObject.push(products[k]);
         }
-        const productItems = productsObject.map((product) => (
+        const storeItems = productsObject.map((product) => (
             <Col xs={12} sm={6} md={3} key={product._id}><StoreItem product={product} /></Col>
         ));
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title>Posts for You</Panel.Title>
+                    <Panel.Title>Items for You</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Row>
-                        {productItems}
+                        {storeItems}
                     </Row>
                 </Panel.Body>
             </Panel>
