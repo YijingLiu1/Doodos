@@ -7,6 +7,8 @@ import {
 
 import withToast from '../withToast.jsx';
 import Post from "./Post.jsx";
+import axios from "axios";
+import api from "../api";
 
 class PostItem extends React.Component {
     constructor(props) {
@@ -14,11 +16,24 @@ class PostItem extends React.Component {
         this.state = {
             showing: false,
             liked: false,
+            post: null,
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.likePost = this.likePost.bind(this);
         this.unlikePost = this.unlikePost.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    async loadData() {
+        const { id } = this.props;
+        const post = await api.get(`/posts/${id}`);
+        if (post) {
+            this.setState({ post: post.data });
+        }
     }
 
     showModal() {
@@ -29,22 +44,64 @@ class PostItem extends React.Component {
         this.setState({ showing: false });
     }
 
-    likePost() {
-        this.setState({ liked: true});
+    async likePost() {
+        const { user, id, showError } = this.props;
+        if (user != null) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                await api.put(`/posts/like/${id}`);
+                this.loadData();
+            } catch (err) {
+                console.error(err.message);
+            }
+            this.setState({ liked: true});
+        } else {
+            showError("Must sign in to like posts.");
+        }
     }
 
-    unlikePost() {
-        this.setState({ liked: false});
+    async unlikePost() {
+        const { user, id, showError } = this.props;
+        if (user != null) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                await api.put(`/posts/unlike/${id}`);
+                this.loadData();
+            } catch (err) {
+                console.error(err.message);
+            }
+            this.setState({ liked: true});
+        } else {
+            showError("Must sign in to unlike posts.");
+        }
     }
 
     render() {
-        const { showing, liked } = this.state;
-        const { post } = this.props;
+        const { showing, post } = this.state;
+        const { user } = this.props;
         // Have to convert the object before use
         const postObject = {};
         for (let k in post) {
             postObject[k] = post[k];
         }
+        console.log(post);
+        const likes = [];
+        for (let k in postObject.likes) {
+            likes.push(postObject.likes[k].user);
+        }
+
         const link = `/post/${postObject._id}/`;
         const authorLink = `/user/${postObject.user}/`;
         const like = <div align="right"><Button bsSize="xsmall" onClick={this.likePost}><Glyphicon glyph="heart" /></Button></div>;
@@ -62,7 +119,7 @@ class PostItem extends React.Component {
                 </div>
                 <div>
                     <div align="left" style={{float: 'left'}}><Link to={authorLink}>{postObject.name}</Link></div>
-                    {liked? unlike:like}
+                    {likes.includes(user)? unlike:like}
                 </div>
                 <p></p><p></p>
                 <Modal keyboard show={showing} onHide={this.hideModal}>

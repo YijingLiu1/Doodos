@@ -1908,7 +1908,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 /* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
 /* harmony import */ var _Post_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Post.jsx */ "./src/Discover/Post.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../api */ "./src/api.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1936,6 +1943,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var PostItem = /*#__PURE__*/function (_React$Component) {
   _inherits(PostItem, _React$Component);
 
@@ -1949,7 +1958,8 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       showing: false,
-      liked: false
+      liked: false,
+      post: null
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
@@ -1959,6 +1969,47 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(PostItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadData();
+    }
+  }, {
+    key: "loadData",
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var id, post;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                id = this.props.id;
+                _context.next = 3;
+                return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/posts/".concat(id));
+
+              case 3:
+                post = _context.sent;
+
+                if (post) {
+                  this.setState({
+                    post: post.data
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
+  }, {
     key: "showModal",
     value: function showModal() {
       this.setState({
@@ -1974,30 +2025,147 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "likePost",
-    value: function likePost() {
-      this.setState({
-        liked: true
-      });
-    }
+    value: function () {
+      var _likePost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var _this$props, user, id, showError, _api;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this$props = this.props, user = _this$props.user, id = _this$props.id, showError = _this$props.showError;
+
+                if (!(user != null)) {
+                  _context2.next = 15;
+                  break;
+                }
+
+                _context2.prev = 2;
+                _api = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context2.next = 6;
+                return _api.put("/posts/like/".concat(id));
+
+              case 6:
+                this.loadData();
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                console.error(_context2.t0.message);
+
+              case 12:
+                this.setState({
+                  liked: true
+                });
+                _context2.next = 16;
+                break;
+
+              case 15:
+                showError("Must sign in to like posts.");
+
+              case 16:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 9]]);
+      }));
+
+      function likePost() {
+        return _likePost.apply(this, arguments);
+      }
+
+      return likePost;
+    }()
   }, {
     key: "unlikePost",
-    value: function unlikePost() {
-      this.setState({
-        liked: false
-      });
-    }
+    value: function () {
+      var _unlikePost = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var _this$props2, user, id, showError, _api2;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this$props2 = this.props, user = _this$props2.user, id = _this$props2.id, showError = _this$props2.showError;
+
+                if (!(user != null)) {
+                  _context3.next = 15;
+                  break;
+                }
+
+                _context3.prev = 2;
+                _api2 = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context3.next = 6;
+                return _api2.put("/posts/unlike/".concat(id));
+
+              case 6:
+                this.loadData();
+                _context3.next = 12;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](2);
+                console.error(_context3.t0.message);
+
+              case 12:
+                this.setState({
+                  liked: true
+                });
+                _context3.next = 16;
+                break;
+
+              case 15:
+                showError("Must sign in to unlike posts.");
+
+              case 16:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[2, 9]]);
+      }));
+
+      function unlikePost() {
+        return _unlikePost.apply(this, arguments);
+      }
+
+      return unlikePost;
+    }()
   }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
           showing = _this$state.showing,
-          liked = _this$state.liked;
-      var post = this.props.post; // Have to convert the object before use
+          post = _this$state.post;
+      var user = this.props.user; // Have to convert the object before use
 
       var postObject = {};
 
       for (var k in post) {
         postObject[k] = post[k];
+      }
+
+      console.log(post);
+      var likes = [];
+
+      for (var _k in postObject.likes) {
+        likes.push(postObject.likes[_k].user);
       }
 
       var link = "/post/".concat(postObject._id, "/");
@@ -2038,7 +2206,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: authorLink
-      }, postObject.name)), liked ? unlike : like), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
+      }, postObject.name)), likes.includes(user) ? unlike : like), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
         keyboard: true,
         show: showing,
         onHide: this.hideModal
@@ -2082,6 +2250,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api */ "./src/api.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2113,6 +2283,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var PostPanel = /*#__PURE__*/function (_React$Component) {
   _inherits(PostPanel, _React$Component);
 
@@ -2125,7 +2296,8 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      posts: []
+      posts: [],
+      user: null
     };
     return _this;
   }
@@ -2140,15 +2312,43 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var posts;
+        var api, profile, profileObject, k, posts;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _api__WEBPACK_IMPORTED_MODULE_3__["default"].get("/posts");
+                api = axios__WEBPACK_IMPORTED_MODULE_4___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context.next = 3;
+                return api.get('/profile/me');
 
-              case 2:
+              case 3:
+                profile = _context.sent;
+
+                if (profile) {
+                  this.setState({
+                    profile: profile.data
+                  });
+                  profileObject = {};
+
+                  for (k in profile.data) {
+                    profileObject[k] = profile.data[k];
+                  }
+
+                  this.setState({
+                    user: profileObject.user._id
+                  });
+                }
+
+                _context.next = 7;
+                return api.get("/posts");
+
+              case 7:
                 posts = _context.sent;
 
                 if (posts) {
@@ -2157,7 +2357,7 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 4:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -2174,7 +2374,9 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var posts = this.state.posts; // Have to convert the object before use
+      var _this$state = this.state,
+          posts = _this$state.posts,
+          user = _this$state.user; // Have to convert the object before use
 
       var postsObject = [];
 
@@ -2189,7 +2391,8 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
           md: 3,
           key: post._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_PostItem_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-          post: post
+          id: post._id,
+          user: user
         }));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Title, null, "What's New")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, postItems)));
