@@ -8,6 +8,7 @@ import {
 import withToast from '../withToast.jsx';
 import api from "../api";
 import PostItem from "../Discover/PostItem.jsx";
+import axios from "axios";
 
 class CategoryPage extends React.Component {
     constructor() {
@@ -30,6 +31,21 @@ class CategoryPage extends React.Component {
     }
 
     async loadData() {
+        if (localStorage.token) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                const profile = await api.get('/profile/me');
+                this.setState({ user: profile.data.user._id });
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
         const { match: { params: { category } } } = this.props;
         if (category === "all") {
             const posts = await api.get("/posts");
@@ -57,7 +73,7 @@ class CategoryPage extends React.Component {
             "events": "Events",
             "life": "Life"
         };
-        const { posts } = this.state;
+        const { posts, user } = this.state;
         // Have to convert the object before use
         const { match: { params: { category } } } = this.props;
         const postsObject = [];
@@ -65,7 +81,7 @@ class CategoryPage extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user} /></Col>
         ));
         return (
             <Panel>

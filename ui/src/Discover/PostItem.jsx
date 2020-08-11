@@ -96,12 +96,10 @@ class PostItem extends React.Component {
         for (let k in post) {
             postObject[k] = post[k];
         }
-        console.log(post);
         const likes = [];
         for (let k in postObject.likes) {
             likes.push(postObject.likes[k].user);
         }
-
         const link = `/post/${postObject._id}/`;
         const authorLink = `/user/${postObject.user}/`;
         const like = <div align="right"><Button bsSize="xsmall" onClick={this.likePost}><Glyphicon glyph="heart" /></Button></div>;

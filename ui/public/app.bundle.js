@@ -526,7 +526,9 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       posts: [],
-      categories: []
+      categories: [],
+      user: null,
+      loading: true
     };
     return _this;
   }
@@ -564,10 +566,11 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 28;
+                _context.next = 33;
                 break;
 
               case 7:
+                _context.prev = 7;
                 _api = axios__WEBPACK_IMPORTED_MODULE_7___default.a.create({
                   baseURL: '/api',
                   headers: {
@@ -575,10 +578,10 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                     'x-auth-token': localStorage.token
                   }
                 });
-                _context.next = 10;
+                _context.next = 11;
                 return _api.get('/profile/me');
 
-              case 10:
+              case 11:
                 profile = _context.sent;
                 favoriteCategories = [];
 
@@ -586,19 +589,20 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   favoriteCategories.push(profile.data.favoriteCategories[k]);
                 }
 
-                console.log(favoriteCategories);
+                this.setState({
+                  user: profile.data.user._id
+                });
                 checked = {};
                 _context.t0 = regeneratorRuntime.keys(favoriteCategories);
 
-              case 16:
+              case 17:
                 if ((_context.t1 = _context.t0()).done) {
-                  _context.next = 28;
+                  _context.next = 27;
                   break;
                 }
 
                 _k = _context.t1.value;
                 category = favoriteCategories[_k];
-                console.log("category: ".concat(category));
                 _context.next = 22;
                 return _api.get("/posts/bycategory/".concat(category));
 
@@ -614,16 +618,27 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   }
                 }
 
-                console.log(this.state.posts);
-                _context.next = 16;
+                _context.next = 17;
                 break;
 
-              case 28:
+              case 27:
+                this.setState({
+                  loading: false
+                });
+                _context.next = 33;
+                break;
+
+              case 30:
+                _context.prev = 30;
+                _context.t2 = _context["catch"](7);
+                console.error(_context.t2.message);
+
+              case 33:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[7, 30]]);
       }));
 
       function loadData() {
@@ -635,7 +650,11 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var posts = this.state.posts; // Have to convert the object before use
+      var _this$state = this.state,
+          posts = _this$state.posts,
+          user = _this$state.user,
+          loading = _this$state.loading;
+      if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading..."); // Have to convert the object before use
 
       var postsObject = [];
 
@@ -650,7 +669,8 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
           md: 4,
           key: post._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          post: post
+          id: post._id,
+          user: user
         }));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, "Posts for You")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
@@ -683,6 +703,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api */ "./src/api.js");
 /* harmony import */ var _Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Discover/PostItem.jsx */ "./src/Discover/PostItem.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -708,6 +730,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -754,23 +777,53 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var category, posts, _posts;
+        var _api, profile, category, posts, _posts;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                category = this.props.match.params.category;
-
-                if (!(category === "all")) {
-                  _context.next = 8;
+                if (!localStorage.token) {
+                  _context.next = 12;
                   break;
                 }
 
-                _context.next = 4;
+                _context.prev = 1;
+                _api = axios__WEBPACK_IMPORTED_MODULE_7___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context.next = 5;
+                return _api.get('/profile/me');
+
+              case 5:
+                profile = _context.sent;
+                this.setState({
+                  user: profile.data.user._id
+                });
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
+                console.error(_context.t0.message);
+
+              case 12:
+                category = this.props.match.params.category;
+
+                if (!(category === "all")) {
+                  _context.next = 20;
+                  break;
+                }
+
+                _context.next = 16;
                 return _api__WEBPACK_IMPORTED_MODULE_5__["default"].get("/posts");
 
-              case 4:
+              case 16:
                 posts = _context.sent;
 
                 if (posts) {
@@ -779,15 +832,15 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 14;
+                _context.next = 26;
                 break;
 
-              case 8:
+              case 20:
                 console.log(category);
-                _context.next = 11;
+                _context.next = 23;
                 return _api__WEBPACK_IMPORTED_MODULE_5__["default"].get("/posts/bycategory/".concat(category));
 
-              case 11:
+              case 23:
                 _posts = _context.sent;
                 console.log(_posts);
 
@@ -797,12 +850,12 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 14:
+              case 26:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function loadData() {
@@ -824,7 +877,9 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
         "events": "Events",
         "life": "Life"
       };
-      var posts = this.state.posts; // Have to convert the object before use
+      var _this$state = this.state,
+          posts = _this$state.posts,
+          user = _this$state.user; // Have to convert the object before use
 
       var category = this.props.match.params.category;
       var postsObject = [];
@@ -840,7 +895,8 @@ var CategoryPage = /*#__PURE__*/function (_React$Component) {
           md: 4,
           key: post._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          post: post
+          id: post._id,
+          user: user
         }));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, categoryDict[category])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, postItems)));
@@ -972,6 +1028,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
 /* harmony import */ var _EventTabContents_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EventTabContents.jsx */ "./src/Discover/EventTabContents.jsx");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../api */ "./src/api.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -997,6 +1055,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1066,6 +1125,68 @@ var Event = /*#__PURE__*/function (_React$Component) {
       return loadData;
     }()
   }, {
+    key: "joinEvent",
+    value: function () {
+      var _joinEvent = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var _this$props, user, id, showError, _api;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this$props = this.props, user = _this$props.user, id = _this$props.id, showError = _this$props.showError;
+
+                if (!(user != null)) {
+                  _context2.next = 15;
+                  break;
+                }
+
+                _context2.prev = 2;
+                _api = axios__WEBPACK_IMPORTED_MODULE_7___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context2.next = 6;
+                return _api.put("/posts/like/".concat(id));
+
+              case 6:
+                this.loadData();
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                console.error(_context2.t0.message);
+
+              case 12:
+                this.setState({
+                  liked: true
+                });
+                _context2.next = 16;
+                break;
+
+              case 15:
+                showError("Must sign in to like posts.");
+
+              case 16:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 9]]);
+      }));
+
+      function joinEvent() {
+        return _joinEvent.apply(this, arguments);
+      }
+
+      return joinEvent;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var _this$props$match$par = this.props.match.params,
@@ -1099,7 +1220,8 @@ var Event = /*#__PURE__*/function (_React$Component) {
         alt: "profile pic",
         circle: true
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, eventObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, date.substr(4)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.street), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eventObject.City, " ", eventObject.state, " ", eventObject.postCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-        bsStyle: "primary"
+        bsStyle: "primary",
+        onClick: this.joinEvent
       }, "Join +")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "EventContents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -2161,7 +2283,6 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         postObject[k] = post[k];
       }
 
-      console.log(post);
       var likes = [];
 
       for (var _k in postObject.likes) {
