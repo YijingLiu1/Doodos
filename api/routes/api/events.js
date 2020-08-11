@@ -25,11 +25,13 @@ router.post('/registration/:id', auth, async (req, res) => {
   if (event.positionremains > 0) {
     event.registered.unshift(registration);
     event.positionremains -= 1;
+    console.log(registration);
   } else {
     return res.status(400).json({ msg: 'No available place for this event' });
   }
 
   await event.save();
+  res.json(event);
 });
 
 // @route   DELETE api/events/:eventid
@@ -43,18 +45,15 @@ router.delete('/registration/:id', auth, async (req, res) => {
     return res.status(404).json({ msg: 'No event for this ID' });
   }
 
+  // get remove index
+  const removeIndex = event.registered
+    .map((registrition) => registrition.user.toString())
+    .indexOf(req.user.id);
+  console.log(removeIndex);
   // check if registered
-  if (
-    event.registered.filter(registration.user.toString() === req.user.id)
-      .length === 0
-  ) {
+  if (removeIndex === -1) {
     return res.status(400).json({ msg: 'Have not registered this event' });
   }
-
-  // get remove index
-  const removeIndex = event.registered.map((registration) =>
-    registration.user.toString().indexOf(req.user.id)
-  );
   event.registered.splice(removeIndex, 1);
   event.positionremains += 1;
 
