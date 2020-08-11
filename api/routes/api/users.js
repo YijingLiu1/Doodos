@@ -87,13 +87,18 @@ router.post(
 // @desc    Register route
 // @access  Private
 
-router.post('/following', auth, async (req, res) => {
+router.post('/following/:followingId', auth, async (req, res) => {
   try {
-    const followinguser = await User.findById(req.body.followingId).select(
+    const followinguser = await User.findById(req.params.followingId).select(
       '-password'
     );
     const user = await User.findById(req.user.id).select('-password');
 
+    if (req.params.followingId === req.user.id.toString()) {
+      return res
+        .status(400)
+        .json({ msg: 'Cannot Add yourself as a following' });
+    }
     if (!followinguser) {
       return res.status(404).json({ msg: 'Following user does not exist' });
     }
@@ -106,7 +111,7 @@ router.post('/following', auth, async (req, res) => {
 
     let alreadyInFollowing = user.following
       .map((f) => f.user)
-      .indexOf(req.body.followingId);
+      .indexOf(req.params.followingId);
 
     if (alreadyInFollowing > -1) {
       return res
@@ -155,17 +160,23 @@ router.get('/:id', async (req, res) => {
 // @desc    Register route
 // @access  Private
 
-router.delete('/following', auth, async (req, res) => {
+router.delete('/following/:followingId', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     const removeIndex = user.following
       .map((f) => f.user)
-      .indexOf(req.body.followingId);
+      .indexOf(req.params.followingId);
+
+    if (user.following.length === 0) {
+      return res
+        .status(400)
+        .json({ msg: 'Cannot remove from empty following list' });
+    }
 
     if (removeIndex === -1) {
       return res
         .status(400)
-        .json({ msg: 'Cannot remove a not following user' });
+        .json({ msg: 'Cannot remove a user whom you have not followed yet' });
     }
 
     user.following.splice(removeIndex, 1);

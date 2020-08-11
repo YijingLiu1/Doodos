@@ -153,7 +153,7 @@ router.put(
     auth,
     check('text', 'Text is required').not().isEmpty(),
     check('title', 'title is required').not().isEmpty(),
-    // check('imageUrl', 'image is required').not().isEmpty(),
+    check('imageUrl', 'image is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
