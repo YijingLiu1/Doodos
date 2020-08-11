@@ -11,7 +11,7 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
-
+app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.send('API Running'));
 
 // Define Routes
@@ -22,6 +22,7 @@ app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/cart', require('./routes/api/cart'));
 app.use('/api/events', require('./routes/api/events'));
+app.use('/api/maps', require('./routes/api/maps'));
 
 const PORT = process.env.PORT || 5000;
 
