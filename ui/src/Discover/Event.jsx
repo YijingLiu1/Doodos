@@ -57,7 +57,7 @@ class Event extends React.Component {
     }
 
     async joinEvent() {
-        const { match: { params: { id } }, showSuccess } = this.props;
+        const { match: { params: { id } }, showSuccess, showError } = this.props;
         const { user } = this.state;
         if (user != null) {
             try {
@@ -74,14 +74,13 @@ class Event extends React.Component {
             } catch (err) {
                 console.error(err.message);
             }
-            this.setState({ liked: true});
         } else {
             showError("Must sign in to join events.");
         }
     }
 
     async quitEvent() {
-        const { match: { params: { id } }, showSuccess } = this.props;
+        const { match: { params: { id } }, showSuccess, showError } = this.props;
         const { user } = this.state;
         if (user != null) {
             try {
@@ -122,7 +121,7 @@ class Event extends React.Component {
         }
         console.log(registered);
         const attenders = registered.map((attender) => (
-            <UserItem id={attender} />
+            <div key={attender}><UserItem id={attender} /></div>
         ));
 
         const join = <Button bsStyle="primary" onClick={this.joinEvent}>Join +</Button>;

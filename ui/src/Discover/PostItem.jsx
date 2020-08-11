@@ -15,8 +15,7 @@ class PostItem extends React.Component {
         super(props);
         this.state = {
             showing: false,
-            liked: false,
-            post: null,
+            post: null
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
@@ -82,7 +81,6 @@ class PostItem extends React.Component {
             } catch (err) {
                 console.error(err.message);
             }
-            this.setState({ liked: true});
         } else {
             showError("Must sign in to unlike posts.");
         }

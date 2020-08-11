@@ -1175,17 +1175,17 @@ var Event = /*#__PURE__*/function (_React$Component) {
     key: "joinEvent",
     value: function () {
       var _joinEvent = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var _this$props, id, showSuccess, user, _api2;
+        var _this$props, id, showSuccess, showError, user, _api2;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this$props = this.props, id = _this$props.match.params.id, showSuccess = _this$props.showSuccess;
+                _this$props = this.props, id = _this$props.match.params.id, showSuccess = _this$props.showSuccess, showError = _this$props.showError;
                 user = this.state.user;
 
                 if (!(user != null)) {
-                  _context2.next = 17;
+                  _context2.next = 16;
                   break;
                 }
 
@@ -1212,16 +1212,13 @@ var Event = /*#__PURE__*/function (_React$Component) {
                 console.error(_context2.t0.message);
 
               case 14:
-                this.setState({
-                  liked: true
-                });
-                _context2.next = 18;
+                _context2.next = 17;
                 break;
 
-              case 17:
+              case 16:
                 showError("Must sign in to join events.");
 
-              case 18:
+              case 17:
               case "end":
                 return _context2.stop();
             }
@@ -1239,13 +1236,13 @@ var Event = /*#__PURE__*/function (_React$Component) {
     key: "quitEvent",
     value: function () {
       var _quitEvent = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var _this$props2, id, showSuccess, user, _api3;
+        var _this$props2, id, showSuccess, showError, user, _api3;
 
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this$props2 = this.props, id = _this$props2.match.params.id, showSuccess = _this$props2.showSuccess;
+                _this$props2 = this.props, id = _this$props2.match.params.id, showSuccess = _this$props2.showSuccess, showError = _this$props2.showError;
                 user = this.state.user;
 
                 if (!(user != null)) {
@@ -1327,9 +1324,11 @@ var Event = /*#__PURE__*/function (_React$Component) {
 
       console.log(registered);
       var attenders = registered.map(function (attender) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_User_UserItem_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: attender
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_User_UserItem_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: attender
-        });
+        }));
       });
       var join = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         bsStyle: "primary",
@@ -2226,7 +2225,6 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       showing: false,
-      liked: false,
       post: null
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
@@ -2366,7 +2364,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
                 _this$props2 = this.props, user = _this$props2.user, id = _this$props2.id, showError = _this$props2.showError;
 
                 if (!(user != null)) {
-                  _context3.next = 15;
+                  _context3.next = 14;
                   break;
                 }
 
@@ -2392,16 +2390,13 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
                 console.error(_context3.t0.message);
 
               case 12:
-                this.setState({
-                  liked: true
-                });
-                _context3.next = 16;
+                _context3.next = 15;
                 break;
 
-              case 15:
+              case 14:
                 showError("Must sign in to unlike posts.");
 
-              case 16:
+              case 15:
               case "end":
                 return _context3.stop();
             }
@@ -4667,6 +4662,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Discover/PostItem.jsx */ "./src/Discover/PostItem.jsx");
+/* harmony import */ var _UserItem_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./UserItem.jsx */ "./src/User/UserItem.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4704,6 +4700,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Dashboard = /*#__PURE__*/function (_React$Component) {
   _inherits(Dashboard, _React$Component);
 
@@ -4719,7 +4716,6 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       user: null,
       loading: true
     };
-    _this.dataChange = _this.dataChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -4730,15 +4726,10 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       if (user == null) this.loadData();
     }
   }, {
-    key: "dataChange",
-    value: function dataChange() {
-      this.loadData();
-    }
-  }, {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var api, profile, profileObject, k, id, user, posts, likes, myLikes, _k, liked;
+        var api, profile, profileObject, k, id, user, posts, likes, myLikes, _k, liked, followings, myFollowings, _k2;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -4758,7 +4749,7 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
                 profile = _context.sent;
 
                 if (!profile) {
-                  _context.next = 29;
+                  _context.next = 33;
                   break;
                 }
 
@@ -4819,13 +4810,23 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
                 this.setState({
                   likes: myLikes
                 });
+                followings = this.state.user.following;
+                myFollowings = [];
 
-              case 29:
+                for (_k2 in followings) {
+                  myFollowings.push(followings[_k2].user);
+                }
+
+                this.setState({
+                  followings: myFollowings
+                });
+
+              case 33:
                 this.setState({
                   loading: false
                 });
 
-              case 30:
+              case 34:
               case "end":
                 return _context.stop();
             }
@@ -4848,7 +4849,8 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
           profile = _this$state.profile,
           posts = _this$state.posts,
           likes = _this$state.likes,
-          loading = _this$state.loading;
+          loading = _this$state.loading,
+          followings = _this$state.followings;
       if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
 
       if (user == null) {
@@ -4864,20 +4866,20 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
         userObject[k] = user[k];
       }
 
-      for (var _k2 in profile) {
-        profileObject[_k2] = profile[_k2];
+      for (var _k3 in profile) {
+        profileObject[_k3] = profile[_k3];
       }
 
-      for (var _k3 in profileObject.social) {
+      for (var _k4 in profileObject.social) {
         social.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          key: _k3
-        }, _k3, ": ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, profileObject.social[_k3])));
+          key: _k4
+        }, _k4, ": ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, profileObject.social[_k4])));
       }
 
       var postsObject = [];
 
-      for (var _k4 in posts) {
-        postsObject.push(posts[_k4]);
+      for (var _k5 in posts) {
+        postsObject.push(posts[_k5]);
       }
 
       var postItems = postsObject.map(function (post) {
@@ -4899,6 +4901,13 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
           id: post._id,
           user: user._id
+        }));
+      });
+      var followingUsers = followings.map(function (user) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: user
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserItem_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          id: user
         }));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4947,7 +4956,8 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
         tab: tab,
         social: social,
         posts: postItems,
-        likes: likedItems
+        likes: likedItems,
+        followings: followingUsers
       })))));
     }
   }]);
@@ -6264,6 +6274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_PostItem_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Discover/PostItem.jsx */ "./src/Discover/PostItem.jsx");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _UserItem_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./UserItem.jsx */ "./src/User/UserItem.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6300,6 +6311,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var User = /*#__PURE__*/function (_React$Component) {
   _inherits(User, _React$Component);
 
@@ -6317,6 +6329,8 @@ var User = /*#__PURE__*/function (_React$Component) {
       dashboard: false,
       loading: true
     };
+    _this.followUser = _this.followUser.bind(_assertThisInitialized(_this));
+    _this.unfollowUser = _this.unfollowUser.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -6330,7 +6344,7 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var id, _api, _profile, profileObject, k, profile, user, posts, likes, myLikes, _k, liked, followings, myFollowings, _k2, _liked;
+        var id, _api, _profile, profileObject, k, me, myFollows, profile, user, posts, likes, myLikes, _k, liked, followings, myFollowings, _k2;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -6340,7 +6354,7 @@ var User = /*#__PURE__*/function (_React$Component) {
                 if (id == null) id = this.props.id;
 
                 if (!localStorage.token) {
-                  _context.next = 17;
+                  _context.next = 22;
                   break;
                 }
 
@@ -6373,38 +6387,47 @@ var User = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 17;
-                break;
+                _context.next = 14;
+                return _api.get("/users/".concat(this.state.me));
 
               case 14:
-                _context.prev = 14;
+                me = _context.sent;
+                myFollows = me.data.following;
+                this.setState({
+                  myFollows: myFollows
+                });
+                _context.next = 22;
+                break;
+
+              case 19:
+                _context.prev = 19;
                 _context.t0 = _context["catch"](3);
                 console.error(_context.t0.message);
 
-              case 17:
-                _context.next = 19;
+              case 22:
+                _context.next = 24;
                 return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/profile/user/".concat(id));
 
-              case 19:
+              case 24:
                 profile = _context.sent;
 
                 if (!profile) {
-                  _context.next = 53;
+                  _context.next = 51;
                   break;
                 }
 
                 this.setState({
                   profile: profile.data
                 });
-                _context.next = 24;
+                _context.next = 29;
                 return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/users/".concat(id));
 
-              case 24:
+              case 29:
                 user = _context.sent;
-                _context.next = 27;
+                _context.next = 32;
                 return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/posts/byuser/".concat(id));
 
-              case 27:
+              case 32:
                 posts = _context.sent;
 
                 if (user) {
@@ -6423,57 +6446,48 @@ var User = /*#__PURE__*/function (_React$Component) {
                 myLikes = [];
                 _context.t1 = regeneratorRuntime.keys(likes);
 
-              case 33:
+              case 38:
                 if ((_context.t2 = _context.t1()).done) {
-                  _context.next = 41;
+                  _context.next = 46;
                   break;
                 }
 
                 _k = _context.t2.value;
-                _context.next = 37;
+                _context.next = 42;
                 return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/posts/".concat(likes[_k].post));
 
-              case 37:
+              case 42:
                 liked = _context.sent;
                 myLikes.push(liked.data);
-                _context.next = 33;
+                _context.next = 38;
                 break;
 
-              case 41:
+              case 46:
                 this.setState({
                   likes: myLikes
                 });
                 followings = this.state.user.following;
                 myFollowings = [];
-                _context.t3 = regeneratorRuntime.keys(followings);
 
-              case 45:
-                if ((_context.t4 = _context.t3()).done) {
-                  _context.next = 53;
-                  break;
+                for (_k2 in followings) {
+                  myFollowings.push(followings[_k2].user);
                 }
 
-                _k2 = _context.t4.value;
-                _context.next = 49;
-                return _api__WEBPACK_IMPORTED_MODULE_6__["default"].get("/posts/".concat(followings[_k2].post));
+                this.setState({
+                  followings: myFollowings
+                });
 
-              case 49:
-                _liked = _context.sent;
-                myLikes.push(_liked.data);
-                _context.next = 45;
-                break;
-
-              case 53:
+              case 51:
                 this.setState({
                   loading: false
                 });
 
-              case 54:
+              case 52:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 14]]);
+        }, _callee, this, [[3, 19]]);
       }));
 
       function loadData() {
@@ -6486,17 +6500,17 @@ var User = /*#__PURE__*/function (_React$Component) {
     key: "followUser",
     value: function () {
       var _followUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var id, me, _api2;
+        var _this$props, id, showSuccess, showError, me, _api2;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                id = this.props.match.params.id;
+                _this$props = this.props, id = _this$props.match.params.id, showSuccess = _this$props.showSuccess, showError = _this$props.showError;
                 me = this.state.me;
 
                 if (!(me != null)) {
-                  _context2.next = 15;
+                  _context2.next = 16;
                   break;
                 }
 
@@ -6509,33 +6523,32 @@ var User = /*#__PURE__*/function (_React$Component) {
                   }
                 });
                 _context2.next = 7;
-                return _api2.post("/events/registration/".concat(id));
+                return _api2.post("/users/following/".concat(id));
 
               case 7:
-                _context2.next = 12;
+                this.loadData();
+                showSuccess("Followed the user.");
+                _context2.next = 14;
                 break;
 
-              case 9:
-                _context2.prev = 9;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](3);
                 console.error(_context2.t0.message);
 
-              case 12:
-                this.setState({
-                  liked: true
-                });
-                _context2.next = 16;
+              case 14:
+                _context2.next = 17;
                 break;
 
-              case 15:
-                showError("Must sign in to join events.");
-
               case 16:
+                showError("Must sign in to follow user.");
+
+              case 17:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[3, 9]]);
+        }, _callee2, this, [[3, 11]]);
       }));
 
       function followUser() {
@@ -6545,16 +6558,82 @@ var User = /*#__PURE__*/function (_React$Component) {
       return followUser;
     }()
   }, {
+    key: "unfollowUser",
+    value: function () {
+      var _unfollowUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var _this$props2, id, showSuccess, showError, me, _api3;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this$props2 = this.props, id = _this$props2.match.params.id, showSuccess = _this$props2.showSuccess, showError = _this$props2.showError;
+                me = this.state.me;
+
+                if (!(me != null)) {
+                  _context3.next = 17;
+                  break;
+                }
+
+                _context3.prev = 3;
+                _api3 = axios__WEBPACK_IMPORTED_MODULE_8___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context3.next = 7;
+                return _api3.delete("/users/following/".concat(id));
+
+              case 7:
+                this.loadData();
+                showSuccess("Unfollowed the user.");
+                _context3.next = 14;
+                break;
+
+              case 11:
+                _context3.prev = 11;
+                _context3.t0 = _context3["catch"](3);
+                console.error(_context3.t0.message);
+
+              case 14:
+                this.setState({
+                  liked: true
+                });
+                _context3.next = 18;
+                break;
+
+              case 17:
+                showError("Must sign in to unfollow user.");
+
+              case 18:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[3, 11]]);
+      }));
+
+      function unfollowUser() {
+        return _unfollowUser.apply(this, arguments);
+      }
+
+      return unfollowUser;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var tab = this.props.match.params.tab;
       var _this$state = this.state,
+          myFollows = _this$state.myFollows,
           user = _this$state.user,
           profile = _this$state.profile,
           posts = _this$state.posts,
           likes = _this$state.likes,
           loading = _this$state.loading,
-          dashboard = _this$state.dashboard;
+          dashboard = _this$state.dashboard,
+          followings = _this$state.followings;
       if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       if (dashboard) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
         to: "/dashboard/"
@@ -6608,6 +6687,26 @@ var User = /*#__PURE__*/function (_React$Component) {
           user: user._id
         }));
       });
+      var followingUsers = followings.map(function (user) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: user
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserItem_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          id: user
+        }));
+      });
+      var follow = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+        bsStyle: "primary",
+        onClick: this.followUser
+      }, "Follow +");
+      var followed = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+        onClick: this.unfollowUser
+      }, "Followed");
+      var myFollowsArray = [];
+
+      for (var _k6 in myFollows) {
+        myFollowsArray.push(myFollows[_k6].user);
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "Profile"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -6626,10 +6725,7 @@ var User = /*#__PURE__*/function (_React$Component) {
         src: userObject.avatar,
         alt: "profile pic",
         circle: true
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, userObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.bio), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.status), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-        bsStyle: "primary",
-        onClick: this.followUser
-      }, "Follow +")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, userObject.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.bio), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.status), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, profileObject.location), myFollowsArray.includes(user._id) ? followed : follow), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "ProfileContents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "ProfileTabs"
@@ -6656,7 +6752,8 @@ var User = /*#__PURE__*/function (_React$Component) {
         social: social,
         id: id,
         posts: postItems,
-        likes: likedItems
+        likes: likedItems,
+        followings: followingUsers
       })))));
     }
   }]);
@@ -6831,14 +6928,15 @@ function UserTabContents(_ref) {
   var tab = _ref.tab,
       social = _ref.social,
       likes = _ref.likes,
-      posts = _ref.posts;
+      posts = _ref.posts,
+      followings = _ref.followings;
 
   if (tab === "likes") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, likes);
   } else if (tab === "about") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Social Network:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, social));
   } else if (tab === "following") {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "123");
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, followings);
   } else {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, posts);
   }

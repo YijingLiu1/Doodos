@@ -10,6 +10,7 @@ import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
 import PostItem from "../Discover/PostItem.jsx";
 import axios from "axios";
+import UserItem from "./UserItem.jsx";
 
 class User extends React.Component {
     constructor() {
@@ -19,7 +20,9 @@ class User extends React.Component {
             me: null,
             dashboard: false,
             loading: true
-        }
+        };
+        this.followUser = this.followUser.bind(this);
+        this.unfollowUser = this.unfollowUser.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +51,10 @@ class User extends React.Component {
                 if (this.state.me === id) {
                     this.setState({ dashboard: true });
                 }
+                const me = await api.get(`/users/${this.state.me}`);
+                const myFollows = me.data.following;
+                this.setState({ myFollows });
+
             } catch (err) {
                 console.error(err.message);
             }
@@ -73,15 +80,15 @@ class User extends React.Component {
             const followings = this.state.user.following;
             const myFollowings = [];
             for (let k in followings) {
-                const liked = await api.get(`/posts/${followings[k].post}`);
-                myLikes.push(liked.data);
+                myFollowings.push(followings[k].user);
             }
+            this.setState({ followings: myFollowings });
         }
         this.setState({ loading: false });
     }
 
     async followUser() {
-        const { match: { params: { id } } } = this.props;
+        const { match: { params: { id } }, showSuccess, showError } = this.props;
         const { me } = this.state;
         if (me != null) {
             try {
@@ -92,19 +99,45 @@ class User extends React.Component {
                         'x-auth-token': localStorage.token
                     }
                 });
-                await api.post(`/events/registration/${id}`);
+                await api.post(`/users/following/${id}`);
+                this.loadData();
+                showSuccess("Followed the user.");
+            } catch (err) {
+                console.error(err.message);
+            }
+        } else {
+            showError("Must sign in to follow user.");
+        }
+    }
+
+    async unfollowUser() {
+        const { match: { params: { id } }, showSuccess, showError } = this.props;
+        const { me } = this.state;
+        if (me != null) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                await api.delete(`/users/following/${id}`);
+                this.loadData();
+                showSuccess("Unfollowed the user.");
             } catch (err) {
                 console.error(err.message);
             }
             this.setState({ liked: true});
         } else {
-            showError("Must sign in to join events.");
+            showError("Must sign in to unfollow user.");
         }
     }
 
+
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts, likes, loading, dashboard } = this.state;
+        const { myFollows, user, profile, posts, likes, loading, dashboard, followings } = this.state;
         if (loading) return <div>loading...</div>;
         if (dashboard) return <Redirect to="/dashboard/" />
         // Have to convert the object before use
@@ -131,6 +164,15 @@ class User extends React.Component {
         const likedItems = likes.map((post) => (
             <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user._id} /></Col>
         ));
+        const followingUsers = followings.map((user) => (
+            <div key={user}><UserItem id={user} /></div>
+        ));
+        const follow = <Button bsStyle="primary" onClick={this.followUser}>Follow +</Button>;
+        const followed = <Button onClick={this.unfollowUser}>Followed</Button>;
+        const myFollowsArray = [];
+        for (let k in myFollows) {
+            myFollowsArray.push(myFollows[k].user);
+        }
         return (
             <div className="Profile">
                 <div className="ProfileBanner">
@@ -147,7 +189,7 @@ class User extends React.Component {
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
-                        <Button bsStyle="primary" onClick={this.followUser}>Follow +</Button>
+                        {myFollowsArray.includes(user._id)? followed:follow}
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">
@@ -165,7 +207,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} id={id} posts={postItems} likes={likedItems} />
+                            <UserTabContents tab={tab} social={social} id={id} posts={postItems} likes={likedItems} followings={followingUsers} />
                         </div>
                     </div>
                 </div>

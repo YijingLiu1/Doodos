@@ -11,6 +11,7 @@ import api from "../api";
 import EditItem from "./EditItem.jsx";
 import axios from "axios";
 import PostItem from "../Discover/PostItem.jsx";
+import UserItem from "./UserItem.jsx";
 
 class Dashboard extends React.Component {
     constructor() {
@@ -18,17 +19,12 @@ class Dashboard extends React.Component {
         this.state = {
             user: null,
             loading: true
-        }
-        this.dataChange = this.dataChange.bind(this);
+        };
     }
 
     componentDidMount() {
         const { user } = this.state;
         if (user == null) this.loadData();
-    }
-
-    dataChange() {
-        this.loadData();
     }
 
     async loadData() {
@@ -62,13 +58,19 @@ class Dashboard extends React.Component {
                 myLikes.push(liked.data);
             }
             this.setState({ likes: myLikes });
+            const followings = this.state.user.following;
+            const myFollowings = [];
+            for (let k in followings) {
+                myFollowings.push(followings[k].user);
+            }
+            this.setState({ followings: myFollowings });
         }
         this.setState({ loading: false })
     }
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts, likes, loading } = this.state;
+        const { user, profile, posts, likes, loading, followings } = this.state;
         if (loading) return <div>loading...</div>
         if (user == null) {
             return <h3>Loading userdata...<br/>If not signed in, sign in to access Dashboard.</h3>
@@ -95,6 +97,9 @@ class Dashboard extends React.Component {
         ));
         const likedItems = likes.map((post) => (
             <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user._id} /></Col>
+        ));
+        const followingUsers = followings.map((user) => (
+            <div key={user}><UserItem id={user} /></div>
         ));
         return (
             <div className="Profile">
@@ -130,7 +135,7 @@ class Dashboard extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} posts={postItems} likes={likedItems} />
+                            <UserTabContents tab={tab} social={social} posts={postItems} likes={likedItems} followings={followingUsers} />
                         </div>
                     </div>
                 </div>

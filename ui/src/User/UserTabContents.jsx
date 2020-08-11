@@ -2,7 +2,7 @@ import React from "react";
 import {Col, Row} from "react-bootstrap";
 import UserItem from "./UserItem.jsx";
 
-export default function UserTabContents({ tab, social, likes, posts }) {
+export default function UserTabContents({ tab, social, likes, posts, followings }) {
     if (tab === "likes") {
         return (
             <Row>
@@ -20,7 +20,7 @@ export default function UserTabContents({ tab, social, likes, posts }) {
     }
     else if (tab === "following") {
         return (
-            <h3>123</h3>
+            <h3>{followings}</h3>
         )
     }
     else {
