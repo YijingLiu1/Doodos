@@ -61,7 +61,7 @@ class User extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={4} key={post._id}><PostItem post={post} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} /></Col>
         ));
         return (
             <div className="Profile">
@@ -94,7 +94,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} posts={postItems} />
+                            <UserTabContents tab={tab} social={social} user={user} posts={postItems} />
                         </div>
                     </div>
                 </div>

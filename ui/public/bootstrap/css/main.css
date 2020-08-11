@@ -227,10 +227,36 @@ body {
     vertical-align: top;
 }
 
+.MiniAvatarContainer {
+    align-self: flex-start;
+    height: 30px;
+    width: 30px;
+    display: inline-flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    /* The next line fixes the huge blank
+    caused by the overflow of pic */
+    vertical-align: top;
+}
+
 .AvatarContainer .img-circle {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.MiniAvatarContainer .img-circle {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.UserItem {
+    padding: 5px 10px 5px 10px;
+    height: 40px;
 }
 
 .ProfileContents {

@@ -1,11 +1,11 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
-import PostItem from "../Discover/PostItem.jsx";
+import UserItem from "./UserItem.jsx";
 
-export default function UserTabContents({ tab, social, posts }) {
+export default function UserTabContents({ tab, social, user, posts }) {
     if (tab === "likes") {
         return (
-            <h3>This is a placeholder for likes</h3>
+            <h3><UserItem user={user} /></h3>
         )
     }
     else if (tab === "about") {
