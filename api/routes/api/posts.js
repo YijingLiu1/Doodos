@@ -153,7 +153,7 @@ router.put(
     auth,
     check('text', 'Text is required').not().isEmpty(),
     check('title', 'title is required').not().isEmpty(),
-    // check('imageUrl', 'image is required').not().isEmpty(),
+    check('imageUrl', 'image is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -222,6 +222,7 @@ router.delete('/:id', auth, async (req, res) => {
 router.put('/like/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const profile = await Profile.findOne({ user: req.user.id });
 
     // check if the post has already been liked by the user
     if (
@@ -231,8 +232,9 @@ router.put('/like/:id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Post already liked' });
     }
     post.likes.unshift({ user: req.user.id });
-
+    profile.myLikes.unshift({ post: req.params.id });
     await post.save();
+    await profile.save();
 
     res.json(post.likes);
   } catch (err) {
@@ -248,6 +250,7 @@ router.put('/like/:id', auth, async (req, res) => {
 router.put('/unlike/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const profile = await Profile.findOne({ user: req.user.id });
 
     // check if the post has already been liked by the user
     if (
@@ -258,12 +261,19 @@ router.put('/unlike/:id', auth, async (req, res) => {
     }
     // Get remove index
     const removeIndex = post.likes
-      .map((like) => like.user.toString)
+      .map((like) => like.user.toString())
       .indexOf(req.user.id);
 
+    // Get remove index2
+    const removeIndex1 = profile.myLikes
+      .map((myLike) => myLike.post.toString())
+      .indexOf(req.params.id);
+
     post.likes.splice(removeIndex, 1);
+    profile.myLikes.splice(removeIndex1, 1);
 
     await post.save();
+    await profile.save();
 
     res.json(post.likes);
   } catch (err) {
