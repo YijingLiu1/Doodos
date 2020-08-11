@@ -14,6 +14,16 @@ export default class PicUpload extends React.Component {
         this.onImageDrop = this.onImageDrop.bind(this);
     }
 
+    componentDidMount() {
+        const { uploadedFileCloudinaryUrl } = this.state;
+        if (uploadedFileCloudinaryUrl === '') this.loadData();
+    }
+
+    async loadData() {
+        const { imageUrl } = this.props;
+        if (imageUrl !== undefined) this.setState({ uploadedFileCloudinaryUrl: imageUrl });
+    }
+
     onImageDrop(files) {
         this.setState({
             uploadedFile: files[0]
@@ -58,7 +68,6 @@ export default class PicUpload extends React.Component {
                 <div>
                     {this.state.uploadedFileCloudinaryUrl === ''? null:
                         <div>
-                            <p>{this.state.uploadedFile.name}</p>
                             <img
                                 style={{width: '100%'}}
                                 src={this.state.uploadedFileCloudinaryUrl}

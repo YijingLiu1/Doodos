@@ -6,6 +6,7 @@ import Store from "../Store/Store.jsx";
 import User from "../User/User.jsx";
 import Post from "../Discover/Post.jsx";
 import Event from "../Discover/Event.jsx";
+import Edit from "../User/Edit.jsx";
 import Register from "../User/Register.jsx";
 import About from "../About.jsx";
 import Dashboard from "../User/Dashboard.jsx";
@@ -17,6 +18,7 @@ const routes = [
     { path: '/doodlemaps', component: DoodleMaps },
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
+    { path: '/edit/:id', component: Edit },
     { path: '/item/:id', component: Item },
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },

@@ -21,6 +21,15 @@ body {
     background-color: #f9f9f9;
 }
 
+.btn:focus, /*清除btn按钮点击出现的边框*/
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none !important; box-shadow:none !important;
+}
+
 .row {
     display: -webkit-box;
     display: -webkit-flex;

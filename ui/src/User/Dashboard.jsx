@@ -15,13 +15,19 @@ class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            user: null
+            user: null,
+            loading: true
         }
+        this.dataChange = this.dataChange.bind(this);
     }
 
     componentDidMount() {
         const { user } = this.state;
         if (user == null) this.loadData();
+    }
+
+    dataChange() {
+        this.loadData();
     }
 
     async loadData() {
@@ -49,13 +55,15 @@ class Dashboard extends React.Component {
                 this.setState({ posts: posts.data });
             }
         }
+        this.setState({ loading: false })
     }
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts } = this.state;
+        const { user, profile, posts, loading } = this.state;
+        if (loading) return <div>loading...</div>
         if (user == null) {
-            return <h1>Sign in to access Dashboard.</h1>
+            return <h3>Loading userdata...<br/>If not signed in, sign in to access Dashboard.</h3>
         }
         // Have to convert the object before use
         const userObject = {};
