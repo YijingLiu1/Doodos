@@ -3,20 +3,24 @@ import { Link, withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
-    ButtonToolbar, Button, Alert, Row, Image,
+    ButtonToolbar, Button, Alert, Row, Image, Glyphicon,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 import EventTabContents from "./EventTabContents.jsx";
 import api from "../api";
 import axios from "axios";
+import UserItem from "../User/UserItem.jsx";
 
 class Event extends React.Component {
     constructor() {
         super();
         this.state = {
             event: null,
-            user: null
-        }
+            user: null,
+            loading: true
+        };
+        this.joinEvent = this.joinEvent.bind(this);
+        this.quitEvent = this.quitEvent.bind(this);
     }
 
     componentDidMount() {
@@ -48,11 +52,12 @@ class Event extends React.Component {
             } catch (err) {
                 console.error(err.message);
             }
+            this.setState({ loading: false });
         }
     }
 
     async joinEvent() {
-        const { match: { params: { id } } } = this.props;
+        const { match: { params: { id } }, showSuccess } = this.props;
         const { user } = this.state;
         if (user != null) {
             try {
@@ -64,6 +69,32 @@ class Event extends React.Component {
                     }
                 });
                 await api.post(`/events/registration/${id}`);
+                this.loadData();
+                showSuccess("Joined the event.");
+            } catch (err) {
+                console.error(err.message);
+            }
+            this.setState({ liked: true});
+        } else {
+            showError("Must sign in to join events.");
+        }
+    }
+
+    async quitEvent() {
+        const { match: { params: { id } }, showSuccess } = this.props;
+        const { user } = this.state;
+        if (user != null) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                await api.delete(`/events/registration/${id}`);
+                this.loadData();
+                showSuccess("Quited the event.");
             } catch (err) {
                 console.error(err.message);
             }
@@ -76,13 +107,26 @@ class Event extends React.Component {
     render() {
         const { match: { params: { id, tab } } } = this.props;
         // Have to convert the object before use
-        const { event } = this.state;
+        const { event, user, loading } = this.state;
+        if (loading) return <div>loading...</div>;
+
         const eventObject = {};
         for (let k in event) {
             eventObject[k] = event[k];
         }
         const dateString = `${eventObject.modifiedOn}`;
         const date = new Date(dateString).toDateString();
+        const registered = [];
+        for (let k in eventObject.registered) {
+            registered.push(eventObject.registered[k].user)
+        }
+        console.log(registered);
+        const attenders = registered.map((attender) => (
+            <UserItem id={attender} />
+        ));
+
+        const join = <Button bsStyle="primary" onClick={this.joinEvent}>Join +</Button>;
+        const joined = <Button onClick={this.quitEvent}>Joined</Button>;
         return (
             <div>
                 <div className="EventSlides">
@@ -99,7 +143,7 @@ class Event extends React.Component {
                         <p>{date.substr(4)}</p>
                         <p>{eventObject.street}</p>
                         <p>{eventObject.City} {eventObject.state} {eventObject.postCode}</p>
-                        <Button bsStyle="primary" onClick={this.joinEvent}>Join +</Button>
+                        {registered.includes(user)? joined:join}
                     </div>
                     <div className="EventContents">
                         <ul className="EventTabs">
@@ -114,7 +158,7 @@ class Event extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <EventTabContents tab={tab} event={eventObject} />
+                            <EventTabContents tab={tab} event={eventObject} attenders={attenders} />
                         </div>
                     </div>
                 </div>

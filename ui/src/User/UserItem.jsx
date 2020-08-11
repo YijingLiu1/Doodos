@@ -1,15 +1,27 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Button, Glyphicon, Image} from "react-bootstrap";
+import api from "../api.js";
 
 export default class UserItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { user: null };
+    }
+
+    componentDidMount() {
+        const { user } = this.state;
+        if (user == null) this.loadData();
+    }
+
+    async loadData() {
+        const id = this.props.id;
+        const user = await api.get(`/users/${id}`);
+        this.setState({ user: user.data })
     }
 
     render() {
-        const { user } = this.props;
-
+        const { user } = this.state;
         // Have to convert the object before use
         const userObject = {};
         for (let k in user) {
@@ -26,9 +38,9 @@ export default class UserItem extends React.Component {
                     &nbsp;&nbsp;&nbsp;
                     <Link to={authorLink}>{userObject.name}</Link>
                 </div>
-                <div align="right">
-                    <Button bsSize="small" bsStyle="warning">Unfollow</Button>
-                </div>
+                {/*<div align="right">*/}
+                {/*    <Button bsSize="small" bsStyle="warning">Unfollow</Button>*/}
+                {/*</div>*/}
             </div>
         );
     }

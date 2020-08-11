@@ -93,6 +93,8 @@ class User extends React.Component {
         for (let k in user) {
             userObject[k] = user[k];
         }
+        const id = userObject._id;
+        console.log(id);
         for (let k in profile) {
             profileObject[k] = profile[k];
         }
@@ -137,7 +139,7 @@ class User extends React.Component {
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} user={user} posts={postItems} />
+                            <UserTabContents tab={tab} social={social} id={id} posts={postItems} />
                         </div>
                     </div>
                 </div>

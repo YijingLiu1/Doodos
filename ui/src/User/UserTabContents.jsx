@@ -2,10 +2,10 @@ import React from "react";
 import {Col, Row} from "react-bootstrap";
 import UserItem from "./UserItem.jsx";
 
-export default function UserTabContents({ tab, social, user, posts }) {
+export default function UserTabContents({ tab, social, id, posts }) {
     if (tab === "likes") {
         return (
-            <h3><UserItem user={user} /></h3>
+            <h3><UserItem id={id} /></h3>
         )
     }
     else if (tab === "about") {
