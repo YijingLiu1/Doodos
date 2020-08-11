@@ -84,9 +84,11 @@ router.post(
     }
 
     if (favoriteCategories) {
-      profileFields.favoriteCategories = favoriteCategories.split(',').map((category) => category.trim());
+      profileFields.favoriteCategories = favoriteCategories
+        .split(',')
+        .map((category) => category.trim());
     }
-    
+
     // Build social object
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;

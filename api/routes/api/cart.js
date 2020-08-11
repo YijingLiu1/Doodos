@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const ejs = require('ejs');
 
 const User = require('../../models/User');
 const Product = require('../../models/Product');
@@ -24,6 +25,12 @@ router.get('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route   POST api/cart/checkout
+// @desc    checkout item in shopping cart with paypal
+// @access  Private
+
+router.get('/checkout', auth, (req, res) => res.render('checkout'));
 
 // @route   POST api/cart
 // @desc    if a cart exist of this user, put product in it, else reate a cart and add the product
