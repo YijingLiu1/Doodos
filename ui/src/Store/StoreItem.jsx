@@ -15,9 +15,14 @@ class StoreItem extends React.Component {
         super(props);
         this.state = {
             showing: false,
+            number: 1
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+        this.increaseItem = this.increaseItem.bind(this);
+        this.decreaseItem = this.decreaseItem.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     showModal() {
@@ -28,8 +33,52 @@ class StoreItem extends React.Component {
         this.setState({ showing: false });
     }
 
+    increaseItem() {
+        const { number } = this.state;
+        if (number < 30) {
+            this.setState({ number: number + 1 });
+        }
+    }
+
+    decreaseItem() {
+        const { number } = this.state;
+        if (number > 1) {
+            this.setState({ number: number - 1 });
+        }
+    }
+
+    format(num) {
+        return num != null ? num.toString() : '';
+    }
+
+    unformat(str) {
+        const val = parseInt(str, 10);
+        return Number.isNaN(val) ? null : val;
+    }
+
+    onChange(e) {
+        if (e.target.value.match(/^\d*$/)) {
+            const number = e.target.value;
+            if (number > 0 && number < 31) {
+                this.setState({ number: e.target.value });
+            } else if (number > 30) {
+                this.setState({ number: 30 });
+            } else {
+                this.setState({ number: 1 });
+            }
+        }
+    }
+
+    onBlur(event) {
+        const { number } = this.state;
+        const { value: textValue } = event.target;
+        const naturalValue = unformat(number);
+        const value = naturalValue === undefined ? textValue : naturalValue;
+        this.setState({ number: value });
+    }
+
     render() {
-        const { showing } = this.state;
+        const { showing, number } = this.state;
         const { product } = this.props;
         // Have to convert the object before use
         const productObject = {};
@@ -37,6 +86,7 @@ class StoreItem extends React.Component {
             productObject[k] = product[k];
         }
         const link = `/item/${productObject._id}/`;
+        console.log(number);
         return (
             <React.Fragment>
                 <div className="grid">
@@ -52,16 +102,18 @@ class StoreItem extends React.Component {
                     <div align="left" style={{float: 'left'}}>${product.price}</div>
                     <div align="right">
                         <Form inline>
-                            <Button bsSize="xsmall"><Glyphicon glyph="minus" /></Button>
+                            <Button bsSize="xsmall" onClick={this.decreaseItem}><Glyphicon glyph="minus" /></Button>
                             <FormGroup bsSize="sm">
-                                <FormControl
+                                <input
+                                    type="text"
                                     style={{width: "50px", height: "25px"}}
-                                    componentClass={NumInput}
+                                    value={number}
                                     name="number"
                                     onChange={this.onChange}
+                                    onBlur={this.onBlur}
                                 />
                             </FormGroup>
-                            <Button bsSize="xsmall"><Glyphicon glyph="plus" /></Button>
+                            <Button bsSize="xsmall" onClick={this.increaseItem}><Glyphicon glyph="plus" /></Button>
                             <Button bsSize="xsmall" bsStyle="primary">Add to Cart</Button>
                         </Form>
                     </div>

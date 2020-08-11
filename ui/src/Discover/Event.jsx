@@ -15,6 +15,7 @@ class Event extends React.Component {
         super();
         this.state = {
             event: null,
+            user: null
         }
     }
 
@@ -29,10 +30,30 @@ class Event extends React.Component {
         if (event) {
             this.setState({ event: event.data });
         }
+        if (localStorage.token) {
+            try {
+                const api = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': localStorage.token
+                    }
+                });
+                const profile = await api.get('/profile/me');
+                const profileObject = {};
+                for (let k in profile.data) {
+                    profileObject[k] = profile.data[k];
+                }
+                this.setState({ user: profileObject.user._id });
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
     }
 
     async joinEvent() {
-        const { user, id, showError } = this.props;
+        const { match: { params: { id } } } = this.props;
+        const { user } = this.state;
         if (user != null) {
             try {
                 const api = axios.create({
@@ -42,14 +63,13 @@ class Event extends React.Component {
                         'x-auth-token': localStorage.token
                     }
                 });
-                await api.put(`/posts/like/${id}`);
-                this.loadData();
+                await api.post(`/events/registration/${id}`);
             } catch (err) {
                 console.error(err.message);
             }
             this.setState({ liked: true});
         } else {
-            showError("Must sign in to like posts.");
+            showError("Must sign in to join events.");
         }
     }
 
