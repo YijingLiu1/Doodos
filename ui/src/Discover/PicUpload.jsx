@@ -20,8 +20,11 @@ export default class PicUpload extends React.Component {
     }
 
     async loadData() {
-        const { imageUrl } = this.props;
-        if (imageUrl !== undefined) this.setState({ uploadedFileCloudinaryUrl: imageUrl });
+        const { imageUrl, onUrlChange } = this.props;
+        if (imageUrl !== undefined) {
+            this.setState({ uploadedFileCloudinaryUrl: imageUrl });
+            onUrlChange({ formerImageUrl: imageUrl })
+        }
     }
 
     onImageDrop(files) {

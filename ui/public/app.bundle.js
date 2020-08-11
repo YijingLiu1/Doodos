@@ -1579,15 +1579,22 @@ var PicUpload = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var imageUrl;
+        var _this$props, imageUrl, onUrlChange;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                imageUrl = this.props.imageUrl;
-                if (imageUrl !== undefined) this.setState({
-                  uploadedFileCloudinaryUrl: imageUrl
-                });
+                _this$props = this.props, imageUrl = _this$props.imageUrl, onUrlChange = _this$props.onUrlChange;
+
+                if (imageUrl !== undefined) {
+                  this.setState({
+                    uploadedFileCloudinaryUrl: imageUrl
+                  });
+                  onUrlChange({
+                    formerImageUrl: imageUrl
+                  });
+                }
 
               case 2:
               case "end":
@@ -1888,7 +1895,6 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       showing: false,
       postAdded: false,
-      linK: '',
       imageUrl: ''
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
@@ -1900,6 +1906,13 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(PostAddNavItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        link: ''
+      });
+    }
+  }, {
     key: "showModal",
     value: function showModal() {
       this.setState({
@@ -2004,11 +2017,9 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
           glyph: "plus"
         }))));
-      }
+      } // if (postAdded) return <Redirect to={link} />;
 
-      if (postAdded) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-        to: link
-      });
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavItem"], {
         onClick: this.showModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["OverlayTrigger"], {
@@ -4825,10 +4836,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_PicUpload_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Discover/PicUpload.jsx */ "./src/Discover/PicUpload.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -4883,21 +4890,17 @@ var Edit = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Edit);
 
     _this = _super.call(this);
-    var issue = _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].initialData ? _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].initialData.issue : null;
-    delete _store_js__WEBPACK_IMPORTED_MODULE_7__["default"].initialData;
     _this.state = {
       post: null,
       userVerified: false,
       loading: true,
-      invalidFields: {},
-      showingValidation: false
+      postEdited: false,
+      imageUrl: '',
+      formerImageUrl: ''
     };
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     _this.onUrlChange = _this.onUrlChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    _this.onValidityChange = _this.onValidityChange.bind(_assertThisInitialized(_this));
-    _this.showValidation = _this.showValidation.bind(_assertThisInitialized(_this));
-    _this.dismissValidation = _this.dismissValidation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -4906,30 +4909,6 @@ var Edit = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var post = this.state.post;
       if (post == null) this.loadData();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var prevId = prevProps.match.params.id;
-      var id = this.props.match.params.id;
-
-      if (prevId !== id) {
-        this.loadData();
-      }
-    } // for dates check only
-
-  }, {
-    key: "onValidityChange",
-    value: function onValidityChange(event, valid) {
-      var name = event.target.name;
-      this.setState(function (prevState) {
-        var invalidFields = _objectSpread(_objectSpread({}, prevState.invalidFields), {}, _defineProperty({}, name, !valid));
-
-        if (valid) delete invalidFields[name];
-        return {
-          invalidFields: invalidFields
-        };
-      });
     }
   }, {
     key: "onUrlChange",
@@ -4952,67 +4931,50 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "showValidation",
-    value: function showValidation() {
-      this.setState({
-        showingValidation: true
-      });
-    }
-  }, {
-    key: "dismissValidation",
-    value: function dismissValidation() {
-      this.setState({
-        showingValidation: false
-      });
-    }
-  }, {
     key: "handleSubmit",
     value: function () {
       var _handleSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var _this$state, issue, invalidFields, query, id, created, changes, _this$props, showSuccess, showError, data;
+        var form, _this$state, imageUrl, formerImageUrl, url, post, api, id, res, showSuccess, _id, link;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
-                this.showValidation();
-                _this$state = this.state, issue = _this$state.issue, invalidFields = _this$state.invalidFields;
+                form = document.forms.postEdit;
+                _this$state = this.state, imageUrl = _this$state.imageUrl, formerImageUrl = _this$state.formerImageUrl;
+                url = imageUrl === '' ? formerImageUrl : imageUrl.imageUrl;
+                post = {
+                  title: form.title.value,
+                  imageUrl: url,
+                  text: form.description.value
+                };
+                api = axios__WEBPACK_IMPORTED_MODULE_9___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                id = this.props.match.params.id;
+                _context.next = 9;
+                return api.put("/posts/byuser/".concat(this.state.post.user, "/").concat(id), post);
 
-                if (!(Object.keys(invalidFields).length !== 0)) {
-                  _context.next = 5;
-                  break;
-                }
+              case 9:
+                res = _context.sent;
 
-                return _context.abrupt("return");
-
-              case 5:
-                query = "mutation issueUpdate(\n      $id: Int!,\n      $changes: IssueUpdateInputs!\n      ) {\n        issueUpdate(\n          id: $id, \n          changes: $changes\n        ) {\n          id title status owner\n          effort created due description\n        }\n      }"; // issue takes from this.state,
-                // therefore all left fields other than id and created would go into changes
-
-                id = issue.id, created = issue.created, changes = _objectWithoutProperties(issue, ["id", "created"]);
-                _this$props = this.props, showSuccess = _this$props.showSuccess, showError = _this$props.showError;
-                _context.next = 10;
-                return graphQLFetch(query, {
-                  id: id,
-                  changes: changes
-                }, showError);
-
-              case 10:
-                data = _context.sent;
-
-                // the data object here would contain 2 objects,
-                // one is what we need here -- issueUpdate,
-                // another one is __proto__, which is why we need
-                // to use data.issueUpdate instead of data
-                if (data) {
+                if (res) {
+                  showSuccess = this.props.showSuccess;
+                  showSuccess("Post edited.");
+                  _id = res.data._id;
+                  link = "/post/".concat(_id);
                   this.setState({
-                    issue: data.issueUpdate
+                    postEdited: true,
+                    link: link
                   });
-                  showSuccess('Updated issue successfully');
                 }
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -5118,13 +5080,16 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       var _this$state2 = this.state,
           post = _this$state2.post,
           userVerified = _this$state2.userVerified,
-          loading = _this$state2.loading;
+          loading = _this$state2.loading,
+          postEdited = _this$state2.postEdited,
+          link = _this$state2.link;
       if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
-      if (!loading && post == null) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Post not found by this id.");
+      if (post == null) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Post not found by this id.");
 
-      if (!loading && !userVerified) {
+      if (!userVerified) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Not authorized for editing this post.");
-      }
+      } // if (postEdited) return <Redirect to={link} />;
+
 
       var postObject = {};
 
@@ -5134,26 +5099,14 @@ var Edit = /*#__PURE__*/function (_React$Component) {
 
       var dateString = "".concat(postObject.date);
       var date = new Date(dateString).toDateString();
-      var _this$state3 = this.state,
-          invalidFields = _this$state3.invalidFields,
-          showingValidation = _this$state3.showingValidation;
-      var validationMessage;
-
-      if (Object.keys(invalidFields).length !== 0 && showingValidation) {
-        validationMessage = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
-          bsStyle: "danger",
-          onDismiss: this.dismissValidation
-        }, "Please correct invalid fields before submitting.");
-      }
-
-      var user = this.context;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Heading, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Title, null, "Editing post: ".concat(postObject.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Panel"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Form"], {
         horizontal: true,
-        onSubmit: this.handleSubmit
+        onSubmit: this.handleSubmit,
+        name: "postEdit"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         componentClass: react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ControlLabel"],
         sm: 3
-      }, "Created"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+      }, "Last modified:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"].Static, null, date.substr(4)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         componentClass: react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ControlLabel"],
@@ -5199,10 +5152,7 @@ var Edit = /*#__PURE__*/function (_React$Component) {
         to: "/dashboard/"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         bsStyle: "link"
-      }, "Back"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-        smOffset: 3,
-        sm: 9
-      }, validationMessage)))));
+      }, "Back"))))))));
     }
   }]);
 

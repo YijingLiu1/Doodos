@@ -15,7 +15,6 @@ class PostAddNavItem extends React.Component {
         this.state = {
             showing: false,
             postAdded: false,
-            linK: '',
             imageUrl: ''
         };
         this.showModal = this.showModal.bind(this);
@@ -23,6 +22,10 @@ class PostAddNavItem extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showWarning = this.showWarning.bind(this);
         this.onUrlChange = this.onUrlChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({ link: '' });
     }
 
     showModal() {
@@ -91,7 +94,7 @@ class PostAddNavItem extends React.Component {
             );
         }
 
-        if (postAdded) return <Redirect to={link} />;
+        // if (postAdded) return <Redirect to={link} />;
 
         return (
             <React.Fragment>
