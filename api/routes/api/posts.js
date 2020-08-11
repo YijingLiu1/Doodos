@@ -111,7 +111,7 @@ router.get('/bycategory/:category', async (req, res) => {
 
     const posts = await Post.find();
     const postsfound = await posts.filter((post) =>
-        post.categories.includes(req.params.category)
+      post.categories.includes(req.params.category)
     );
 
     res.json(postsfound);
@@ -141,6 +141,45 @@ router.get('/byuser/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// @route   PUT api/posts/byuser/:id
+// @desc    Edit a post
+// @access  Private
+
+router.put(
+  '/byuser/:id/:postId',
+  [
+    auth,
+    check('text', 'Text is required').not().isEmpty(),
+    check('title', 'title is required').not().isEmpty(),
+    check('imageUrl', 'image is required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const posts = await Post.find();
+      const postsfound = await posts.filter(
+        (post) => post.user == req.params.id
+      );
+
+      if (!postsfound) {
+        return res.status(404).json({ msg: 'No posts under this user' });
+      }
+      res.status(200).json(postsfound);
+    } catch (err) {
+      console.error(err.message);
+      if (err.kind == 'ObjectId') {
+        return res.status(404).json({ msg: 'Post not found' });
+      }
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 // @route   DELETE api/posts/:id
 // @desc    Delete a post
