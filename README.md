@@ -21,7 +21,7 @@ Some progress in the App:
 * Store page is added, displaying items selling on the website.
 
 __What's next:__
-* More features including update, delete, like for post; edit for profile; join for event; follow fro user; purchase for store.
+* More features including update, delete, like for post; edit for profile; join for event; follow for user; purchase for store.
 * DoodleMaps page for showing posts on the map by location.
 * Register feature for new users to sign up.
 * Google sign-in feature if time left.
