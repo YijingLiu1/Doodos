@@ -24,9 +24,11 @@ export default class CartItem extends React.Component {
                         <Image className="img-circle" src={itemObject.imagePath} alt="profile pic" circle/>
                     </div>
                     &nbsp;&nbsp;&nbsp;
-                    <Link to={link}>{itemObject.itemName}</Link>
+                    {itemObject.itemName}
                 </div>
                 <div align="right">
+                    {itemObject.quantity}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Button bsSize="small" bsStyle="warning"><Glyphicon glyph="trash" /></Button>
                 </div>
             </div>

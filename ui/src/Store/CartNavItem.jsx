@@ -83,7 +83,7 @@ class CartNavItem extends React.Component {
                             delayShow={1000}
                             overlay={<Tooltip id="create-issue">Make a New Post</Tooltip>}
                         >
-                            <Glyphicon glyph="plus" />
+                            <Glyphicon glyph="shopping-cart" />
                         </OverlayTrigger>
                     </NavItem>
                 </React.Fragment>
@@ -98,7 +98,7 @@ class CartNavItem extends React.Component {
                     <OverlayTrigger
                         placement="left"
                         delayShow={1000}
-                        overlay={<Tooltip id="create-issue">Make a New Post</Tooltip>}
+                        overlay={<Tooltip id="create-issue">Your Cart</Tooltip>}
                     >
                         <Glyphicon glyph="shopping-cart" />
                     </OverlayTrigger>
@@ -111,13 +111,13 @@ class CartNavItem extends React.Component {
                         <Cart />
                     </Modal.Body>
                     <Modal.Footer>
-                        <ButtonToolbar>
+                        <ButtonToolbar style={{float: 'right'}}>
                             <Button
                                 type="button"
                                 bsStyle="primary"
                                 onClick={this.handleSubmit}
                             >
-                                Submit
+                                Checkout
                             </Button>
                             <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
                         </ButtonToolbar>

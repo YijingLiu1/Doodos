@@ -3,7 +3,7 @@ import {Col, Panel, Row} from "react-bootstrap";
 import React from "react";
 import axios from "axios";
 
-export default class PostPanel extends React.Component {
+export default class Cart extends React.Component {
     constructor() {
         super();
         this.state = { cart: [], user: null };
@@ -44,16 +44,17 @@ export default class PostPanel extends React.Component {
         }
         // Have to convert the object before use
         const cartObject = [];
-        for (let k in cart) {
-            cartObject.push(cart[k]);
+        for (let k in cart.products) {
+            cartObject.push(cart.products[k]);
         }
+        console.log(cartObject);
         const cartItems = cartObject.map((item) => (
-            <Col xs={12} sm={6} md={3} key={item._id}><CartItem id={item._id} user={user} /></Col>
+            <div key={item._id}><CartItem item={item} user={user} /></div>
         ));
         return (
-                    <Row>
-                        {cartItems}
-                    </Row>
+            <div>
+                {cartItems}
+            </div>
         );
     }
 }

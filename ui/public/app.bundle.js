@@ -3055,7 +3055,7 @@ var routes = [{
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PostPanel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Cart; });
 /* harmony import */ var _CartItem_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CartItem.jsx */ "./src/Store/CartItem.jsx");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -3093,15 +3093,15 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var PostPanel = /*#__PURE__*/function (_React$Component) {
-  _inherits(PostPanel, _React$Component);
+var Cart = /*#__PURE__*/function (_React$Component) {
+  _inherits(Cart, _React$Component);
 
-  var _super = _createSuper(PostPanel);
+  var _super = _createSuper(Cart);
 
-  function PostPanel() {
+  function Cart() {
     var _this;
 
-    _classCallCheck(this, PostPanel);
+    _classCallCheck(this, Cart);
 
     _this = _super.call(this);
     _this.state = {
@@ -3111,7 +3111,7 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(PostPanel, [{
+  _createClass(Cart, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var user = this.state.user;
@@ -3194,26 +3194,24 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
 
       var cartObject = [];
 
-      for (var k in cart) {
-        cartObject.push(cart[k]);
+      for (var k in cart.products) {
+        cartObject.push(cart.products[k]);
       }
 
+      console.log(cartObject);
       var cartItems = cartObject.map(function (item) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
-          xs: 12,
-          sm: 6,
-          md: 3,
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
           key: item._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CartItem_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-          id: item._id,
+          item: item,
           user: user
         }));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], null, cartItems);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, cartItems);
     }
   }]);
 
-  return PostPanel;
+  return Cart;
 }(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
 
 
@@ -3297,11 +3295,9 @@ var CartItem = /*#__PURE__*/function (_React$Component) {
         src: itemObject.imagePath,
         alt: "profile pic",
         circle: true
-      })), "\xA0\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: link
-      }, itemObject.itemName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), "\xA0\xA0\xA0", itemObject.itemName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      }, itemObject.quantity, "\xA0\xA0\xA0\xA0\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsSize: "small",
         bsStyle: "warning"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
@@ -3495,7 +3491,7 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
             id: "create-issue"
           }, "Make a New Post")
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
-          glyph: "plus"
+          glyph: "shopping-cart"
         }))));
       }
 
@@ -3509,7 +3505,7 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
         delayShow: 1000,
         overlay: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], {
           id: "create-issue"
-        }, "Make a New Post")
+        }, "Your Cart")
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
         glyph: "shopping-cart"
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
@@ -3518,11 +3514,15 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
         onHide: this.hideModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Header, {
         closeButton: true
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null, "Your Cart")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null, "Your Cart")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], {
+        style: {
+          float: 'right'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "button",
         bsStyle: "primary",
         onClick: this.handleSubmit
-      }, "Submit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      }, "Checkout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "link",
         onClick: this.hideModal
       }, "Cancel")))));
