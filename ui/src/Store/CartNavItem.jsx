@@ -15,13 +15,15 @@ class CartNavItem extends React.Component {
             showing: false,
             postAdded: false,
             linK: '',
-            imageUrl: ''
+            imageUrl: '',
+            sum: 0
         };
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showWarning = this.showWarning.bind(this);
         this.onUrlChange = this.onUrlChange.bind(this);
+        this.onSumChange = this.onSumChange.bind(this);
     }
 
     showModal() {
@@ -36,6 +38,9 @@ class CartNavItem extends React.Component {
         this.setState({ imageUrl });
     }
 
+    onSumChange(sum) {
+        this.setState({ sum });
+    }
 
     async handleSubmit(e) {
         e.preventDefault();
@@ -73,7 +78,7 @@ class CartNavItem extends React.Component {
 
     render() {
         const { showing, postAdded, link } = this.state;
-        const { user } = this.props;
+        const { user, showSuccess, showError } = this.props;
         if (!user.signedIn) {
             return (
                 <React.Fragment>
@@ -108,9 +113,12 @@ class CartNavItem extends React.Component {
                         <Modal.Title>Your Cart</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Cart />
+                        <Cart onSumChange={this.onSumChange} showSuccess={showSuccess} showError={showError} />
                     </Modal.Body>
                     <Modal.Footer>
+                        <div style={{float: "left", marginLeft: "15px", justifyContent: "center", display: "flex"}}>
+                            {`Total: $${this.state.sum}`}
+                        </div>
                         <ButtonToolbar style={{float: 'right'}}>
                             <Button
                                 type="button"

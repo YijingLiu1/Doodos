@@ -3217,7 +3217,8 @@ var Cart = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       cart: [],
-      user: null
+      user: null,
+      loading: true
     };
     return _this;
   }
@@ -3232,13 +3233,13 @@ var Cart = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var api, cart, profile, profileObject, k;
+        var api, cart, onSumChange, profile, profileObject, k;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!localStorage.token) {
-                  _context.next = 13;
+                  _context.next = 12;
                   break;
                 }
 
@@ -3256,16 +3257,17 @@ var Cart = /*#__PURE__*/function (_React$Component) {
                 cart = _context.sent;
 
                 if (cart) {
+                  onSumChange = this.props.onSumChange;
                   this.setState({
                     cart: cart.data
                   });
+                  onSumChange(this.state.cart.sum);
                 }
 
-                console.log(this.state.cart);
-                _context.next = 9;
+                _context.next = 8;
                 return api.get('/profile/me');
 
-              case 9:
+              case 8:
                 profile = _context.sent;
                 profileObject = {};
 
@@ -3275,6 +3277,11 @@ var Cart = /*#__PURE__*/function (_React$Component) {
 
                 this.setState({
                   user: profileObject.user._id
+                });
+
+              case 12:
+                this.setState({
+                  loading: false
                 });
 
               case 13:
@@ -3296,12 +3303,12 @@ var Cart = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$state = this.state,
           cart = _this$state.cart,
-          user = _this$state.user;
-
-      if (!cart) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "No items in cart.");
-      } // Have to convert the object before use
-
+          user = _this$state.user,
+          loading = _this$state.loading;
+      var _this$props = this.props,
+          showSuccess = _this$props.showSuccess,
+          showError = _this$props.showError;
+      if (loading) return null; // Have to convert the object before use
 
       var cartObject = [];
 
@@ -3309,16 +3316,50 @@ var Cart = /*#__PURE__*/function (_React$Component) {
         cartObject.push(cart.products[k]);
       }
 
-      console.log(cartObject);
+      if (cartObject.length === 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, "No items in cart.");
+      }
+
       var cartItems = cartObject.map(function (item) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
           key: item._id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CartItem_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
           item: item,
-          user: user
+          user: user,
+          showSuccess: showSuccess,
+          showError: showError
         }));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, cartItems);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+        className: "cartHeader"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+        xs: 2,
+        style: {
+          left: "5px",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "\xA0Image"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+        xs: 6,
+        style: {
+          left: "5px",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "\xA0\xA0Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+        xs: 1,
+        style: {
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+        xs: 2,
+        style: {
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "Qty")), cartItems);
     }
   }]);
 
@@ -3343,7 +3384,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3369,51 +3416,182 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var CartItem = /*#__PURE__*/function (_React$Component) {
   _inherits(CartItem, _React$Component);
 
   var _super = _createSuper(CartItem);
 
   function CartItem(props) {
+    var _this;
+
     _classCallCheck(this, CartItem);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      item: null,
+      loading: true,
+      itemRemoved: false
+    };
+    _this.deleteItem = _this.deleteItem.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(CartItem, [{
-    key: "render",
-    value: function render() {
-      var item = this.props.item; // Have to convert the object before use
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.item == null) this.loadData();
+    }
+  }, {
+    key: "loadData",
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var item;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                item = this.props.item;
+                this.setState({
+                  item: item,
+                  loading: false
+                });
 
-      var itemObject = {};
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
 
-      for (var k in item) {
-        itemObject[k] = item[k];
+      function loadData() {
+        return _loadData.apply(this, arguments);
       }
 
-      var link = "/item/".concat(itemObject._id, "/");
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "UserItem"
+      return loadData;
+    }()
+  }, {
+    key: "deleteItem",
+    value: function () {
+      var _deleteItem = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+        var _this$props, showSuccess, showError, item, cartItem, api, res;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                _this$props = this.props, showSuccess = _this$props.showSuccess, showError = _this$props.showError;
+
+                if (!localStorage.token) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                item = this.state.item;
+                cartItem = {
+                  itemName: item.itemName,
+                  quantity: item.quantity
+                };
+                console.log(cartItem);
+                api = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context2.next = 9;
+                return api.delete("/cart/", {
+                  data: cartItem
+                });
+
+              case 9:
+                res = _context2.sent;
+
+                if (res) {
+                  showSuccess("Item removed.");
+                  this.setState({
+                    itemRemoved: true
+                  });
+                  this.loadData();
+                } else {
+                  showError("Remove item failed.");
+                }
+
+                _context2.next = 14;
+                break;
+
+              case 13:
+                showError("Sign in to remove item.");
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function deleteItem(_x) {
+        return _deleteItem.apply(this, arguments);
+      }
+
+      return deleteItem;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          item = _this$state.item,
+          loading = _this$state.loading,
+          itemRemoved = _this$state.itemRemoved;
+      if (loading || itemRemoved) return null;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], {
+        className: "CartItem"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+        xs: 2
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        align: "left",
-        style: {
-          float: 'left'
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "MiniAvatarContainer"
+        className: "ItemContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Image"], {
-        className: "img-circle",
-        src: itemObject.imagePath,
-        alt: "profile pic",
-        circle: true
-      })), "\xA0\xA0\xA0", itemObject.itemName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        align: "right"
-      }, itemObject.quantity, "\xA0\xA0\xA0\xA0\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        className: "img-rec",
+        src: item.imagePath,
+        alt: "item pic"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+        xs: 6,
+        style: {
+          left: "5px",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, item.itemName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+        xs: 1,
+        style: {
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "$".concat(item.price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+        xs: 2,
+        style: {
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, item.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+        xs: 1,
+        style: {
+          justifyContent: "center",
+          display: "flex",
+          right: "10px"
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsSize: "small",
-        bsStyle: "warning"
+        bsStyle: "warning",
+        onClick: this.deleteItem
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
         glyph: "trash"
-      }))));
+      })))));
     }
   }]);
 
@@ -3489,13 +3667,15 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
       showing: false,
       postAdded: false,
       linK: '',
-      imageUrl: ''
+      imageUrl: '',
+      sum: 0
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.showWarning = _this.showWarning.bind(_assertThisInitialized(_this));
     _this.onUrlChange = _this.onUrlChange.bind(_assertThisInitialized(_this));
+    _this.onSumChange = _this.onSumChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3518,6 +3698,13 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
     value: function onUrlChange(imageUrl) {
       this.setState({
         imageUrl: imageUrl
+      });
+    }
+  }, {
+    key: "onSumChange",
+    value: function onSumChange(sum) {
+      this.setState({
+        sum: sum
       });
     }
   }, {
@@ -3590,7 +3777,10 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
           showing = _this$state.showing,
           postAdded = _this$state.postAdded,
           link = _this$state.link;
-      var user = this.props.user;
+      var _this$props = this.props,
+          user = _this$props.user,
+          showSuccess = _this$props.showSuccess,
+          showError = _this$props.showError;
 
       if (!user.signedIn) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavItem"], {
@@ -3625,7 +3815,18 @@ var CartNavItem = /*#__PURE__*/function (_React$Component) {
         onHide: this.hideModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Header, {
         closeButton: true
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null, "Your Cart")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null, "Your Cart")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onSumChange: this.onSumChange,
+        showSuccess: showSuccess,
+        showError: showError
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          float: "left",
+          marginLeft: "15px",
+          justifyContent: "center",
+          display: "flex"
+        }
+      }, "Total: $".concat(this.state.sum)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], {
         style: {
           float: 'right'
         }
@@ -4207,7 +4408,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotFound_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../NotFound.jsx */ "./src/NotFound.jsx");
 /* harmony import */ var _ItemPage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ItemPage.jsx */ "./src/Store/ItemPage.jsx");
 /* harmony import */ var _NumInput_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../NumInput.jsx */ "./src/NumInput.jsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4237,6 +4444,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var StoreItem = /*#__PURE__*/function (_React$Component) {
   _inherits(StoreItem, _React$Component);
 
@@ -4250,7 +4458,9 @@ var StoreItem = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       showing: false,
-      number: 1
+      number: 1,
+      item: null,
+      loading: true
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
@@ -4258,10 +4468,53 @@ var StoreItem = /*#__PURE__*/function (_React$Component) {
     _this.decreaseItem = _this.decreaseItem.bind(_assertThisInitialized(_this));
     _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_this));
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.addToCart = _this.addToCart.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(StoreItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var item = this.state.item;
+      if (item == null) this.loadData();
+    }
+  }, {
+    key: "loadData",
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var product, productObject, k;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                product = this.props.product; // Have to convert the object before use
+
+                productObject = {};
+
+                for (k in product) {
+                  productObject[k] = product[k];
+                }
+
+                this.setState({
+                  item: productObject,
+                  loading: false
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
+  }, {
     key: "showModal",
     value: function showModal() {
       this.setState({
@@ -4341,30 +4594,91 @@ var StoreItem = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "addToCart",
+    value: function () {
+      var _addToCart = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+        var _this$props, showSuccess, showError, item, cartItem, api, res;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                this.hideModal();
+                _this$props = this.props, showSuccess = _this$props.showSuccess, showError = _this$props.showError;
+
+                if (!localStorage.token) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                item = this.state.item;
+                cartItem = {
+                  itemName: item.itemName,
+                  quantity: this.state.number
+                };
+                api = axios__WEBPACK_IMPORTED_MODULE_7___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context2.next = 9;
+                return api.post("/cart/", cartItem);
+
+              case 9:
+                res = _context2.sent;
+
+                if (res) {
+                  showSuccess("Item added.");
+                  this.setState({
+                    itemAdded: true,
+                    number: 1
+                  });
+                } else {
+                  showError("Add to cart failed.");
+                }
+
+                _context2.next = 14;
+                break;
+
+              case 13:
+                showError("Sign in to add to cart.");
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function addToCart(_x) {
+        return _addToCart.apply(this, arguments);
+      }
+
+      return addToCart;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
           showing = _this$state.showing,
-          number = _this$state.number;
-      var product = this.props.product; // Have to convert the object before use
-
-      var productObject = {};
-
-      for (var k in product) {
-        productObject[k] = product[k];
-      }
-
-      var link = "/item/".concat(productObject._id, "/");
-      console.log(number);
+          number = _this$state.number,
+          item = _this$state.item,
+          loading = _this$state.loading;
+      if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
+      var link = "/item/".concat(item._id, "/");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "grid"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figure", {
         className: "effect-sadie",
         onClick: this.showModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: product.imagePath,
+        src: item.imagePath,
         alt: "img01"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figcaption", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, product.itemName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figcaption", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, item.itemName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: link,
         "data-toggle": "modal",
         "data-target": "#theModal"
@@ -4373,7 +4687,7 @@ var StoreItem = /*#__PURE__*/function (_React$Component) {
         style: {
           float: 'left'
         }
-      }, "$", product.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "$", item.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         align: "right"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], {
         inline: true
@@ -4401,23 +4715,47 @@ var StoreItem = /*#__PURE__*/function (_React$Component) {
         glyph: "plus"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsSize: "xsmall",
-        bsStyle: "primary"
+        bsStyle: "primary",
+        onClick: this.addToCart
       }, "Add to Cart")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
         keyboard: true,
         show: showing,
         onHide: this.hideModal
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Header, {
         closeButton: true
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null, "Author")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        id: productObject._id
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Title, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        id: item._id
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+        inline: true,
         style: {
           float: "right"
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        type: "button",
-        bsStyle: "primary"
-      }, "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        bsSize: "xsmall",
+        onClick: this.decreaseItem
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
+        glyph: "minus"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
+        bsSize: "sm"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        style: {
+          width: "50px",
+          height: "25px"
+        },
+        value: number,
+        name: "number",
+        onChange: this.onChange,
+        onBlur: this.onBlur
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        bsSize: "xsmall",
+        onClick: this.increaseItem
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
+        glyph: "plus"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        bsStyle: "primary",
+        onClick: this.addToCart
+      }, "Add to Cart"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         bsStyle: "link",
         onClick: this.hideModal
       }, "Back")))));

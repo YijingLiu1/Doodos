@@ -1,12 +1,12 @@
 import CartItem from "./CartItem.jsx";
-import {Col, Panel, Row} from "react-bootstrap";
+import {Button, Col, Glyphicon, Image, Panel, Row} from "react-bootstrap";
 import React from "react";
 import axios from "axios";
 
 export default class Cart extends React.Component {
     constructor() {
         super();
-        this.state = { cart: [], user: null };
+        this.state = { cart: [], user: null, loading: true };
     }
 
     componentDidMount() {
@@ -25,9 +25,10 @@ export default class Cart extends React.Component {
             });
             const cart = await api.get('/cart/');
             if (cart) {
+                const { onSumChange } = this.props;
                 this.setState({ cart: cart.data });
+                onSumChange(this.state.cart.sum);
             }
-            console.log(this.state.cart);
             const profile = await api.get('/profile/me');
             const profileObject = {};
             for (let k in profile.data) {
@@ -35,24 +36,40 @@ export default class Cart extends React.Component {
             }
             this.setState({ user: profileObject.user._id });
         }
+        this.setState({ loading: false });
     }
 
     render() {
-        const { cart, user } = this.state;
-        if (!cart) {
-            return <div>No items in cart.</div>;
-        }
+        const { cart, user, loading } = this.state;
+        const { showSuccess, showError } = this.props;
+        if (loading) return null;
         // Have to convert the object before use
         const cartObject = [];
         for (let k in cart.products) {
             cartObject.push(cart.products[k]);
         }
-        console.log(cartObject);
+        if (cartObject.length === 0) {
+            return <div>No items in cart.</div>;
+        }
         const cartItems = cartObject.map((item) => (
-            <div key={item._id}><CartItem item={item} user={user} /></div>
+            <div key={item._id}><CartItem item={item} user={user} showSuccess={showSuccess} showError={showError} /></div>
         ));
         return (
             <div>
+                <Row className="cartHeader">
+                    <Col xs={2} style={{left: "5px", justifyContent: "center", display: "flex"}}>
+                        &nbsp;Image
+                    </Col>
+                    <Col xs={6} style={{left: "5px", justifyContent: "center", display: "flex"}}>
+                        &nbsp;&nbsp;Title
+                    </Col>
+                    <Col xs={1} style={{justifyContent: "center", display: "flex"}}>
+                        Price
+                    </Col>
+                    <Col xs={2} style={{alignItems: "center", justifyContent: "center", display: "flex"}}>
+                        Qty
+                    </Col>
+                </Row>
                 {cartItems}
             </div>
         );
