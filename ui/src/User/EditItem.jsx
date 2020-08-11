@@ -92,7 +92,9 @@ class PostItem extends React.Component {
                 <div>
                     <div align="left" style={{float: 'left'}}><Link to={authorLink}>{postObject.name}</Link></div>
                     <div align="right">
-                        <Button bsSize="xsmall" onClick={this.showModal}><Glyphicon glyph="edit" /></Button>
+                        <Link to={editLink} >
+                            <Button bsSize="xsmall"><Glyphicon glyph="edit" /></Button>
+                        </Link>
                         <Button bsSize="xsmall" onClick={this.showDelete}><Glyphicon glyph="trash" /></Button>
                     </div>
                 </div>
