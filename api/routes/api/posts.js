@@ -7,7 +7,7 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-const categories = [
+/* const categories = [
   'ideas',
   'artworks',
   'spotsaroundyou',
@@ -16,6 +16,7 @@ const categories = [
   'events',
   'life',
 ];
+*/
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -152,7 +153,7 @@ router.put(
     auth,
     check('text', 'Text is required').not().isEmpty(),
     check('title', 'title is required').not().isEmpty(),
-    check('imageUrl', 'image is required').not().isEmpty(),
+    // check('imageUrl', 'image is required').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -162,15 +163,23 @@ router.put(
     }
 
     try {
-      const posts = await Post.find();
-      const postsfound = await posts.filter(
-        (post) => post.user == req.params.id
-      );
+      const post = await Post.findById(req.params.postId);
 
-      if (!postsfound) {
-        return res.status(404).json({ msg: 'No posts under this user' });
+      if (!post) {
+        return res.status(404).json({ msg: 'Post not found' });
       }
-      res.status(200).json(postsfound);
+      if (post.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: 'User is no authorized' });
+      }
+      const { categories, text, title, imageUrl, date } = req.body;
+      if (categories) post.categories = categories;
+      if (text) post.text = text;
+      if (title) post.title = title;
+      if (imageUrl) post.imageUrl = imageUrl;
+      post.date = Date.now();
+      await post.save();
+
+      res.status(200).json(post);
     } catch (err) {
       console.error(err.message);
       if (err.kind == 'ObjectId') {
