@@ -7,7 +7,7 @@ const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-/* const categories = [
+const categories = [
   'ideas',
   'artworks',
   'spotsaroundyou',
@@ -16,7 +16,7 @@ const User = require('../../models/User');
   'events',
   'life',
 ];
-*/
+
 
 // @route   POST api/posts
 // @desc    Create a post

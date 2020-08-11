@@ -10,6 +10,7 @@ import UserTabContents from "./UserTabContents.jsx";
 import api from "../api";
 import EditItem from "./EditItem.jsx";
 import axios from "axios";
+import PostItem from "../Discover/PostItem.jsx";
 
 class Dashboard extends React.Component {
     constructor() {
@@ -54,13 +55,20 @@ class Dashboard extends React.Component {
             if (posts) {
                 this.setState({ posts: posts.data });
             }
+            const likes = this.state.profile.myLikes;
+            const myLikes = [];
+            for (let k in likes) {
+                const liked = await api.get(`/posts/${likes[k].post}`);
+                myLikes.push(liked.data);
+            }
+            this.setState({ likes: myLikes });
         }
         this.setState({ loading: false })
     }
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts, loading } = this.state;
+        const { user, profile, posts, likes, loading } = this.state;
         if (loading) return <div>loading...</div>
         if (user == null) {
             return <h3>Loading userdata...<br/>If not signed in, sign in to access Dashboard.</h3>
@@ -84,6 +92,9 @@ class Dashboard extends React.Component {
         }
         const postItems = postsObject.map((post) => (
             <Col xs={12} sm={6} md={4} key={post._id}><EditItem post={post} /></Col>
+        ));
+        const likedItems = likes.map((post) => (
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user._id} /></Col>
         ));
         return (
             <div className="Profile">
@@ -112,11 +123,14 @@ class Dashboard extends React.Component {
                                 <Link to="./likes">Likes</Link>
                             </li>
                             <li className="tab">
+                                <Link to="./following">Following</Link>
+                            </li>
+                            <li className="tab">
                                 <Link to="./about">About</Link>
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} posts={postItems} />
+                            <UserTabContents tab={tab} social={social} posts={postItems} likes={likedItems} />
                         </div>
                     </div>
                 </div>

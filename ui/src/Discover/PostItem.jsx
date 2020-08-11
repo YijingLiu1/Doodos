@@ -103,7 +103,9 @@ class PostItem extends React.Component {
         const link = `/post/${postObject._id}/`;
         const authorLink = `/user/${postObject.user}/`;
         const like = <div align="right"><Button bsSize="xsmall" onClick={this.likePost}><Glyphicon glyph="heart" /></Button></div>;
-        const unlike = <div align="right"><Button bsStyle="primary" bsSize="xsmall" onClick={this.unlikePost}><Glyphicon glyph="heart" /></Button></div>;
+        const liked = <div align="right"><Button bsStyle="primary" bsSize="xsmall" onClick={this.unlikePost}><Glyphicon glyph="heart" /></Button></div>;
+        const likeModal = <Button type="button" bsStyle="primary" onClick={this.likePost}>Like</Button>;
+        const likedModal = <Button type="button" bsStyle="warning" onClick={this.unlikePost}>Liked</Button>;
         return (
             <React.Fragment>
                 <div className="grid">
@@ -117,7 +119,7 @@ class PostItem extends React.Component {
                 </div>
                 <div>
                     <div align="left" style={{float: 'left'}}><Link to={authorLink}>{postObject.name}</Link></div>
-                    {likes.includes(user)? unlike:like}
+                    {likes.includes(user)? liked:like}
                 </div>
                 <p></p><p></p>
                 <Modal keyboard show={showing} onHide={this.hideModal}>
@@ -129,12 +131,7 @@ class PostItem extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <ButtonToolbar style={{float: "right"}}>
-                            <Button
-                                type="button"
-                                bsStyle="primary"
-                            >
-                                Like
-                            </Button>
+                            {likes.includes(user)? likedModal:likeModal}
                             <Button bsStyle="link" onClick={this.hideModal}>Back</Button>
                         </ButtonToolbar>
                     </Modal.Footer>

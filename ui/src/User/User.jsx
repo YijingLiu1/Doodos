@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
@@ -16,7 +16,9 @@ class User extends React.Component {
         super();
         this.state = {
             user: null,
-            me: null
+            me: null,
+            dashboard: false,
+            loading: true
         }
     }
 
@@ -28,18 +30,6 @@ class User extends React.Component {
     async loadData() {
         let { match: { params: { id } } } = this.props;
         if (id == null) id = this.props.id;
-        const profile = await api.get(`/profile/user/${id}`);
-        if (profile) {
-            this.setState({ profile: profile.data });
-            const user = await api.get(`/users/${id}`);
-            const posts = await api.get(`/posts/byuser/${id}`);
-            if (user) {
-                this.setState({ user: user.data });
-            }
-            if (posts) {
-                this.setState({ posts: posts.data });
-            }
-        }
         if (localStorage.token) {
             try {
                 const api = axios.create({
@@ -55,10 +45,39 @@ class User extends React.Component {
                     profileObject[k] = profile.data[k];
                 }
                 this.setState({ me: profileObject.user._id });
+                if (this.state.me === id) {
+                    this.setState({ dashboard: true });
+                }
             } catch (err) {
                 console.error(err.message);
             }
         }
+        const profile = await api.get(`/profile/user/${id}`);
+        if (profile) {
+            this.setState({ profile: profile.data });
+            const user = await api.get(`/users/${id}`);
+            const posts = await api.get(`/posts/byuser/${id}`);
+            if (user) {
+                this.setState({ user: user.data });
+            }
+            if (posts) {
+                this.setState({ posts: posts.data });
+            }
+            const likes = this.state.profile.myLikes;
+            const myLikes = [];
+            for (let k in likes) {
+                const liked = await api.get(`/posts/${likes[k].post}`);
+                myLikes.push(liked.data);
+            }
+            this.setState({ likes: myLikes });
+            const followings = this.state.user.following;
+            const myFollowings = [];
+            for (let k in followings) {
+                const liked = await api.get(`/posts/${followings[k].post}`);
+                myLikes.push(liked.data);
+            }
+        }
+        this.setState({ loading: false });
     }
 
     async followUser() {
@@ -85,7 +104,9 @@ class User extends React.Component {
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts } = this.state;
+        const { user, profile, posts, likes, loading, dashboard } = this.state;
+        if (loading) return <div>loading...</div>;
+        if (dashboard) return <Redirect to="/dashboard/" />
         // Have to convert the object before use
         const userObject = {};
         const profileObject = {};
@@ -94,7 +115,6 @@ class User extends React.Component {
             userObject[k] = user[k];
         }
         const id = userObject._id;
-        console.log(id);
         for (let k in profile) {
             profileObject[k] = profile[k];
         }
@@ -106,7 +126,10 @@ class User extends React.Component {
             postsObject.push(posts[k]);
         }
         const postItems = postsObject.map((post) => (
-            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} /></Col>
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user._id} /></Col>
+        ));
+        const likedItems = likes.map((post) => (
+            <Col xs={12} sm={6} md={4} key={post._id}><PostItem id={post._id} user={user._id} /></Col>
         ));
         return (
             <div className="Profile">
@@ -135,11 +158,14 @@ class User extends React.Component {
                                 <Link to="./likes">Likes</Link>
                             </li>
                             <li className="tab">
+                                <Link to="./following">Following</Link>
+                            </li>
+                            <li className="tab">
                                 <Link to="./about">About</Link>
                             </li>
                         </ul>
                         <div className="ProfileTabContents">
-                            <UserTabContents tab={tab} social={social} id={id} posts={postItems} />
+                            <UserTabContents tab={tab} social={social} id={id} posts={postItems} likes={likedItems} />
                         </div>
                     </div>
                 </div>
