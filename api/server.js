@@ -3,6 +3,9 @@ const connectDB = require('./config/db');
 require('dotenv').config();
 const app = express();
 
+const ejs = require('ejs');
+const paypal = require('paypal-rest-sdk');
+
 // Connect Database
 connectDB();
 
