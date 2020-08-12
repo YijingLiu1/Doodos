@@ -46,8 +46,8 @@ class SignInNavItem extends React.Component {
     async signOut() {
         const { onUserChange } = this.props;
         localStorage.removeItem('token');
-        this.setState({ signedOut: true});
-        onUserChange({ signedIn: false, name: "", token: null });
+        onUserChange({ signedIn: false, token: null });
+        this.setState({ signedOut: true });
     }
 
     showModal() {
@@ -70,7 +70,6 @@ class SignInNavItem extends React.Component {
         const { user } = this.props;
         console.log(user);
         console.log(localStorage.token);
-        if (this.state.signedOut) return <meta httpEquiv="refresh" content="1"/>;
         if (user.token && user.signedIn) {
             return (
                 <NavDropdown title={user.name} id="user">
@@ -81,6 +80,8 @@ class SignInNavItem extends React.Component {
                 </NavDropdown>
             );
         }
+
+        if (this.state.signedOut) return <meta httpEquiv="refresh" content="1"/>;
 
         const { showing, register } = this.state;
         const { showSuccess, showError, onUserChange } = this.props;

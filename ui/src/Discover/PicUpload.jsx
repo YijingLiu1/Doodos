@@ -20,10 +20,10 @@ export default class PicUpload extends React.Component {
     }
 
     async loadData() {
-        const { imageUrl, onUrlChange } = this.props;
+        const { imageUrl, onFormerUrlChange } = this.props;
         if (imageUrl !== undefined) {
             this.setState({ uploadedFileCloudinaryUrl: imageUrl });
-            onUrlChange({ formerImageUrl: imageUrl })
+            onFormerUrlChange(imageUrl)
         }
     }
 
@@ -47,7 +47,7 @@ export default class PicUpload extends React.Component {
                     uploadedFileCloudinaryUrl: response.body.secure_url
                 });
                 const { onUrlChange } = this.props;
-                onUrlChange({ imageUrl: response.body.secure_url })
+                onUrlChange(response.body.secure_url);
             }
         });
     }

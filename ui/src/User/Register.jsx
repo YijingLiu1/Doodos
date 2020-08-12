@@ -64,7 +64,7 @@ export default class Register extends React.Component {
                     const user = await sss.get('/auth');
                     const profile = await sss.post('/profile');
                     setAuthToken(newUser.data.token);
-                    onUserChange({ signedIn: true, loading: false, token: res.data.token, name: user.data.name })
+                    onUserChange({ signedIn: true, loading: false, token: newUser.data.token, name: user.data.name })
                     showSuccess("Registration success.");
                     this.setState({ signedIn: true, user: user.data, profile: profile.data });
                 }
