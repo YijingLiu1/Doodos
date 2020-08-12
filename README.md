@@ -45,9 +45,7 @@ new p
 
 _Doods Map based on Google Maps API:_
 
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
 
-doodos-map-set-up02
 
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
@@ -55,6 +53,16 @@ Steps to build up Doodos Map
 * A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
 * Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
 * After those settings, a file "maps.js" is created inside the api/routes folder, which handle the request received from the server and send a response with the rendered doodos map.
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up01.png)
+
+doodo-maps-set-up01 (connect to google maps api, and created a map view at fixed size)
+
+
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
+
+doodos-map-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions)
+
 
 ## Iter 2
 
