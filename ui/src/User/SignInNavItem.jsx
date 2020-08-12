@@ -7,16 +7,18 @@ import SignIn from "./SignIn.jsx";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {LinkContainer} from "react-router-bootstrap";
+import Register from "./Register.jsx";
 
 class SignInNavItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showing: false,
-            disabled: true,
             signedIn: null,
             loading: true,
             user: null,
+            register: false,
+            signedOut: false
         };
         if (localStorage.token) {
             this.state ={ user: { token: localStorage.token }};
@@ -24,9 +26,9 @@ class SignInNavItem extends React.Component {
         }
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-        this.googleSignIn = this.googleSignIn.bind(this);
-        this.googleSignOut = this.googleSignOut.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.switchToSignIn = this.switchToSignIn.bind(this);
+        this.switchToSignUp = this.switchToSignUp.bind(this);
     }
 
     componentDidMount() {
@@ -41,69 +43,14 @@ class SignInNavItem extends React.Component {
         // });
     }
 
-    // Currently unused
-    async googleSignIn() {
-        this.hideModal();
-        const { showError } = this.props;
-        let googleToken;
-        try {
-            const auth2 = window.gapi.auth2.getAuthInstance();
-            const googleUser = await auth2.signIn();
-            googleToken = googleUser.getAuthResponse().id_token;
-        } catch (error) {
-            showError(`Error authentication with Google: ${error.error}`);
-        }
-
-        try {
-            const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
-            const response = await fetch(`${apiEndpoint}/signin`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'content-Type': 'application/json' },
-                body: JSON.stringify({ google_token: googleToken }),
-            });
-            const body = await response.text();
-            const result = JSON.parse(body);
-            const { signedIn, givenName } = result;
-
-            const { onUserChange } = this.props;
-            onUserChange({ signedIn, givenName });
-        } catch (error) {
-            showError(`Error signing into the app: ${error}`);
-        }
-    }
-
-    // Currently unused
-    async googleSignOut() {
-        const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
-        const { showError } = this.props;
-        try {
-            await fetch(`${apiEndpoint}/signout`, {
-                method: 'POST',
-                credentials: 'include',
-            });
-            const auth2 = window.gapi.auth2.getAuthInstance();
-            await auth2.signOut();
-            const { onUserChange } = this.props;
-            onUserChange({ signedIn: false, givenName: '' });
-        } catch (error) {
-            showError(`Error signing out: ${error}`);
-        }
-    }
-
     async signOut() {
         const { onUserChange } = this.props;
         localStorage.removeItem('token');
-        onUserChange({ signedIn: false, givenName: '' });
+        this.setState({ signedOut: true});
+        onUserChange({ signedIn: false, name: "", token: null });
     }
 
     showModal() {
-        const clientId = window.ENV.GOOGLE_CLIENT_ID;
-        const { showError } = this.props;
-        if (!clientId) {
-            showError('Missing environment variable GOOGLE_CLIENT_ID');
-            return;
-        }
         this.setState({ showing: true });
     }
 
@@ -111,10 +58,19 @@ class SignInNavItem extends React.Component {
         this.setState({ showing: false });
     }
 
+    switchToSignUp() {
+        this.setState({ register: true });
+    }
+
+    switchToSignIn() {
+        this.setState({ register: false });
+    }
+
     render() {
         const { user } = this.props;
         console.log(user);
         console.log(localStorage.token);
+        if (this.state.signedOut) return <meta httpEquiv="refresh" content="1"/>;
         if (user.token && user.signedIn) {
             return (
                 <NavDropdown title={user.name} id="user">
@@ -126,8 +82,21 @@ class SignInNavItem extends React.Component {
             );
         }
 
-        const { showing, disabled } = this.state;
+        const { showing, register } = this.state;
         const { showSuccess, showError, onUserChange } = this.props;
+        const signIn = <SignIn showSuccess={showSuccess} showError={showError} onUserChange={onUserChange}/>;
+        const signUp = <Register showSuccess={showSuccess} showError={showError} onUserChange={onUserChange}/>
+
+        const signUpSwitch = <p className="my-1" style={{float: "left"}}>
+            Don't have an account? <br/>
+            <Button bsStyle="link" onClick={this.switchToSignUp}>Sign Up</Button>
+        </p>;
+
+        const signInSwitch = <p className="my-1" style={{float: "left"}}>
+            Already have an account? <br/>
+            <Button bsStyle="link" onClick={this.switchToSignIn}>Sign In</Button>
+        </p>;
+
         return (
             <>
                 <NavItem onClick={this.showModal}>
@@ -135,26 +104,14 @@ class SignInNavItem extends React.Component {
                 </NavItem>
                 <Modal keyboard show={showing} onHide={this.hideModal} bsSize="sm">
                     <Modal.Header closeButton>
-                        <Modal.Title className="large text-primary">Sign in</Modal.Title>
+                        <Modal.Title className="large text-primary">{register? "Sign up":"Sign in"}</Modal.Title>
                     </Modal.Header>
                     {/* eslint-disable-next-line react/jsx-pascal-case */}
                     <Modal.Body>
-                        <SignIn showSuccess={showSuccess} showError={showError} onUserChange={onUserChange}/>
-                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px"}}>or</p>
-                        <Button
-                            block
-                            disabled={disabled}
-                            bsStyle="primary"
-                            onClick={this.signIn}
-                        >
-                            <img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" alt="Sign In" />
-                        </Button>
+                        {register? signUp:signIn}
                     </Modal.Body>
                     <Modal.Footer>
-                        <p className="my-1" style={{float: "left"}}>
-                            Don't have an account? <br/>
-                            <Link to="/register/" style={{float: "left"}} onClick={this.hideModal}>Sign Up</Link>
-                        </p>
+                        {register? signInSwitch:signUpSwitch}
                         <Button onClick={this.hideModal} style={{float: "right", height: "40px"}}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>

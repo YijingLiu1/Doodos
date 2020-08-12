@@ -248,7 +248,7 @@ body {
     object-fit: cover;
 }
 
-.MiniAvatarContainer .img-circle {
+.img-circle {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -257,6 +257,36 @@ body {
 .UserItem {
     padding: 5px 10px 5px 10px;
     height: 40px;
+}
+
+.cartHeader {
+    font-weight: bold;
+    height: 30px;
+}
+
+.CartItem {
+    padding: 5px 10px 5px 10px;
+    height: 70px;
+}
+
+.ItemContainer {
+    align-self: flex-start;
+    height: 60px;
+    width: 90px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    /* The next line fixes the huge blank
+    caused by the overflow of pic */
+    vertical-align: top;
+}
+
+.img-rec {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .ProfileContents {

@@ -14,13 +14,6 @@ class SignIn extends React.Component {
         this.signIn = this.signIn.bind(this);
     }
 
-    async loadUser() {
-        const res = await api.get('/auth');
-        if (res) {
-            this.setState({ signedIn: true, loading: false, token: res.data })
-        }
-    }
-
     async signIn(email, password) {
         const { showSuccess, showError, onUserChange } = this.props;
         const body = { email, password };
@@ -51,13 +44,14 @@ class SignIn extends React.Component {
         };
         const { email, password } = user;
         this.signIn(email, password).then();
+        this.setState( {signedIn: true} );
     };
 
 
     render() {
         const { signedIn } = this.state;
         if (signedIn) {
-            return <Redirect to="/" />
+            return <meta httpEquiv="refresh" content="1"/>;
         }
 
         return (

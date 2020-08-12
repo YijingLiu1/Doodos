@@ -7,7 +7,6 @@ import User from "../User/User.jsx";
 import Post from "../Discover/Post.jsx";
 import Event from "../Discover/Event.jsx";
 import Edit from "../User/Edit.jsx";
-import Register from "../User/Register.jsx";
 import About from "../About.jsx";
 import Dashboard from "../User/Dashboard.jsx";
 import Item from '../Store/ItemPage.jsx';
@@ -22,7 +21,6 @@ const routes = [
     { path: '/item/:id', component: Item },
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },
-    { path: '/register', component: Register },
     { path: '/dashboard/:tab?', component: Dashboard },
     { path: '/about', component: About },
     { path: '*', component: NotFound },

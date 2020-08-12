@@ -8,10 +8,7 @@ import {
 import NumInput from '../NumInput.jsx';
 import TextInput from '../TextInput.jsx';
 import withToast from '../withToast.jsx';
-import store from '../store.js';
-import UserContext from '../UserContext.js';
 import axios from "axios";
-import api from "../api";
 import PicUpload from "../Discover/PicUpload.jsx";
 
 class Edit extends React.Component {
@@ -193,7 +190,5 @@ class Edit extends React.Component {
         );
     }
 }
-
-Edit.contextType = UserContext;
 
 export default withToast(Edit);

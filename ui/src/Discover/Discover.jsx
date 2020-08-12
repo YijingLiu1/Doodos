@@ -1,8 +1,4 @@
 import React from "react";
-import {
-    Panel, Row, Col, Thumbnail, Button,
-    Glyphicon, Modal, Form, FormGroup, ControlLabel, FormControl, ButtonToolbar,
-} from "react-bootstrap";
 import EventItem from "./EventItem.jsx";
 import PostPanel from "./PostPanel.jsx";
 

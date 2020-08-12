@@ -1,13 +1,13 @@
 import PostItem from "./PostItem.jsx";
 import {Col, Panel, Row} from "react-bootstrap";
 import React from "react";
-import api from "../api";
+import api from "../api.js";
 import axios from "axios";
 
 export default class PostPanel extends React.Component {
     constructor() {
         super();
-        this.state = { posts: [], user: null };
+        this.state = { posts: [], user: null, loading: true };
     }
 
     componentDidMount() {
@@ -16,30 +16,34 @@ export default class PostPanel extends React.Component {
     }
 
     async loadData() {
-        const api = axios.create({
-            baseURL: '/api',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': localStorage.token
+        if (localStorage.token) {
+            const sss = axios.create({
+                baseURL: '/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                }
+            });
+            const profile = await sss.get('/profile/me');
+            if (profile) {
+                this.setState({ profile: profile.data });
+                const profileObject = {};
+                for (let k in profile.data) {
+                    profileObject[k] = profile.data[k];
+                }
+                this.setState({ user: profileObject.user._id });
             }
-        });
-        const profile = await api.get('/profile/me');
-        if (profile) {
-            this.setState({ profile: profile.data });
-            const profileObject = {};
-            for (let k in profile.data) {
-                profileObject[k] = profile.data[k];
-            }
-            this.setState({ user: profileObject.user._id });
         }
         const posts = await api.get("/posts");
         if (posts) {
             this.setState({ posts: posts.data });
         }
+        this.setState({ loading: false });
     }
 
     render() {
-        const { posts, user } = this.state;
+        const { posts, user, loading } = this.state;
+        if (loading) return null;
         // Have to convert the object before use
         const postsObject = [];
         for (let k in posts) {
