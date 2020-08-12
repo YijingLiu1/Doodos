@@ -5,6 +5,7 @@ Team Member: Yijing Liu, Haoran Yu
 ## Iter 3
 
 __Progess in Iter 3:__ <br/>
+
 _Posts:_
 * Users can now edit, delete or like posts;
 * Edit & Delete feature can be accessed from Dashboard page;
