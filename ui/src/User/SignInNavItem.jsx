@@ -31,18 +31,6 @@ class SignInNavItem extends React.Component {
         this.switchToSignUp = this.switchToSignUp.bind(this);
     }
 
-    componentDidMount() {
-        // const clientId = window.ENV.GOOGLE_CLIENT_ID;
-        // if (!clientId) return;
-        // window.gapi.load('auth2', () => {
-        //     if (!window.gapi.auth2.getAuthInstance()) {
-        //         window.gapi.auth2.init({ client_id: clientId }).then(() => {
-        //             this.setState({ disabled: false });
-        //         });
-        //     }
-        // });
-    }
-
     async signOut() {
         const { onUserChange } = this.props;
         localStorage.removeItem('token');

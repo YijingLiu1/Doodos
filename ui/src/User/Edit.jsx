@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
     ButtonToolbar, Button, Alert, Checkbox,
 } from 'react-bootstrap';
-import NumInput from '../NumInput.jsx';
 import TextInput from '../TextInput.jsx';
 import withToast from '../withToast.jsx';
 import axios from "axios";

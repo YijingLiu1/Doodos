@@ -13,7 +13,6 @@ export default class DoodleMaps extends React.Component {
 
     async loadData() {
         const map = await api.get("/maps");
-        console.log(map.data);
         this.setState({ map: map.data, loading: false });
     }
 

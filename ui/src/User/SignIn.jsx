@@ -8,7 +8,9 @@ class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            signedIn: null, loading: true, user: null,
+            signedIn: null,
+            loading: true,
+            user: null
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.signIn = this.signIn.bind(this);
