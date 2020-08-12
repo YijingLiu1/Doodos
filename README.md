@@ -67,11 +67,12 @@ _Doods Map based on Google Maps API:_
 
 
 _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
-* A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
-* Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
-* After those settings, a file "maps.js" is created inside the api/routes folder, which handle the request received from the server and send a response with the rendered doodos map.
+* In creating paypal function, firstly, a paypal-rest-sdk, which contains packages and functions needed to execute payment with paypal. * After installation, developer needs to log in paypal developer with their personal account
+* Then, create a sandbox account
+* Then create a business account and a personal account, the personal account is set to simulate the customer account, and the business account is set to simulate the doodos official account.
+* At the test stage the business account holder is named John Doe.
+* Then to run the paypal-rest-sdk, just like the google maps, we also need to create a app named doodos and generate client id and client secret which could be used to configure the paypal configuration.
 
-* log into google account create this app.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-paypal-sanbox-account.png)
 
 * Activate google maps jsvascript api for this app and generate api-key, then save it in the .env file.
