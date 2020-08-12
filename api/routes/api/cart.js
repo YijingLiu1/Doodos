@@ -11,6 +11,12 @@ const User = require('../../models/User');
 const Product = require('../../models/Product');
 const Cart = require('../../models/Cart');
 
+paypal.configure({
+  mode: 'sandbox',
+  client_id: process.env.client_id,
+  client_secret: process.env.client_secret,
+});
+
 // @route   GET api/cart
 // @desc    GET a cart
 // @access  Private
@@ -29,18 +35,95 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+router.get('/checkout', (req, res) => res.render('checkout'));
+
 // @route   POST api/cart/checkout
 // @desc    checkout item in shopping cart with paypal
 // @access  Private
 
-router.get('/checkout', (req, res) => {
-  paypal.configure({
-    mode: 'sandbox',
-    client_id: '',
-    client_secret: '',
+router.get('/checkout/pay', (req, res) => {
+  const create_payment_json = {
+    intent: 'sale',
+    payer: {
+      payment_method: 'paypal',
+    },
+    redirect_urls: {
+      return_url: 'http://localhost:5000/api/cart/success',
+      cancel_url: 'http://localhost:5000/api/cart/cancel',
+    },
+    transactions: [
+      {
+        item_list: {
+          items: [
+            {
+              name: 'brush',
+              sku: '001',
+              price: '25.00',
+              currency: 'USD',
+              quantity: 1,
+            },
+          ],
+        },
+        amount: {
+          currency: 'USD',
+          total: '25.00',
+        },
+        description: 'This is the payment description.',
+      },
+    ],
+  };
+
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+      throw error;
+    } else {
+      for (let i = 0; i < payment.links.length; i++) {
+        if (payment.links[i].rel === 'approval_url') {
+          res.redirect(payment.links[i].href);
+        }
+      }
+    }
   });
-  res.render('checkout');
 });
+
+// @route   POST api/cart/success
+// @desc    if payment is succeed, then, it will be executed, and then, return the success page
+// @access  Private
+
+router.get('/success', (req, res) => {
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+
+  const execute_payment_json = {
+    payer_id: payerId,
+    transactions: [
+      {
+        amount: {
+          currency: 'USD',
+          total: '25.00',
+        },
+      },
+    ],
+  };
+
+  paypal.payment.execute(paymentId, execute_payment_json, function (
+    error,
+    payment
+  ) {
+    if (error) {
+      console.log(error.response);
+      throw error;
+    } else {
+      console.log(JSON.stringify(payment));
+      res.send('Success');
+    }
+  });
+});
+
+// @route   POST api/cart/success
+// @desc    if payment is succeed, then, it will be executed, and then, return the success page
+// @access  Private
+router.get('/cancel', (req, res) => res.send('Cancelled'));
 
 // @route   POST api/cart
 // @desc    if a cart exist of this user, put product in it, else reate a cart and add the product
