@@ -66,6 +66,27 @@ _Doods Map based on Google Maps API:_
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
 
 
+_Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
+* A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
+* Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
+* After those settings, a file "maps.js" is created inside the api/routes folder, which handle the request received from the server and send a response with the rendered doodos map.
+
+* log into google account create this app.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-paypal-sanbox-account.png)
+
+* Activate google maps jsvascript api for this app and generate api-key, then save it in the .env file.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/api-key-created.png)
+
+* doodo-maps-set-up01 (connect to google maps api, and created a map view at fixed size).
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodo-maps-set-up01.png)
+
+* doodos-map-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions).
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/click-an-icon-to-see-more-info.png)
+
+* Loop through the posts in the mongo database, if the post has no valid lat and lng (default 0) then skip, else extract necessary informations from the post and create marker, info window for that post. Finally, user could see their post (if created with valid geo info) on the doodos map. On click, they could browse the image and other informaation. They could open multiple windows at the same time, and need to click close to close it.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
+
+
 ## Iter 2
 
 __Contribution on Project:__
