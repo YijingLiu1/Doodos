@@ -117,7 +117,7 @@ class CartNavItem extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <div style={{float: "left", marginLeft: "15px", justifyContent: "center", display: "flex"}}>
-                            {`Total: $${this.state.sum}`}
+                            {`Total: $${this.state.sum.toFixed(2)}`}
                         </div>
                         <ButtonToolbar style={{float: 'right'}}>
                             <Button

@@ -135,11 +135,19 @@ class EditProfile extends React.Component {
         const dateString = `${profile.date}`;
         const date = new Date(dateString).toDateString();
         const social = profile.social;
-        const twitter = "twitter" in social? social.twitter: "";
-        const facebook = "facebook" in social? social.facebook: "";
-        const instagram = "instagram" in social? social.instagram: "";
-        const linkedin = "linkedin" in social? social.linkedin: "";
-        const youtube = "youtube" in social? social.youtube: "";
+        let twitter = "";
+        let facebook = "";
+        let instagram = "";
+        let linkedin = "";
+        let youtube = "";
+        if (social) {
+            twitter = "twitter" in social? social.twitter: "";
+            facebook = "facebook" in social? social.facebook: "";
+            instagram = "instagram" in social? social.instagram: "";
+            linkedin = "linkedin" in social? social.linkedin: "";
+            youtube = "youtube" in social? social.youtube: "";
+        }
+
         return (
             <Panel>
                 <Panel.Heading>

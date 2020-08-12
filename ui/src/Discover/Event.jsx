@@ -52,8 +52,8 @@ class Event extends React.Component {
             } catch (err) {
                 console.error(err.message);
             }
-            this.setState({ loading: false });
         }
+        this.setState({ loading: false });
     }
 
     async joinEvent() {

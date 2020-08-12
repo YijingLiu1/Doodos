@@ -13,7 +13,7 @@ import axios from "axios";
 class CategoryPage extends React.Component {
     constructor() {
         super();
-        this.state = { posts: [] };
+        this.state = { posts: [], loading: true };
     }
 
     componentDidMount() {
@@ -60,6 +60,7 @@ class CategoryPage extends React.Component {
                 this.setState({ posts: posts.data });
             }
         }
+        this.setState({ loading: false });
     }
 
     render() {
@@ -73,7 +74,8 @@ class CategoryPage extends React.Component {
             "events": "Events",
             "life": "Life"
         };
-        const { posts, user } = this.state;
+        const { posts, user, loading } = this.state;
+        if (loading) return <div>loading...</div>;
         // Have to convert the object before use
         const { match: { params: { category } } } = this.props;
         const postsObject = [];
