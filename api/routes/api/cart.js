@@ -42,53 +42,58 @@ router.get('/checkout', (req, res) => res.render('checkout'));
 // @access  Private
 
 router.get('/checkout/pay', auth, async (req, res) => {
-  let cart = await Cart.findOne({ user: req.user.id });
-  const items = [];
-  for (let i = 0; i < cart.products.length; i++) {
-    const item = {
-      name: cart.products[i].itemName,
-      price: `${cart.products[i].price}`,
-      currency: 'USD',
-      quantity: cart.products[i].quantity,
-    };
-    items.unshift(item);
-  }
+  try {
+    let cart = await Cart.findOne({ user: req.user.id });
+    const items = [];
+    for (let i = 0; i < cart.products.length; i++) {
+      const item = {
+        name: cart.products[i].itemName,
+        price: `${cart.products[i].price}`,
+        currency: 'USD',
+        quantity: cart.products[i].quantity,
+      };
+      items.unshift(item);
+    }
 
-  const create_payment_json = {
-    intent: 'sale',
-    payer: {
-      payment_method: 'paypal',
-    },
-    redirect_urls: {
-      return_url: 'http://localhost:5000/api/cart/success',
-      cancel_url: 'http://localhost:5000/api/cart/cancel',
-    },
-    transactions: [
-      {
-        item_list: {
-          items,
-        },
-        amount: {
-          currency: 'USD',
-          total: `${cart.sum}`,
-        },
-        description: 'This is the payment description.',
+    const create_payment_json = {
+      intent: 'sale',
+      payer: {
+        payment_method: 'paypal',
       },
-    ],
-  };
+      redirect_urls: {
+        return_url: 'http://localhost:5000/api/cart/success',
+        cancel_url: 'http://localhost:5000/api/cart/cancel',
+      },
+      transactions: [
+        {
+          item_list: {
+            items,
+          },
+          amount: {
+            currency: 'USD',
+            total: `${cart.sum}`,
+          },
+          description: 'This is the payment description.',
+        },
+      ],
+    };
 
-  paypal.payment.create(create_payment_json, function (error, payment) {
-    if (error) {
-      console.log(error);
-      throw error;
-    } else {
-      for (let i = 0; i < payment.links.length; i++) {
-        if (payment.links[i].rel === 'approval_url') {
-          res.redirect(payment.links[i].href);
+    paypal.payment.create(create_payment_json, function (error, payment) {
+      if (error) {
+        console.log(error);
+        throw error;
+      } else {
+        for (let i = 0; i < payment.links.length; i++) {
+          if (payment.links[i].rel === 'approval_url') {
+            res.json(payment.links[i].href);
+          }
         }
       }
-    }
-  });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 // @route   POST api/cart/success
