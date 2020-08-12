@@ -40,9 +40,11 @@ const PostSchema = new Schema({
   },
   lat: {
     type: Number,
+    default: 0,
   },
   lng: {
     type: Number,
+    default: 0,
   },
   likes: [
     {

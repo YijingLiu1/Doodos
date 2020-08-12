@@ -85,9 +85,7 @@ router.post(
     }
 
     if (favoriteCategories) {
-      profileFields.favoriteCategories = favoriteCategories
-        .split(',')
-        .map((category) => category.trim());
+      profileFields.favoriteCategories = favoriteCategories;
     }
 
     // Build social object
