@@ -41,7 +41,19 @@ router.get('/checkout', (req, res) => res.render('checkout'));
 // @desc    checkout item in shopping cart with paypal
 // @access  Private
 
-router.get('/checkout/pay', (req, res) => {
+router.get('/checkout/pay', auth, async (req, res) => {
+  let cart = await Cart.findOne({ user: req.user.id });
+  const items = [];
+  for (let i = 0; i < cart.products.length; i++) {
+    const item = {
+      name: cart.products[i].itemName,
+      price: `${cart.products[i].price}`,
+      currency: 'USD',
+      quantity: cart.products[i].quantity,
+    };
+    items.unshift(item);
+  }
+
   const create_payment_json = {
     intent: 'sale',
     payer: {
@@ -54,19 +66,11 @@ router.get('/checkout/pay', (req, res) => {
     transactions: [
       {
         item_list: {
-          items: [
-            {
-              name: 'brush',
-              sku: '001',
-              price: '25.00',
-              currency: 'USD',
-              quantity: 1,
-            },
-          ],
+          items,
         },
         amount: {
           currency: 'USD',
-          total: '25.00',
+          total: `${cart.sum}`,
         },
         description: 'This is the payment description.',
       },
@@ -75,6 +79,7 @@ router.get('/checkout/pay', (req, res) => {
 
   paypal.payment.create(create_payment_json, function (error, payment) {
     if (error) {
+      console.log(error);
       throw error;
     } else {
       for (let i = 0; i < payment.links.length; i++) {
