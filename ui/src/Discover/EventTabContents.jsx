@@ -1,5 +1,4 @@
 import React from "react";
-import api from "../api";
 
 export default function EventTabContents({ tab, event, attenders }) {
     if (tab === "about") {

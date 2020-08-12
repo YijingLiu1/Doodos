@@ -3,7 +3,7 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
-    ButtonToolbar, Button, Alert, Row, Image,
+    ButtonToolbar, Button, Alert, Row, Image, Glyphicon,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
     render() {
         const { match: { params: { tab } } } = this.props;
         const { signedIn, user, profile, posts, likes, loading, followings } = this.state;
-        if (loading) return <div>loading...</div>
+        if (loading) return <div>loading...</div>;
         if (!signedIn) {
             return <Redirect to="/"/>;
         }
@@ -120,7 +120,7 @@ class Dashboard extends React.Component {
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
-                        <Button bsStyle="primary">Edit</Button>
+                        <Button bsStyle="primary">Edit&nbsp;&nbsp;&nbsp;<Glyphicon glyph="pencil" /></Button>
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">

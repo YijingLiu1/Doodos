@@ -6,7 +6,6 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 import PostAddNavItem from './Discover/PostAddNavItem.jsx';
 import Contents from './Routing/Contents.jsx';
-import UserContext from './UserContext.js';
 import SignInNavItem from './User/SignInNavItem.jsx';
 import axios from "axios";
 import CartNavItem from "./Store/CartNavItem.jsx";
@@ -106,9 +105,7 @@ export default class Page extends React.Component {
             <div>
                 <NavBar user={user} onUserChange={this.onUserChange} />
                 <Grid fluid bsClass="contents">
-                    <UserContext.Provider>
-                        <Contents />
-                    </UserContext.Provider>
+                    <Contents />
                 </Grid>
             </div>
         );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import withToast from '../withToast.jsx';
-import UserContext from '../UserContext.js';
 import UserTabContents from "../User/UserTabContents.jsx";
 import api from "../api";
 

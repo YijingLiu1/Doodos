@@ -6,9 +6,7 @@ import {
 } from 'react-bootstrap';
 
 import withToast from '../withToast.jsx';
-import NotFound from "../NotFound.jsx";
 import Item from "./ItemPage.jsx";
-import NumInput from "../NumInput.jsx";
 import axios from "axios";
 
 class StoreItem extends React.Component {

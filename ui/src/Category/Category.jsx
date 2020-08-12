@@ -4,8 +4,6 @@ import {
     Glyphicon, Modal, Form, FormGroup, ControlLabel, FormControl, ButtonToolbar,
 } from "react-bootstrap";
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
-import PostItem from "../Discover/PostItem.jsx";
-import EventItem from "../Discover/EventItem.jsx";
 import { Link } from 'react-router-dom';
 import CategoryContents from './CategoryContents.jsx';
 import axios from "axios";

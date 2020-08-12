@@ -5,7 +5,6 @@ import {
     Button, ButtonToolbar, Tooltip, OverlayTrigger,
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
-import SignIn from "../User/SignIn.jsx";
 import PicUpload from "./PicUpload.jsx";
 import axios from "axios";
 
