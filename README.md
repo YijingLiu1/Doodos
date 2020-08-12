@@ -41,14 +41,13 @@ _Store:_
 
 #### Prograss since Iter 2
 
-new p
-
-_Doods Map based on Google Maps API:_
-
-
+new packages installed
 
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
+
+_Doods Map based on Google Maps API:
+
 Steps to build up Doodos Map
 * A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
 * Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
