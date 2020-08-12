@@ -37,6 +37,10 @@ _Store:_
 * Users can access cart by the cart icon on NavBar;
 * Cart displays all items user added to cart, with remove from cart feature by clicking the trash icon;
 
+### API - Haoran Yu
+
+_Doods Map based on Google Maps API:_
+
 
 
 ## Iter 2
