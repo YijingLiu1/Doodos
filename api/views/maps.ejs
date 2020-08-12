@@ -53,25 +53,11 @@
             coords: {lat: p[i].lat, lng: p[i].lng},
             content:
               `<h1>${p[i].title}</h1>
-              <img src=${p[i].imageUrl} height="200"/>
+              <img src=${p[i].imageUrl} height="350" align="middle"/>
               <p>${p[i].text}</p>`
           };
           addMarker(m);
         }
-        addMarker({
-          coords: { lat: 32.698565, lng: -117.141877 },
-          content:
-            '<h1>Colossus</h1>' +
-            '<img src="https://i.ibb.co/PgZ7RqB/727x545-Colossus.jpg" height="200"/>' +
-            '<p>Here is some description \n This is another line </p>',
-        });
-        addMarker({
-          coords: { lat: 32.658565, lng: -117.148777 },
-          content:
-            '<h1>Colossus</h1>' +
-            '<img src="https://i.ibb.co/PgZ7RqB/727x545-Colossus.jpg" height="200"/>' +
-            '<p>Here is some description \n This is another line </p>',
-        });
 
         function addMarker(props) {
           const marker = new google.maps.Marker({
