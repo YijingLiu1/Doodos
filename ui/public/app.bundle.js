@@ -1952,6 +1952,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1993,13 +1995,24 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       showing: false,
       postAdded: false,
-      imageUrl: ''
+      imageUrl: '',
+      lat: 0,
+      lng: 0,
+      ideas: false,
+      artworks: false,
+      spotsaroundyou: false,
+      fashion: false,
+      activities: false,
+      events: false,
+      life: false
     };
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.showWarning = _this.showWarning.bind(_assertThisInitialized(_this));
     _this.onUrlChange = _this.onUrlChange.bind(_assertThisInitialized(_this));
+    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_this));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2032,10 +2045,60 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "format",
+    value: function format(num) {
+      return num != null ? num.toString() : '';
+    }
+  }, {
+    key: "unformat",
+    value: function unformat(str) {
+      var val = parseInt(str, 10);
+      return Number.isNaN(val) ? null : val;
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(e) {
+      if (e.target.value.match(/^-?\d*.?\d*$/)) {
+        var _e$target = e.target,
+            name = _e$target.name,
+            value = _e$target.value;
+
+        if (name === "lat") {
+          if (value >= -90 && value <= 90) {
+            this.setState(_defineProperty({}, name, e.target.value));
+          } else if (value > 90) {
+            this.setState(_defineProperty({}, name, 90));
+          } else {
+            this.setState(_defineProperty({}, name, -90));
+          }
+        }
+
+        if (name === "lng") {
+          if (value >= -180 && value <= 180) {
+            this.setState(_defineProperty({}, name, e.target.value));
+          } else if (value > 180) {
+            this.setState(_defineProperty({}, name, 180));
+          } else {
+            this.setState(_defineProperty({}, name, -180));
+          }
+        }
+      }
+    }
+  }, {
+    key: "onBlur",
+    value: function onBlur(event) {
+      var _event$target = event.target,
+          name = _event$target.name,
+          textValue = _event$target.value;
+      var naturalValue = unformat(textValue);
+      var value = naturalValue === undefined ? textValue : naturalValue;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
     key: "handleSubmit",
     value: function () {
       var _handleSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-        var form, post, user, api, res, showSuccess, id, link;
+        var form, category, categories, k, post, user, api, res, showSuccess, id, link;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2043,12 +2106,23 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
                 e.preventDefault();
                 this.hideModal();
                 form = document.forms.postAdd;
+                category = document.getElementsByName("category");
+                categories = [];
+
+                for (k in category) {
+                  if (category[k].checked) categories.push(category[k].value);
+                }
+
                 post = {
                   title: form.title.value,
-                  imageUrl: this.state.imageUrl.imageUrl,
+                  imageUrl: this.state.imageUrl,
                   text: form.description.value,
+                  categories: categories,
+                  lat: form.lat.value,
+                  lng: form.lng.value,
                   date: new Date()
                 };
+                console.log(post);
                 user = this.props.user;
                 api = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
                   baseURL: '/api',
@@ -2057,10 +2131,10 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
                     'x-auth-token': user.token
                   }
                 });
-                _context.next = 8;
+                _context.next = 12;
                 return api.post('/posts', post);
 
-              case 8:
+              case 12:
                 res = _context.sent;
 
                 if (res) {
@@ -2074,7 +2148,7 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 10:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -2099,8 +2173,8 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$state = this.state,
           showing = _this$state.showing,
-          postAdded = _this$state.postAdded,
-          link = _this$state.link;
+          lat = _this$state.lat,
+          lng = _this$state.lng;
       var user = this.props.user;
 
       if (!user.signedIn) {
@@ -2115,8 +2189,7 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Glyphicon"], {
           glyph: "plus"
         }))));
-      } // if (postAdded) return <Redirect to={link} />;
-
+      }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NavItem"], {
         onClick: this.showModal
@@ -2143,7 +2216,52 @@ var PostAddNavItem = /*#__PURE__*/function (_React$Component) {
         onUrlChange: this.onUrlChange
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
         name: "description"
-      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Favorite Categories"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "ideas",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Ideas"), '  ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "artworks",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Artworks"), '  ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "spotsaroundyou",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Spots Around You"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "fashion",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Fashion"), '  ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "activities",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Activities"), '  ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "events",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Events"), '  ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
+        name: "category",
+        value: "life",
+        onChange: this.onCategoryChange,
+        inline: true
+      }, "Life"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Latitude"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
+        name: "lat",
+        value: lat,
+        onChange: this.onChange,
+        onBlur: this.onBlur
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Longitude"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
+        name: "lng",
+        value: lng,
+        onChange: this.onChange,
+        onBlur: this.onBlur
+      }), "                            "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToolbar"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         type: "button",
         bsStyle: "primary",
         onClick: this.handleSubmit
@@ -5745,13 +5863,17 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       fashion: false,
       activities: false,
       events: false,
-      life: false
+      life: false,
+      lat: 0,
+      lng: 0
     };
     _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     _this.onUrlChange = _this.onUrlChange.bind(_assertThisInitialized(_this));
     _this.onCategoryChange = _this.onCategoryChange.bind(_assertThisInitialized(_this));
     _this.onFormerUrlChange = _this.onFormerUrlChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.onBlur = _this.onBlur.bind(_assertThisInitialized(_this));
+    _this.onNumChange = _this.onNumChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -5781,6 +5903,56 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       var _event$target = event.target,
           name = _event$target.name,
           textValue = _event$target.value;
+      var value = naturalValue === undefined ? textValue : naturalValue;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "format",
+    value: function format(num) {
+      return num != null ? num.toString() : '';
+    }
+  }, {
+    key: "unformat",
+    value: function unformat(str) {
+      var val = parseInt(str, 10);
+      return Number.isNaN(val) ? null : val;
+    }
+  }, {
+    key: "onNumChange",
+    value: function onNumChange(e) {
+      if (e.target.value.match(/^-?\d*.?\d*$/)) {
+        var _e$target = e.target,
+            name = _e$target.name,
+            value = _e$target.value;
+
+        if (name === "lat") {
+          if (value >= -90 && value <= 90) {
+            this.setState(_defineProperty({}, name, e.target.value));
+          } else if (value > 90) {
+            this.setState(_defineProperty({}, name, 90));
+          } else {
+            this.setState(_defineProperty({}, name, -90));
+          }
+        }
+
+        if (name === "lng") {
+          if (value >= -180 && value <= 180) {
+            this.setState(_defineProperty({}, name, e.target.value));
+          } else if (value > 180) {
+            this.setState(_defineProperty({}, name, 180));
+          } else {
+            this.setState(_defineProperty({}, name, -180));
+          }
+        }
+      }
+    }
+  }, {
+    key: "onBlur",
+    value: function onBlur(event) {
+      var _event$target2 = event.target,
+          name = _event$target2.name,
+          textValue = _event$target2.value;
+      var naturalValue = unformat(textValue);
       var value = naturalValue === undefined ? textValue : naturalValue;
       this.setState(_defineProperty({}, name, value));
     }
@@ -5894,7 +6066,9 @@ var Edit = /*#__PURE__*/function (_React$Component) {
                 }
 
                 this.setState({
-                  post: post.data
+                  post: post.data,
+                  lat: post.data.lat,
+                  lng: post.data.lng
                 });
                 _context2.next = 10;
                 return api.get('/profile/me');
@@ -5912,7 +6086,7 @@ var Edit = /*#__PURE__*/function (_React$Component) {
                     profileObject[k] = profile.data[k];
                   }
 
-                  category = profileObject.favoriteCategories;
+                  category = post.data.categories;
 
                   for (_k in category) {
                     this.setState(_defineProperty({}, category[_k], true));
@@ -5971,7 +6145,9 @@ var Edit = /*#__PURE__*/function (_React$Component) {
           fashion = _this$state2.fashion,
           activities = _this$state2.activities,
           events = _this$state2.events,
-          life = _this$state2.life;
+          life = _this$state2.life,
+          lat = _this$state2.lat,
+          lng = _this$state2.lng;
       if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
       if (post == null) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Post not found by this id.");
 
@@ -6035,7 +6211,7 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         componentClass: react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ControlLabel"],
         sm: 3
-      }, "Favorite Categories"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+      }, "Categories"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, "\xA0\xA0\xA0\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Checkbox"], {
         name: "category",
@@ -6085,11 +6261,11 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       }, "Latitude"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
-        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__["default"],
         size: 50,
         name: "lat",
-        value: postObject.lat,
-        onChange: this.onChange,
+        value: lat,
+        onBlur: this.onBlur,
+        onChange: this.onNumChange,
         key: postObject._id
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         componentClass: react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["ControlLabel"],
@@ -6097,11 +6273,11 @@ var Edit = /*#__PURE__*/function (_React$Component) {
       }, "Longitude"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         sm: 9
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormControl"], {
-        componentClass: _TextInput_jsx__WEBPACK_IMPORTED_MODULE_5__["default"],
         size: 50,
         name: "lng",
-        value: postObject.lng,
-        onChange: this.onChange,
+        value: lng,
+        onBlur: this.onBlur,
+        onChange: this.onNumChange,
         key: postObject._id
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
         smOffset: 3,

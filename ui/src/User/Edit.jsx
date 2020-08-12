@@ -27,13 +27,17 @@ class Edit extends React.Component {
             fashion: false,
             activities: false,
             events: false,
-            life: false
+            life: false,
+            lat: 0,
+            lng: 0
         };
         this.onChange = this.onChange.bind(this);
         this.onUrlChange = this.onUrlChange.bind(this);
         this.onCategoryChange = this.onCategoryChange.bind(this);
         this.onFormerUrlChange = this.onFormerUrlChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onNumChange = this.onNumChange.bind(this);
     }
 
     componentDidMount() {
@@ -51,6 +55,46 @@ class Edit extends React.Component {
 
     onChange(event, naturalValue) {
         const { name, value: textValue } = event.target;
+        const value = naturalValue === undefined ? textValue : naturalValue;
+        this.setState({ [name]: value });
+    }
+
+    format(num) {
+        return num != null ? num.toString() : '';
+    }
+
+    unformat(str) {
+        const val = parseInt(str, 10);
+        return Number.isNaN(val) ? null : val;
+    }
+
+    onNumChange(e) {
+        if (e.target.value.match(/^-?\d*.?\d*$/)) {
+            const { name, value } = e.target;
+            if (name === "lat") {
+                if (value >= -90 && value <= 90) {
+                    this.setState({ [name]: e.target.value });
+                } else if (value > 90) {
+                    this.setState({ [name]: 90 });
+                } else {
+                    this.setState({ [name]: -90 });
+                }
+            }
+            if (name === "lng") {
+                if (value >= -180 && value <= 180) {
+                    this.setState({ [name]: e.target.value });
+                } else if (value > 180) {
+                    this.setState({ [name]: 180 });
+                } else {
+                    this.setState({ [name]: -180 });
+                }
+            }
+        }
+    }
+
+    onBlur(event) {
+        const { name, value: textValue } = event.target;
+        const naturalValue = unformat(textValue);
         const value = naturalValue === undefined ? textValue : naturalValue;
         this.setState({ [name]: value });
     }
@@ -112,7 +156,7 @@ class Edit extends React.Component {
         try {
             const post = await api.get(`/posts/${id}`);
             if (post) {
-                this.setState({ post: post.data });
+                this.setState({ post: post.data, lat: post.data.lat, lng: post.data.lng });
                 const profile = await api.get('/profile/me');
                 if (profile) {
                     this.setState({ profile: profile.data });
@@ -120,7 +164,7 @@ class Edit extends React.Component {
                     for (let k in profile.data) {
                         profileObject[k] = profile.data[k];
                     }
-                    const category = profileObject.favoriteCategories;
+                    const category = post.data.categories;
                     for (let k in category) {
                         this.setState({ [category[k]]: true });
                     }
@@ -140,7 +184,7 @@ class Edit extends React.Component {
     render() {
         const { post, userVerified, loading, postEdited,
             link, ideas, artworks, spotsaroundyou,
-            fashion, activities, events, life
+            fashion, activities, events, life, lat, lng
         } = this.state;
         if (loading) return <div>loading...</div>;
         if (post == null) return <h3>Post not found by this id.</h3>;
@@ -205,7 +249,7 @@ class Edit extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup>
-                            <Col componentClass={ControlLabel} sm={3}>Favorite Categories</Col>
+                            <Col componentClass={ControlLabel} sm={3}>Categories</Col>
                             <Col sm={9}>
                                 <FormGroup>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -229,11 +273,11 @@ class Edit extends React.Component {
                             <Col componentClass={ControlLabel} sm={3}>Latitude</Col>
                             <Col sm={9}>
                                 <FormControl
-                                    componentClass={TextInput}
                                     size={50}
                                     name="lat"
-                                    value={postObject.lat}
-                                    onChange={this.onChange}
+                                    value={lat}
+                                    onBlur={this.onBlur}
+                                    onChange={this.onNumChange}
                                     key={postObject._id}
                                 />
                             </Col>
@@ -242,11 +286,11 @@ class Edit extends React.Component {
                             <Col componentClass={ControlLabel} sm={3}>Longitude</Col>
                             <Col sm={9}>
                                 <FormControl
-                                    componentClass={TextInput}
                                     size={50}
                                     name="lng"
-                                    value={postObject.lng}
-                                    onChange={this.onChange}
+                                    value={lng}
+                                    onBlur={this.onBlur}
+                                    onChange={this.onNumChange}
                                     key={postObject._id}
                                 />
                             </Col>
