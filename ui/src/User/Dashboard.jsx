@@ -120,7 +120,9 @@ class Dashboard extends React.Component {
                         <p>{profileObject.bio}</p>
                         <p>{profileObject.status}</p>
                         <p>{profileObject.location}</p>
-                        <Button bsStyle="primary">Edit&nbsp;&nbsp;&nbsp;<Glyphicon glyph="pencil" /></Button>
+                        <Link to="/profile/">
+                            <Button bsStyle="primary">Edit&nbsp;&nbsp;&nbsp;<Glyphicon glyph="pencil" /></Button>
+                        </Link>
                     </div>
                     <div className="ProfileContents">
                         <ul className="ProfileTabs">
