@@ -100,9 +100,10 @@ router.get('/checkout/pay', auth, async (req, res) => {
 // @desc    if payment is succeed, then, it will be executed, and then, return the success page
 // @access  Private
 
-router.get('/success', (req, res) => {
+router.get('/success', auth, async (req, res) => {
   const payerId = req.query.PayerID;
   const paymentId = req.query.paymentId;
+  let cart = await Cart.findOne({ user: req.user.id });
 
   const execute_payment_json = {
     payer_id: payerId,
@@ -125,6 +126,8 @@ router.get('/success', (req, res) => {
       throw error;
     } else {
       console.log(JSON.stringify(payment));
+      // clear cart
+      cart.products = [];
       res.send('Success');
     }
   });
