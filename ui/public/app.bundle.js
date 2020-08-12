@@ -543,7 +543,7 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var posts, _api, profile, favoriteCategories, k, checked, _k, category, postsByCategory, _posts, _k2;
+        var posts, _api, profile, favoriteCategories, k, _posts, checked, _k, category, postsByCategory, _posts2, _k2;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -566,7 +566,7 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 33;
+                _context.next = 39;
                 break;
 
               case 7:
@@ -589,56 +589,79 @@ var CategoryDashboard = /*#__PURE__*/function (_React$Component) {
                   favoriteCategories.push(profile.data.favoriteCategories[k]);
                 }
 
+                if (!(favoriteCategories.length === 0)) {
+                  _context.next = 21;
+                  break;
+                }
+
+                _context.next = 17;
+                return _api.get("/posts");
+
+              case 17:
+                _posts = _context.sent;
+
+                if (_posts) {
+                  this.setState({
+                    posts: _posts.data
+                  });
+                }
+
+                _context.next = 34;
+                break;
+
+              case 21:
                 this.setState({
                   user: profile.data.user._id
                 });
                 checked = {};
                 _context.t0 = regeneratorRuntime.keys(favoriteCategories);
 
-              case 17:
+              case 24:
                 if ((_context.t1 = _context.t0()).done) {
-                  _context.next = 27;
+                  _context.next = 34;
                   break;
                 }
 
                 _k = _context.t1.value;
                 category = favoriteCategories[_k];
-                _context.next = 22;
+                _context.next = 29;
                 return _api.get("/posts/bycategory/".concat(category));
 
-              case 22:
+              case 29:
                 postsByCategory = _context.sent;
-                _posts = this.state.posts;
+                _posts2 = this.state.posts;
 
                 for (_k2 in postsByCategory.data) {
                   if (!checked[postsByCategory.data[_k2]._id]) {
                     checked[postsByCategory.data[_k2]._id] = true;
 
-                    _posts.push(postsByCategory.data[_k2]);
+                    _posts2.push(postsByCategory.data[_k2]);
                   }
                 }
 
-                _context.next = 17;
+                _context.next = 24;
                 break;
 
-              case 27:
-                this.setState({
-                  loading: false
-                });
-                _context.next = 33;
+              case 34:
+                _context.next = 39;
                 break;
 
-              case 30:
-                _context.prev = 30;
+              case 36:
+                _context.prev = 36;
                 _context.t2 = _context["catch"](7);
                 console.error(_context.t2.message);
 
-              case 33:
+              case 39:
+                this.setState({
+                  loading: false
+                });
+
+              case 40:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[7, 30]]);
+        }, _callee, this, [[7, 36]]);
       }));
 
       function loadData() {
@@ -2518,7 +2541,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api */ "./src/api.js");
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.js */ "./src/api.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -2566,7 +2589,8 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       posts: [],
-      user: null
+      user: null,
+      loading: true
     };
     return _this;
   }
@@ -2581,22 +2605,27 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var api, profile, profileObject, k, posts;
+        var sss, profile, profileObject, k, posts;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                api = axios__WEBPACK_IMPORTED_MODULE_4___default.a.create({
+                if (!localStorage.token) {
+                  _context.next = 6;
+                  break;
+                }
+
+                sss = axios__WEBPACK_IMPORTED_MODULE_4___default.a.create({
                   baseURL: '/api',
                   headers: {
                     'Content-Type': 'application/json',
                     'x-auth-token': localStorage.token
                   }
                 });
-                _context.next = 3;
-                return api.get('/profile/me');
+                _context.next = 4;
+                return sss.get('/profile/me');
 
-              case 3:
+              case 4:
                 profile = _context.sent;
 
                 if (profile) {
@@ -2614,10 +2643,11 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-                _context.next = 7;
-                return api.get("/posts");
+              case 6:
+                _context.next = 8;
+                return _api_js__WEBPACK_IMPORTED_MODULE_3__["default"].get("/posts");
 
-              case 7:
+              case 8:
                 posts = _context.sent;
 
                 if (posts) {
@@ -2626,7 +2656,11 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
                   });
                 }
 
-              case 9:
+                this.setState({
+                  loading: false
+                });
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -2645,7 +2679,9 @@ var PostPanel = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$state = this.state,
           posts = _this$state.posts,
-          user = _this$state.user; // Have to convert the object before use
+          user = _this$state.user,
+          loading = _this$state.loading;
+      if (loading) return null; // Have to convert the object before use
 
       var postsObject = [];
 
@@ -2912,35 +2948,11 @@ function NavBar(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["MenuItem"], null, "About")))));
 }
 
-function Footer() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
-    className: "Footer"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "text-center"
-  }, "UI v0.4.0 (Regular SignIn Added)", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech"
-  }, "GitHub repository")));
-}
-
 var Page = /*#__PURE__*/function (_React$Component) {
   _inherits(Page, _React$Component);
 
   var _super = _createSuper(Page);
 
-  // static async fetchData(localStorage) {
-  //     if (localStorage.token !== null) {
-  //         const api = axios.create({
-  //             baseURL: '/api',
-  //             headers: {
-  //                 'Content-Type': 'application/json',
-  //                 'token': localStorage.token
-  //             }
-  //         });
-  //         const data = await api.get("/auth");
-  //         return data;
-  //     }
-  //     return {};
-  // }
   function Page(props) {
     var _this;
 
@@ -2950,7 +2962,8 @@ var Page = /*#__PURE__*/function (_React$Component) {
     var token = localStorage.token ? localStorage.token : null;
     _this.state = {
       user: {
-        token: token
+        token: token,
+        signedIn: false
       }
     };
     _this.onUserChange = _this.onUserChange.bind(_assertThisInitialized(_this));
@@ -2959,29 +2972,45 @@ var Page = /*#__PURE__*/function (_React$Component) {
 
   _createClass(Page, [{
     key: "componentDidMount",
+    value: function componentDidMount() {
+      var token = this.state.user.token;
+
+      if (token == null) {} else {
+        this.loadData();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      var prevStatus = prevState.user.signedIn;
+      var currStatus = this.state.user.signedIn;
+
+      if (prevStatus !== currStatus) {
+        console.log("updated");
+        this.loadData();
+      }
+    }
+  }, {
+    key: "loadData",
     value: function () {
-      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         var token, sss, user;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                token = this.state.user.token;
-
-                if (!(token == null)) {
-                  _context.next = 5;
+                if (!localStorage.token) {
+                  _context.next = 10;
                   break;
                 }
 
-                this.setState({
-                  user: {
-                    signedIn: false
-                  }
-                });
-                _context.next = 10;
-                break;
+                token = this.state.user.token;
 
-              case 5:
+                if (!(localStorage.token === token)) {
+                  _context.next = 8;
+                  break;
+                }
+
                 sss = axios__WEBPACK_IMPORTED_MODULE_7___default.a.create({
                   baseURL: '/api',
                   headers: {
@@ -2989,10 +3018,10 @@ var Page = /*#__PURE__*/function (_React$Component) {
                     'x-auth-token': token
                   }
                 });
-                _context.next = 8;
+                _context.next = 6;
                 return sss.get('/auth');
 
-              case 8:
+              case 6:
                 user = _context.sent;
                 this.setState({
                   user: {
@@ -3002,7 +3031,20 @@ var Page = /*#__PURE__*/function (_React$Component) {
                   }
                 });
 
+              case 8:
+                _context.next = 11;
+                break;
+
               case 10:
+                this.setState({
+                  user: {
+                    name: "",
+                    signedIn: false,
+                    token: null
+                  }
+                });
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -3010,11 +3052,11 @@ var Page = /*#__PURE__*/function (_React$Component) {
         }, _callee, this);
       }));
 
-      function componentDidMount() {
-        return _componentDidMount.apply(this, arguments);
+      function loadData() {
+        return _loadData.apply(this, arguments);
       }
 
-      return componentDidMount;
+      return loadData;
     }()
   }, {
     key: "onUserChange",
@@ -3096,11 +3138,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Discover_Post_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Discover/Post.jsx */ "./src/Discover/Post.jsx");
 /* harmony import */ var _Discover_Event_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Discover/Event.jsx */ "./src/Discover/Event.jsx");
 /* harmony import */ var _User_Edit_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../User/Edit.jsx */ "./src/User/Edit.jsx");
-/* harmony import */ var _User_Register_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../User/Register.jsx */ "./src/User/Register.jsx");
-/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../About.jsx */ "./src/About.jsx");
-/* harmony import */ var _User_Dashboard_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../User/Dashboard.jsx */ "./src/User/Dashboard.jsx");
-/* harmony import */ var _Store_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Store/ItemPage.jsx */ "./src/Store/ItemPage.jsx");
-
+/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../About.jsx */ "./src/About.jsx");
+/* harmony import */ var _User_Dashboard_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../User/Dashboard.jsx */ "./src/User/Dashboard.jsx");
+/* harmony import */ var _Store_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Store/ItemPage.jsx */ "./src/Store/ItemPage.jsx");
 
 
 
@@ -3133,7 +3173,7 @@ var routes = [{
   component: _User_Edit_jsx__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
   path: '/item/:id',
-  component: _Store_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _Store_ItemPage_jsx__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   path: '/user/:id/:tab?',
   component: _User_User_jsx__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -3141,14 +3181,11 @@ var routes = [{
   path: '/event/:id/:tab?',
   component: _Discover_Event_jsx__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
-  path: '/register',
-  component: _User_Register_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]
-}, {
   path: '/dashboard/:tab?',
-  component: _User_Dashboard_jsx__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _User_Dashboard_jsx__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   path: '/about',
-  component: _About_jsx__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _About_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '*',
   component: _NotFound_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -5052,7 +5089,8 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       user: null,
-      loading: true
+      loading: true,
+      signedIn: true
     };
     return _this;
   }
@@ -5067,30 +5105,29 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var api, profile, profileObject, k, id, user, posts, likes, myLikes, _k, liked, followings, myFollowings, _k2;
+        var _api, profile, profileObject, k, id, user, posts, likes, myLikes, _k, liked, followings, myFollowings, _k2;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                api = axios__WEBPACK_IMPORTED_MODULE_8___default.a.create({
+                if (!localStorage.token) {
+                  _context.next = 35;
+                  break;
+                }
+
+                _api = axios__WEBPACK_IMPORTED_MODULE_8___default.a.create({
                   baseURL: '/api',
                   headers: {
                     'Content-Type': 'application/json',
                     'x-auth-token': localStorage.token
                   }
                 });
-                _context.next = 3;
-                return api.get('/profile/me');
+                _context.next = 4;
+                return _api.get('/profile/me');
 
-              case 3:
+              case 4:
                 profile = _context.sent;
-
-                if (!profile) {
-                  _context.next = 33;
-                  break;
-                }
-
                 this.setState({
                   profile: profile.data
                 });
@@ -5102,12 +5139,12 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
 
                 id = profileObject.user._id;
                 _context.next = 11;
-                return api.get("/users/".concat(id));
+                return _api.get("/users/".concat(id));
 
               case 11:
                 user = _context.sent;
                 _context.next = 14;
-                return api.get("/posts/byuser/".concat(id));
+                return _api.get("/posts/byuser/".concat(id));
 
               case 14:
                 posts = _context.sent;
@@ -5136,7 +5173,7 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
 
                 _k = _context.t1.value;
                 _context.next = 24;
-                return api.get("/posts/".concat(likes[_k].post));
+                return _api.get("/posts/".concat(likes[_k].post));
 
               case 24:
                 liked = _context.sent;
@@ -5158,13 +5195,20 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
                 this.setState({
                   followings: myFollowings
                 });
+                _context.next = 36;
+                break;
 
-              case 33:
+              case 35:
+                this.setState({
+                  signedIn: false
+                });
+
+              case 36:
                 this.setState({
                   loading: false
                 });
 
-              case 34:
+              case 37:
               case "end":
                 return _context.stop();
             }
@@ -5183,6 +5227,7 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var tab = this.props.match.params.tab;
       var _this$state = this.state,
+          signedIn = _this$state.signedIn,
           user = _this$state.user,
           profile = _this$state.profile,
           posts = _this$state.posts,
@@ -5191,8 +5236,10 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
           followings = _this$state.followings;
       if (loading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "loading...");
 
-      if (user == null) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Loading userdata...", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "If not signed in, sign in to access Dashboard.");
+      if (!signedIn) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+          to: "/"
+        });
       } // Have to convert the object before use
 
 
@@ -5940,58 +5987,285 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api.js */ "./src/api.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _setAuthToken__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../setAuthToken */ "./src/setAuthToken.js");
+/* harmony import */ var _withToast_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../withToast.jsx */ "./src/withToast.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
 
-function Register() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    style: {
-      margin: "50px 100px"
+
+
+
+
+
+
+var Register = /*#__PURE__*/function (_React$Component) {
+  _inherits(Register, _React$Component);
+
+  var _super = _createSuper(Register);
+
+  function Register() {
+    var _this;
+
+    _classCallCheck(this, Register);
+
+    _this = _super.call(this);
+    _this.state = {
+      signedIn: false,
+      user: null,
+      loading: true
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Register, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.user == null) this.loadData();
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-    className: "large text-primary"
-  }, "Sign Up"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "lead"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fas fa-user"
-  }), " Create Your Account"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-    className: "form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "text",
-    placeholder: "Name",
-    name: "name"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "email",
-    placeholder: "Email Address",
-    name: "email"
-  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
-    className: "form-text"
-  }, "This site uses Gravatar so if you want a profile image, use a Gravatar email")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "password",
-    placeholder: "Password",
-    name: "password"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "password",
-    placeholder: "Confirm Password",
-    name: "password2"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "submit",
-    className: "btn btn-primary"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "my-1"
-  }, "Already have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "/login"
-  }, "Sign In"))));
-}
+  }, {
+    key: "loadData",
+    value: function () {
+      var _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var _this$props, showSuccess, onUserChange, _api, user;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!localStorage.token) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _this$props = this.props, showSuccess = _this$props.showSuccess, onUserChange = _this$props.onUserChange;
+                _api = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                  }
+                });
+                _context.next = 5;
+                return _api.get('/auth');
+
+              case 5:
+                user = _context.sent;
+
+                if (user) {
+                  showSuccess("Already signed in.");
+                  onUserChange({
+                    signedIn: true,
+                    loading: false,
+                    token: res.data.token,
+                    name: user.data.name
+                  });
+                  this.setState({
+                    signedIn: true,
+                    user: user.data
+                  });
+                }
+
+              case 7:
+                this.setState({
+                  loading: false
+                });
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
+  }, {
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+        var form, _this$props2, showSuccess, showError, onUserChange, user, newUser, sss, _user, profile;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                form = document.forms.register;
+                _this$props2 = this.props, showSuccess = _this$props2.showSuccess, showError = _this$props2.showError, onUserChange = _this$props2.onUserChange;
+
+                if (!(form.password.value !== form.password2.value)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                showError("Passwords dont't match.");
+                _context2.next = 29;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                user = {
+                  name: form.name.value,
+                  email: form.email.value,
+                  password: form.password.value
+                };
+                console.log(user);
+                _context2.next = 11;
+                return _api_js__WEBPACK_IMPORTED_MODULE_4__["default"].post('/users/', user);
+
+              case 11:
+                newUser = _context2.sent;
+
+                if (!newUser) {
+                  _context2.next = 24;
+                  break;
+                }
+
+                sss = axios__WEBPACK_IMPORTED_MODULE_5___default.a.create({
+                  baseURL: '/api',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': newUser.data.token
+                  }
+                });
+                _context2.next = 16;
+                return sss.get('/auth');
+
+              case 16:
+                _user = _context2.sent;
+                _context2.next = 19;
+                return sss.post('/profile');
+
+              case 19:
+                profile = _context2.sent;
+                Object(_setAuthToken__WEBPACK_IMPORTED_MODULE_6__["default"])(newUser.data.token);
+                onUserChange({
+                  signedIn: true,
+                  loading: false,
+                  token: res.data.token,
+                  name: _user.data.name
+                });
+                showSuccess("Registration success.");
+                this.setState({
+                  signedIn: true,
+                  user: _user.data,
+                  profile: profile.data
+                });
+
+              case 24:
+                _context2.next = 29;
+                break;
+
+              case 26:
+                _context2.prev = 26;
+                _context2.t0 = _context2["catch"](6);
+                console.error(_context2.t0.message);
+
+              case 29:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[6, 26]]);
+      }));
+
+      function handleSubmit(_x) {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          signedIn = _this$state.signedIn,
+          loading = _this$state.loading;
+      if (loading) return null;
+      if (signedIn) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
+        httpEquiv: "refresh",
+        content: "1"
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "lead"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user"
+      }), " Create Your Account"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form",
+        name: "register"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Name",
+        name: "name"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "email",
+        placeholder: "Email Address",
+        name: "email"
+      }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "form-text"
+      }, "This site uses Gravatar so if you want a profile image, use a Gravatar email")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "password",
+        placeholder: "Password",
+        name: "password"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "password",
+        placeholder: "Confirm Password",
+        name: "password2"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "button",
+        value: "Register",
+        className: "btn btn-primary",
+        onClick: this.handleSubmit
+      }))));
+    }
+  }]);
+
+  return Register;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
 
 /***/ }),
 
@@ -6065,63 +6339,26 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(SignIn, [{
-    key: "loadUser",
+    key: "signIn",
     value: function () {
-      var _loadUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var res;
+      var _signIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(email, password) {
+        var _this$props, showSuccess, showError, onUserChange, body, res, sss, user;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].get('/auth');
-
-              case 2:
-                res = _context.sent;
-
-                if (res) {
-                  this.setState({
-                    signedIn: true,
-                    loading: false,
-                    token: res.data
-                  });
-                }
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function loadUser() {
-        return _loadUser.apply(this, arguments);
-      }
-
-      return loadUser;
-    }()
-  }, {
-    key: "signIn",
-    value: function () {
-      var _signIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(email, password) {
-        var _this$props, showSuccess, showError, onUserChange, body, res, sss, user;
-
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
               case 0:
                 _this$props = this.props, showSuccess = _this$props.showSuccess, showError = _this$props.showError, onUserChange = _this$props.onUserChange;
                 body = {
                   email: email,
                   password: password
                 };
-                _context2.prev = 2;
-                _context2.next = 5;
+                _context.prev = 2;
+                _context.next = 5;
                 return _api_js__WEBPACK_IMPORTED_MODULE_2__["default"].post('/auth', body);
 
               case 5:
-                res = _context2.sent;
+                res = _context.sent;
                 sss = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create({
                   baseURL: '/api',
                   headers: {
@@ -6129,11 +6366,11 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
                     'x-auth-token': res.data.token
                   }
                 });
-                _context2.next = 9;
+                _context.next = 9;
                 return sss.get('/auth');
 
               case 9:
-                user = _context2.sent;
+                user = _context.sent;
                 Object(_setAuthToken_js__WEBPACK_IMPORTED_MODULE_4__["default"])(res.data.token);
                 onUserChange({
                   signedIn: true,
@@ -6142,20 +6379,20 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
                   name: user.data.name
                 });
                 showSuccess("Signed in success");
-                _context2.next = 18;
+                _context.next = 18;
                 break;
 
               case 15:
-                _context2.prev = 15;
-                _context2.t0 = _context2["catch"](2);
-                showError("Failed to sign in: ".concat(_context2.t0.message));
+                _context.prev = 15;
+                _context.t0 = _context["catch"](2);
+                showError("Failed to sign in: ".concat(_context.t0.message));
 
               case 18:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, this, [[2, 15]]);
+        }, _callee, this, [[2, 15]]);
       }));
 
       function signIn(_x, _x2) {
@@ -6176,6 +6413,9 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
       var email = user.email,
           password = user.password;
       this.signIn(email, password).then();
+      this.setState({
+        signedIn: true
+      });
     }
   }, {
     key: "render",
@@ -6183,8 +6423,9 @@ var SignIn = /*#__PURE__*/function (_React$Component) {
       var signedIn = this.state.signedIn;
 
       if (signedIn) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-          to: "/"
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
+          httpEquiv: "refresh",
+          content: "1"
         });
       }
 
@@ -6244,6 +6485,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-bootstrap */ "./node_modules/react-router-bootstrap/lib/index.js");
 /* harmony import */ var react_router_bootstrap__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_router_bootstrap__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Register_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Register.jsx */ "./src/User/Register.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6278,6 +6520,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var SignInNavItem = /*#__PURE__*/function (_React$Component) {
   _inherits(SignInNavItem, _React$Component);
 
@@ -6291,10 +6534,11 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       showing: false,
-      disabled: true,
       signedIn: null,
       loading: true,
-      user: null
+      user: null,
+      register: false,
+      signedOut: false
     };
 
     if (localStorage.token) {
@@ -6308,9 +6552,9 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
 
     _this.showModal = _this.showModal.bind(_assertThisInitialized(_this));
     _this.hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
-    _this.googleSignIn = _this.googleSignIn.bind(_assertThisInitialized(_this));
-    _this.googleSignOut = _this.googleSignOut.bind(_assertThisInitialized(_this));
     _this.signOut = _this.signOut.bind(_assertThisInitialized(_this));
+    _this.switchToSignIn = _this.switchToSignIn.bind(_assertThisInitialized(_this));
+    _this.switchToSignUp = _this.switchToSignUp.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -6325,160 +6569,33 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
       //         });
       //     }
       // });
-    } // Currently unused
-
+    }
   }, {
-    key: "googleSignIn",
+    key: "signOut",
     value: function () {
-      var _googleSignIn = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var showError, googleToken, auth2, googleUser, apiEndpoint, response, body, result, signedIn, givenName, onUserChange;
+      var _signOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var onUserChange;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.hideModal();
-                showError = this.props.showError;
-                _context.prev = 2;
-                auth2 = window.gapi.auth2.getAuthInstance();
-                _context.next = 6;
-                return auth2.signIn();
-
-              case 6:
-                googleUser = _context.sent;
-                googleToken = googleUser.getAuthResponse().id_token;
-                _context.next = 13;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
-                showError("Error authentication with Google: ".concat(_context.t0.error));
-
-              case 13:
-                _context.prev = 13;
-                apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
-                _context.next = 17;
-                return fetch("".concat(apiEndpoint, "/signin"), {
-                  method: 'POST',
-                  credentials: 'include',
-                  headers: {
-                    'content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    google_token: googleToken
-                  })
-                });
-
-              case 17:
-                response = _context.sent;
-                _context.next = 20;
-                return response.text();
-
-              case 20:
-                body = _context.sent;
-                result = JSON.parse(body);
-                signedIn = result.signedIn, givenName = result.givenName;
                 onUserChange = this.props.onUserChange;
-                onUserChange({
-                  signedIn: signedIn,
-                  givenName: givenName
+                localStorage.removeItem('token');
+                this.setState({
+                  signedOut: true
                 });
-                _context.next = 30;
-                break;
+                onUserChange({
+                  signedIn: false,
+                  name: "",
+                  token: null
+                });
 
-              case 27:
-                _context.prev = 27;
-                _context.t1 = _context["catch"](13);
-                showError("Error signing into the app: ".concat(_context.t1));
-
-              case 30:
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10], [13, 27]]);
-      }));
-
-      function googleSignIn() {
-        return _googleSignIn.apply(this, arguments);
-      }
-
-      return googleSignIn;
-    }() // Currently unused
-
-  }, {
-    key: "googleSignOut",
-    value: function () {
-      var _googleSignOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var apiEndpoint, showError, auth2, onUserChange;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
-                showError = this.props.showError;
-                _context2.prev = 2;
-                _context2.next = 5;
-                return fetch("".concat(apiEndpoint, "/signout"), {
-                  method: 'POST',
-                  credentials: 'include'
-                });
-
-              case 5:
-                auth2 = window.gapi.auth2.getAuthInstance();
-                _context2.next = 8;
-                return auth2.signOut();
-
-              case 8:
-                onUserChange = this.props.onUserChange;
-                onUserChange({
-                  signedIn: false,
-                  givenName: ''
-                });
-                _context2.next = 15;
-                break;
-
-              case 12:
-                _context2.prev = 12;
-                _context2.t0 = _context2["catch"](2);
-                showError("Error signing out: ".concat(_context2.t0));
-
-              case 15:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[2, 12]]);
-      }));
-
-      function googleSignOut() {
-        return _googleSignOut.apply(this, arguments);
-      }
-
-      return googleSignOut;
-    }()
-  }, {
-    key: "signOut",
-    value: function () {
-      var _signOut = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var onUserChange;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                onUserChange = this.props.onUserChange;
-                localStorage.removeItem('token');
-                onUserChange({
-                  signedIn: false,
-                  givenName: ''
-                });
-
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
+        }, _callee, this);
       }));
 
       function signOut() {
@@ -6490,14 +6607,6 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "showModal",
     value: function showModal() {
-      var clientId = window.ENV.GOOGLE_CLIENT_ID;
-      var showError = this.props.showError;
-
-      if (!clientId) {
-        showError('Missing environment variable GOOGLE_CLIENT_ID');
-        return;
-      }
-
       this.setState({
         showing: true
       });
@@ -6510,11 +6619,29 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "switchToSignUp",
+    value: function switchToSignUp() {
+      this.setState({
+        register: true
+      });
+    }
+  }, {
+    key: "switchToSignIn",
+    value: function switchToSignIn() {
+      this.setState({
+        register: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var user = this.props.user;
       console.log(user);
       console.log(localStorage.token);
+      if (this.state.signedOut) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
+        httpEquiv: "refresh",
+        content: "1"
+      });
 
       if (user.token && user.signedIn) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavDropdown"], {
@@ -6529,11 +6656,39 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
 
       var _this$state = this.state,
           showing = _this$state.showing,
-          disabled = _this$state.disabled;
+          register = _this$state.register;
       var _this$props = this.props,
           showSuccess = _this$props.showSuccess,
           showError = _this$props.showError,
           onUserChange = _this$props.onUserChange;
+      var signIn = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SignIn_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        showSuccess: showSuccess,
+        showError: showError,
+        onUserChange: onUserChange
+      });
+      var signUp = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Register_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        showSuccess: showSuccess,
+        showError: showError,
+        onUserChange: onUserChange
+      });
+      var signUpSwitch = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "my-1",
+        style: {
+          float: "left"
+        }
+      }, "Don't have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+        bsStyle: "link",
+        onClick: this.switchToSignUp
+      }, "Sign Up"));
+      var signInSwitch = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "my-1",
+        style: {
+          float: "left"
+        }
+      }, "Already have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+        bsStyle: "link",
+        onClick: this.switchToSignIn
+      }, "Sign In"));
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NavItem"], {
         onClick: this.showModal
       }, "Sign in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"], {
@@ -6545,36 +6700,7 @@ var SignInNavItem = /*#__PURE__*/function (_React$Component) {
         closeButton: true
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Title, {
         className: "large text-primary"
-      }, "Sign in")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SignIn_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        showSuccess: showSuccess,
-        showError: showError,
-        onUserChange: onUserChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        style: {
-          fontSize: "15px",
-          fontWeight: "bold",
-          marginTop: "10px"
-        }
-      }, "or"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-        block: true,
-        disabled: disabled,
-        bsStyle: "primary",
-        onClick: this.signIn
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png",
-        alt: "Sign In"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "my-1",
-        style: {
-          float: "left"
-        }
-      }, "Don't have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
-        to: "/register/",
-        style: {
-          float: "left"
-        },
-        onClick: this.hideModal
-      }, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      }, register ? "Sign up" : "Sign in")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Body, null, register ? signUp : signIn), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null, register ? signInSwitch : signUpSwitch, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         onClick: this.hideModal,
         style: {
           float: "right",

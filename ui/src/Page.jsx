@@ -50,57 +50,47 @@ function NavBar({ user, onUserChange }) {
     );
 }
 
-function Footer() {
-    return (
-        <small className="Footer">
-            <p className="text-center">
-                UI v0.4.0 (Regular SignIn Added)
-                {' '}
-                <a href="https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech">
-                    GitHub repository
-                </a>
-            </p>
-        </small>
-    );
-}
-
 export default class Page extends React.Component {
-    // static async fetchData(localStorage) {
-    //     if (localStorage.token !== null) {
-    //         const api = axios.create({
-    //             baseURL: '/api',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'token': localStorage.token
-    //             }
-    //         });
-    //         const data = await api.get("/auth");
-    //         return data;
-    //     }
-    //     return {};
-    // }
-
     constructor(props) {
         super(props);
         const token = localStorage.token ? localStorage.token : null;
-        this.state = { user: { token } };
+        this.state = { user: { token, signedIn: false } };
         this.onUserChange = this.onUserChange.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const { user: { token } }  = this.state;
         if (token == null) {
-            this.setState({ user: { signedIn: false } });
         } else {
-            const sss = axios.create({
-                baseURL: '/api',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-auth-token': token
-                }
-            });
-            const user = await sss.get('/auth');
-            this.setState({ user: { name: user.data.name, signedIn: true, token } });
+            this.loadData();
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { user: { signedIn:  prevStatus } } = prevState;
+        const { user: { signedIn: currStatus } } = this.state;
+        if (prevStatus !== currStatus) {
+            console.log("updated");
+            this.loadData();
+        }
+    }
+
+    async loadData() {
+        if (localStorage.token) {
+            const { user: { token } }  = this.state;
+            if (localStorage.token === token) {
+                const sss = axios.create({
+                    baseURL: '/api',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': token
+                    }
+                });
+                const user = await sss.get('/auth');
+                this.setState({ user: { name: user.data.name, signedIn: true, token } });
+            }
+        } else {
+            this.setState({ user: { name: "", signedIn: false, token: null } });
         }
     }
 

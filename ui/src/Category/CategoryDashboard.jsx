@@ -41,24 +41,31 @@ class CategoryDashboard extends React.Component {
                 for (let k in profile.data.favoriteCategories) {
                     favoriteCategories.push(profile.data.favoriteCategories[k]);
                 }
-                this.setState({ user: profile.data.user._id });
-                const checked = {};
-                for (let k in favoriteCategories) {
-                    let category = favoriteCategories[k];
-                    const postsByCategory = await api.get(`/posts/bycategory/${category}`);
-                    const { posts } = this.state;
-                    for (let k in postsByCategory.data) {
-                        if (!checked[postsByCategory.data[k]._id]) {
-                            checked[postsByCategory.data[k]._id] = true;
-                            posts.push(postsByCategory.data[k]);
+                if (favoriteCategories.length === 0) {
+                    const posts = await api.get("/posts");
+                    if (posts) {
+                        this.setState({ posts: posts.data });
+                    }
+                } else {
+                    this.setState({ user: profile.data.user._id });
+                    const checked = {};
+                    for (let k in favoriteCategories) {
+                        let category = favoriteCategories[k];
+                        const postsByCategory = await api.get(`/posts/bycategory/${category}`);
+                        const { posts } = this.state;
+                        for (let k in postsByCategory.data) {
+                            if (!checked[postsByCategory.data[k]._id]) {
+                                checked[postsByCategory.data[k]._id] = true;
+                                posts.push(postsByCategory.data[k]);
+                            }
                         }
                     }
                 }
-                this.setState({ loading: false });
             } catch (err) {
                 console.error(err.message);
             }
         }
+        this.setState({ loading: false });
     }
 
     render() {

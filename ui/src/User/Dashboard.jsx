@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
     Col, Panel, Form, FormGroup, FormControl, ControlLabel,
@@ -18,7 +18,8 @@ class Dashboard extends React.Component {
         super();
         this.state = {
             user: null,
-            loading: true
+            loading: true,
+            signedIn: true
         };
     }
 
@@ -28,15 +29,15 @@ class Dashboard extends React.Component {
     }
 
     async loadData() {
-        const api = axios.create({
-            baseURL: '/api',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': localStorage.token
-            }
-        });
-        const profile = await api.get('/profile/me');
-        if (profile) {
+        if (localStorage.token) {
+            const api = axios.create({
+                baseURL: '/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                }
+            });
+            const profile = await api.get('/profile/me');
             this.setState({ profile: profile.data });
             const profileObject = {};
             for (let k in profile.data) {
@@ -64,16 +65,18 @@ class Dashboard extends React.Component {
                 myFollowings.push(followings[k].user);
             }
             this.setState({ followings: myFollowings });
+        } else {
+            this.setState({ signedIn: false })
         }
         this.setState({ loading: false })
     }
 
     render() {
         const { match: { params: { tab } } } = this.props;
-        const { user, profile, posts, likes, loading, followings } = this.state;
+        const { signedIn, user, profile, posts, likes, loading, followings } = this.state;
         if (loading) return <div>loading...</div>
-        if (user == null) {
-            return <h3>Loading userdata...<br/>If not signed in, sign in to access Dashboard.</h3>
+        if (!signedIn) {
+            return <Redirect to="/"/>;
         }
         // Have to convert the object before use
         const userObject = {};
