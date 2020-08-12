@@ -38,6 +38,12 @@ const PostSchema = new Schema({
   avatar: {
     type: String,
   },
+  lat: {
+    type: Number,
+  },
+  lng: {
+    type: Number,
+  },
   likes: [
     {
       user: {

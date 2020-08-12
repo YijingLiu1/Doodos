@@ -17,7 +17,6 @@ const categories = [
   'life',
 ];
 
-
 // @route   POST api/posts
 // @desc    Create a post
 // @access  Private
@@ -46,6 +45,8 @@ router.post(
       const newPost = new Post({
         title: req.body.title,
         text: req.body.text,
+        lat: req.body.lat,
+        lng: req.body.lng,
         categories: req.body.categories,
         imageUrl: req.body.imageUrl,
         name: user.name,
@@ -171,11 +172,13 @@ router.put(
       if (post.user.toString() !== req.user.id) {
         return res.status(401).json({ msg: 'User is no authorized' });
       }
-      const { categories, text, title, imageUrl, date } = req.body;
+      const { categories, text, title, imageUrl, lat, lng } = req.body;
       if (categories) post.categories = categories;
       if (text) post.text = text;
       if (title) post.title = title;
       if (imageUrl) post.imageUrl = imageUrl;
+      if (lat) post.lat = lat;
+      if (lng) post.lng = lng;
       post.date = Date.now();
       await post.save();
 
