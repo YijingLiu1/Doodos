@@ -110,7 +110,7 @@ router.get('/success', (req, res) => {
       {
         amount: {
           currency: 'USD',
-          total: '25.00',
+          total: `${cart.sum}`,
         },
       },
     ],
