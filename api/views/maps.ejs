@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Doodos Map</title>
+    <style>
+      #map {
+        height: 600px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Doodos Map</h1>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        // map options
+        const options = {
+          zoom: 13,
+          center: { lat: 32.7157, lng: -117.1611 },
+        };
+
+        // new map
+        const map = new google.maps.Map(
+          document.getElementById('map'),
+          options
+        );
+
+        // add marker
+        const marker = new google.maps.Marker({
+          position: { lat: 32.698565, lng: -117.141877 },
+          map: map,
+          icon:
+            'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        });
+
+        const contentString =
+          '<h1>Colossus</h1>' +
+          '<img src="https://i.ibb.co/PgZ7RqB/727x545-Colossus.jpg" height="200"/>' +
+          '<p>Here is some description \n This is another line </p>';
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+
+        marker.addListener('click', function () {
+          infoWindow.open(map, marker);
+        });
+      }
+    </script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.apiKey%>&callback=initMap"
+    ></script>
+  </body>
+</html>

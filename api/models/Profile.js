@@ -10,12 +10,10 @@ const ProfileSchema = new mongoose.Schema({
   // whether a artist, general public or a student
   status: {
     type: String,
-    required: true,
   },
   // entered in the UI and react in a comman separated value list
   skills: {
     type: [String],
-    required: true,
   },
   location: {
     type: String,
