@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const paypal = require('paypal-rest-sdk');
 const ejs = require('ejs');
+
+require('dotenv').config();
 
 const User = require('../../models/User');
 const Product = require('../../models/Product');
@@ -30,7 +33,14 @@ router.get('/', auth, async (req, res) => {
 // @desc    checkout item in shopping cart with paypal
 // @access  Private
 
-router.get('/checkout', auth, (req, res) => res.render('checkout'));
+router.get('/checkout', (req, res) => {
+  paypal.configure({
+    mode: 'sandbox',
+    client_id: '',
+    client_secret: '',
+  });
+  res.render('checkout');
+});
 
 // @route   POST api/cart
 // @desc    if a cart exist of this user, put product in it, else reate a cart and add the product
