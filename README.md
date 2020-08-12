@@ -42,18 +42,18 @@ _Store:_
 #### Prograss since Iter 2
 
 _New Package Installed:_
-
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
 
 _Doods Map based on Google Maps API:_
-
-Steps to build up Doodos Map
 * A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
 * Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
 * After those settings, a file "maps.js" is created inside the api/routes folder, which handle the request received from the server and send a response with the rendered doodos map.
 
-* log into google account create this app, and activate google maps jsvascript api and generate api-key, then save it in the .env file.
+* log into google account create this app.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/google-maps-created.png)
+
+* Activate google maps jsvascript api for this app and generate api-key, then save it in the .env file.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/api-key-created.png)
 
 * doodo-maps-set-up01 (connect to google maps api, and created a map view at fixed size).
