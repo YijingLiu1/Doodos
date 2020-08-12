@@ -5,7 +5,7 @@ Team Member: Yijing Liu, Haoran Yu
 ## Iter 2
 
 __Contribution on Project:__
-* UI - Yijing Liu
+* UI/Deployment - Yijing Liu
 * API - Haoran Yu
 
 __Progress since Iter 1:__<br/>
