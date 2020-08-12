@@ -10,6 +10,7 @@ import Edit from "../User/Edit.jsx";
 import About from "../About.jsx";
 import Dashboard from "../User/Dashboard.jsx";
 import Item from '../Store/ItemPage.jsx';
+import EditProfile from "../User/EditProfile.jsx";
 
 const routes = [
     { path: '/discover', component: Discover },
@@ -18,6 +19,7 @@ const routes = [
     { path: '/store', component: Store },
     { path: '/post/:id', component: Post },
     { path: '/edit/:id', component: Edit },
+    { path: '/profile/', component: EditProfile },
     { path: '/item/:id', component: Item },
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },
