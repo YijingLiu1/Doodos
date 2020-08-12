@@ -2,6 +2,43 @@
 ## Doodos
 Team Member: Yijing Liu, Haoran Yu
 
+## Iter 3
+
+__Progess in Iter 3:__ <br/>
+
+_Posts:_
+* Users can now edit, delete or like posts;
+* Edit & Delete feature can be accessed from Dashboard page;
+* Location value is added to posts for DoodleMaps display;
+* Location & Category values now can be edited through Post Add & Post Edit feature;
+
+_Events:_
+* Users can join or quit the event by clicking on "Join" on Event page;
+* Users who joined the event are listed on the "Attenders" tab on Event Page;
+
+_Users/Profiles:_
+* User sign up feature is added;
+* A new profile is created when new user signed up, which can be edited through Edit Profile page access from Dashboard;
+* Bio, status, location, social network & favorite categories now can be edited through Edit Profile page;
+* Users can now follow or unfollow other users;
+* Following tab is added to show who the user is following;
+* Likes tab now displays all the posts the user like;
+* User page would be directed to Dashboard if clicked on the User page of the signed in user;
+
+_Category:_
+* Minor issue fixed
+
+_DoodleMaps:_
+* DoodleMaps page now displays all posts with location show on map;
+
+_Store:_
+* Promotion banner now link correctly to its ticket item;
+* Item quantity now can be edited by input or "+"/"-" button before added to cart;
+* Users can access cart by the cart icon on NavBar;
+* Cart displays all items user added to cart, with remove from cart feature by clicking the trash icon;
+
+
+
 ## Iter 2
 
 __Contribution on Project:__
