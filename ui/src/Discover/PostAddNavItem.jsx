@@ -182,7 +182,7 @@ class PostAddNavItem extends React.Component {
                                 <FormControl name="description" />
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Favorite Categories</ControlLabel>
+                                <ControlLabel>Categories</ControlLabel>
                                 <FormGroup>
                                     <Checkbox name="category" value="ideas" onChange={this.onCategoryChange} inline>Ideas</Checkbox>
                                     {'  '}
