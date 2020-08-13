@@ -3,7 +3,7 @@
 Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 3
-Deployed App/UI Link (Might take a while for data from database to load): https://doodos-ui.herokuapp.com/
+Deployed App/UI Link (Might take a while for data from database to load): https://doodos-ui.herokuapp.com/ <br/>
 Deployed API Link: https://doodos-api.herokuapp.com/
 
 To access all features in Doodos, one can sign in with _"Dvinci@gmail.com"_ as email, and _"1234567"_ as password. <br/>
