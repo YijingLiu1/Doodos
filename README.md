@@ -87,10 +87,16 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
 
 * In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-log-in-test-account.png)
 
-* Loop through the posts in the mongo database, if the post has no valid lat and lng (default 0) then skip, else extract necessary informations from the post and create marker, info window for that post. Finally, user could see their post (if created with valid geo info) on the doodos map. On click, they could browse the image and other informaation. They could open multiple windows at the same time, and need to click close to close it.
+* After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
+
+* After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal. Now the shop is owned by John Dow, now the owner is changed to Doo Dos
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
+
+* After clicking the checkout button, user will be able to complete the payment, and the money will be shipped from his/her account to doodos official business account.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-view-the-pay-info.png)
 
 
 ## Iter 2
