@@ -39,8 +39,6 @@ _Store:_
 
 ### API - Haoran Yu
 
-#### Prograss since Iter 2
-
 _New Package Installed:_
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
@@ -73,13 +71,14 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * At the test stage the business account holder is named John Doe.
 * Then to run the paypal-rest-sdk, just like the google maps, we also need to create a app named doodos and generate client id and client secret which could be used to configure the paypal configuration.
 
+* Sign in developer paypal account and create sanbox and several tes account within the sandbox.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-paypal-sanbox-account.png)
 
-* Activate google maps jsvascript api for this app and generate api-key, then save it in the .env file.
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/api-key-created.png)
+* Create an app and generate cliendId and clientSecret after filling all the necessary information.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-new-app.png)
 
-* doodo-maps-set-up01 (connect to google maps api, and created a map view at fixed size).
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodo-maps-set-up01.png)
+* Each account will have 5000 dollars funding by default, which will change after each transaction.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/doodos-online-store-backend.png)
 
 * doodos-map-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions).
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/click-an-icon-to-see-more-info.png)
