@@ -11,6 +11,8 @@ import About from "../About.jsx";
 import Dashboard from "../User/Dashboard.jsx";
 import Item from '../Store/ItemPage.jsx';
 import EditProfile from "../User/EditProfile.jsx";
+import Cancel from "../Store/Cancel.jsx";
+import Success from "../Store/Success.jsx";
 
 const routes = [
     { path: '/discover', component: Discover },
@@ -24,6 +26,8 @@ const routes = [
     { path: '/user/:id/:tab?', component: User },
     { path: '/event/:id/:tab?', component: Event },
     { path: '/dashboard/:tab?', component: Dashboard },
+    { path: '/success/', component: Success },
+    { path: '/cancel/', component: Cancel },
     { path: '/about', component: About },
     { path: '*', component: NotFound },
 ];

@@ -7,7 +7,6 @@ import {
 } from 'react-bootstrap';
 import withToast from '../withToast.jsx';
 import UserTabContents from "./UserTabContents.jsx";
-import api from "../api";
 import EditItem from "./EditItem.jsx";
 import axios from "axios";
 import PostItem from "../Discover/PostItem.jsx";

@@ -13,7 +13,8 @@ class Category extends React.Component {
         super();
         this.state = {
             user: null,
-            category: []
+            category: [],
+            loading: true
         }
     }
 
@@ -23,30 +24,33 @@ class Category extends React.Component {
     }
 
     async loadData() {
-        const api = axios.create({
-            baseURL: '/api',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': localStorage.token
-            }
-        });
-        const profile = await api.get('/profile/me');
-        if (profile) {
-            const profileObject = {};
-            for (let k in profile.data) {
-                profileObject[k] = profile.data[k];
-            }
-            this.setState({ profile: profile.data, category: profileObject.favoriteCategories });
-            const id = profileObject.user._id;
-            const user = await api.get(`/users/${id}`);
-            const posts = await api.get(`/posts/byuser/${id}`);
-            if (user) {
-                this.setState({ user: user.data });
-            }
-            if (posts) {
-                this.setState({ posts: posts.data });
+        if (localStorage.token) {
+            const api = axios.create({
+                baseURL: '/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.token
+                }
+            });
+            const profile = await api.get('/profile/me');
+            if (profile) {
+                const profileObject = {};
+                for (let k in profile.data) {
+                    profileObject[k] = profile.data[k];
+                }
+                this.setState({ profile: profile.data, category: profileObject.favoriteCategories });
+                const id = profileObject.user._id;
+                const user = await api.get(`/users/${id}`);
+                const posts = await api.get(`/posts/byuser/${id}`);
+                if (user) {
+                    this.setState({ user: user.data });
+                }
+                if (posts) {
+                    this.setState({ posts: posts.data });
+                }
             }
         }
+        this.setState({ loading: false });
     }
 
     render() {
@@ -60,7 +64,8 @@ class Category extends React.Component {
             "events": "Events",
             "life": "Life"
         };
-        const { category } = this.state;
+        const { category, loading } = this.state;
+        if (loading) return null;
         const menuItems = [];
         for (let k in category) {
             let link = `./${category[k]}`;

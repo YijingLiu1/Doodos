@@ -13,8 +13,8 @@ class CartNavItem extends React.Component {
         super(props);
         this.state = {
             showing: false,
-            postAdded: false,
-            linK: '',
+            checkout: false,
+            link: '',
             imageUrl: '',
             sum: 0
         };
@@ -45,30 +45,17 @@ class CartNavItem extends React.Component {
     async handleSubmit(e) {
         e.preventDefault();
         this.hideModal();
-        const form = document.forms.postAdd;
-        const post = {
-            title: form.title.value,
-            imageUrl: this.state.imageUrl.imageUrl,
-            text: form.description.value,
-            date: new Date(),
-        };
-        const { user } = this.props;
         const api = axios.create({
             baseURL: '/api',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': user.token
+                'x-auth-token': localStorage.token
             }
         });
-        const res = await api.post('/posts', post);
-        if (res) {
-            const { showSuccess } = this.props;
-            showSuccess("New post made.");
-            const id = res.data._id;
-            const link = `/post/${id}`;
-            this.setState({ postAdded: true, link});
-        }
-
+        const checkout = await api.get('/cart/checkout/pay');
+        const link = checkout.data;
+        console.log(link);
+        this.setState({ link, checkout: true });
     }
 
     showWarning() {
@@ -77,7 +64,7 @@ class CartNavItem extends React.Component {
     }
 
     render() {
-        const { showing, postAdded, link } = this.state;
+        const { showing, checkout, link } = this.state;
         const { user, showSuccess, showError } = this.props;
         if (!user.signedIn) {
             return (
@@ -94,8 +81,9 @@ class CartNavItem extends React.Component {
                 </React.Fragment>
             );
         }
-
-        if (postAdded) return <Redirect to={link} />;
+        console.log(link);
+        if (checkout) return <meta httpEquiv="refresh" content={`1;url=${link}`} />;
+        {/*<Redirect to={link} />;*/}
 
         return (
             <React.Fragment>
@@ -120,13 +108,13 @@ class CartNavItem extends React.Component {
                             {`Total: $${this.state.sum.toFixed(2)}`}
                         </div>
                         <ButtonToolbar style={{float: 'right'}}>
-                            <Button
-                                type="button"
-                                bsStyle="primary"
-                                onClick={this.handleSubmit}
-                            >
-                                Checkout
-                            </Button>
+                                <Button
+                                    type="button"
+                                    bsStyle="primary"
+                                    onClick={this.handleSubmit}
+                                >
+                                    Checkout
+                                </Button>
                             <Button bsStyle="link" onClick={this.hideModal}>Cancel</Button>
                         </ButtonToolbar>
                     </Modal.Footer>

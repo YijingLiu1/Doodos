@@ -61,8 +61,8 @@ router.get('/checkout/pay', auth, async (req, res) => {
         payment_method: 'paypal',
       },
       redirect_urls: {
-        return_url: 'http://localhost:5000/api/cart/success',
-        cancel_url: 'http://localhost:5000/api/cart/cancel',
+        return_url: 'http://localhost:8000/success/',
+        cancel_url: 'http://localhost:8000/cancel/',
       },
       transactions: [
         {
@@ -211,7 +211,7 @@ router.delete('/clear', auth, async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user.id });
     cart.products = [];
-
+    cart.sum = 0;
     await cart.save();
     res.json(cart);
   } catch (err) {
