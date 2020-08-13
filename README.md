@@ -39,7 +39,7 @@ _Store:_
 
 ### API - Haoran Yu
 
-#### Prograss since Iter 2
+__Progess in Iter 3:__ <br/>
 
 _New Package Installed:_
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
@@ -64,6 +64,45 @@ _Doods Map based on Google Maps API:_
 
 * Loop through the posts in the mongo database, if the post has no valid lat and lng (default 0) then skip, else extract necessary informations from the post and create marker, info window for that post. Finally, user could see their post (if created with valid geo info) on the doodos map. On click, they could browse the image and other informaation. They could open multiple windows at the same time, and need to click close to close it.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
+
+
+_Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
+* Reference: https://github.com/paypal/PayPal-node-SDK
+* In creating paypal function, firstly, a paypal-rest-sdk, which contains packages and functions needed to execute payment with paypal. * After installation, developer needs to log in paypal developer with their personal account
+* Then, create a sandbox account
+* Then create a business account and a personal account, the personal account is set to simulate the customer account, and the business account is set to simulate the doodos official account.
+* At the test stage the business account holder is named John Doe.
+* Then to run the paypal-rest-sdk, just like the google maps, we also need to create a app named doodos and generate client id and client secret which could be used to configure the paypal configuration.
+
+* Sign in developer paypal account and create sanbox and several tes account within the sandbox.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-paypal-sanbox-account.png)
+
+* Create an app and generate cliendId and clientSecret after filling all the necessary information.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/create-new-app.png)
+
+* Each account will have 5000 dollars funding by default, which will change after each transaction.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/doodos-online-store-backend.png)
+
+* In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
+
+* In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-log-in-test-account.png)
+
+* After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal. Finally, user will be able to complete the payment, and the money will be shipped from his/her account to doodos official business account.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-view-the-pay-info.png)
+
+* If the payment is completed successfully, user will be redirect to this success page to get informed that they have successfully paid the cart, then their cart will be emptied. Or, if failed, user will be redirect to a page writing cancelled to get informed that the payment is not completed, and the cart will remain the same as before.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-success.png)
+
+* For successful payment, a new bill information will be generated and can be logged to the console, with the user's address, name extra, which can be used to deliver the package. (These infos are from user's paypal account)
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-info-logged-in-the-console.png)
+
+* After the payment, user's persibal account will decrement by the actual amount he/she has paid.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/after-check-out-personal-account.png)
+
+* Accordingly, the doodos' official account will increment by the actual amount the user has paid. However, an interetsting fact is found thar the user's personal account decrement 25 dollars while the doodo's official business account increase less than 25 dollars, it should be some inner logic within paypal-rest-sdk package. (Or algorithm about tax? Still looking for a cause)
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/after-check-out-business-account.png)
 
 
 ## Iter 2
