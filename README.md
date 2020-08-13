@@ -61,7 +61,14 @@ _Screenshots:_
 ![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
 * DoodleMaps page now show a GoogleMaps app with posts listed by location;
 ![DoodleMaps](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
-
+* Before add to cart, user can either modify the quantity directly or click "+"/"-" button;
+![Add to Cart](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Users can check items in cart by clicking the cart icon on NavBar, as well as remove items in cart;
+![Remove Items](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* By clcking on "Checkout", user would be directed to a Paypal page with purchase feature;
+![Checkout](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Click "Continue" to checkout or "Cancel..." below to get back to store;
+![Continue or Cancel](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
 
 
 ### API - Haoran Yu
