@@ -98,6 +98,13 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * For successful payment, a new bill information will be generated and can be logged to the console, with the user's address, name extra, which can be used to deliver the package. (These infos are from user's paypal account)
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-info-logged-in-the-console.png)
 
+* After the payment, user's persibal account will decrement by the actual amount he/she has paid.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/after-check-out-personal-account.png)
+
+* Accordingly, the doodos' official account will increment by the actual amount the user has paid. However, an interetsting fact is found thar the user's personal account decrement 25 dollars while the doodo's official business account increase less than 25 dollars, it should be some inner logic within paypal-rest-sdk package. (Or algorithm about tax? Still looking for a cause)
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/after-check-out-business-account.png)
+
+
 ## Iter 2
 
 __Contribution on Project:__
