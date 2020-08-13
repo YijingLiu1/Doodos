@@ -89,10 +89,7 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-log-in-test-account.png)
 
-* After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal.
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
-
-* After clicking the checkout button, user will be able to complete the payment, and the money will be shipped from his/her account to doodos official business account.
+* After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal. Finally, user will be able to complete the payment, and the money will be shipped from his/her account to doodos official business account.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-view-the-pay-info.png)
 
 
