@@ -95,6 +95,8 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * If the payment is completed successfully, user will be redirect to this success page to get informed that they have successfully paid the cart, then their cart will be emptied. Or, if failed, user will be redirect to a page writing cancelled to get informed that the payment is not completed, and the cart will remain the same as before.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-success.png)
 
+* For successful payment, a new bill information will be generated and can be logged to the console, with the user's address, name extra, which can be used to deliver the package. (These infos are from user's paypal account)
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-info-logged-in-the-console.png)
 
 ## Iter 2
 
