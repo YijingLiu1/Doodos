@@ -4,6 +4,9 @@ Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 3
 
+
+### UI - Yijing Liu
+
 __Progess in Iter 3:__ <br/>
 
 _Posts:_
@@ -37,6 +40,30 @@ _Store:_
 * Users can access cart by the cart icon on NavBar;
 * Cart displays all items user added to cart, with remove from cart feature by clicking the trash icon;
 
+_Screenshots:_
+* Liked posts would be shown with a colored heart icon. If open in a modal, it would show "Liked" instead of "Like";
+![Like](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG).
+* Users can check all of his/her liked posts under "Likes" tab on profile/dashboard page;
+![Likes](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG).
+* Post items now would show edit & delete button on Dashboard;
+![Edit Delete](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Posts can now be edited through Edit page access from Edit button on Dashboard page;
+![Post Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Profile can now be edited through Profile Edit page;
+![Profile Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Dashboard would show user's following on "Following" tab. When directing to followed user's profile, "Followed" would show instead of "Follow". Click on the button to follow/unfollow.
+![Follow](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Loacation & Category modification is added to Post Add feature.
+![Post Add](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Users now can click on "Join" to join/quit the event. Joined users would be displayed on "Attenders" tab;
+![Join Event](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* Click on the sign up link under sign in modal to switch to sign up modal;
+![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+* DoodleMaps page now show a GoogleMaps app with posts listed by location;
+![DoodleMaps](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+
+
+
 ### API - Haoran Yu
 
 __Progess in Iter 3:__ <br/>
@@ -45,7 +72,7 @@ _New Package Installed:_
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
 
-_Doods Map based on Google Maps API:_
+_DoodleMaps based on Google Maps API:_
 * A new folder named "views" is created under the root directory of API, and within it, a file named "maps.ejs" is created.
 * Besides that, some settings including "app.set('view engine', 'ejs')" is needed in the server.js, which declares to use ejs as the rendedr engine.
 * After those settings, a file "maps.js" is created inside the api/routes folder, which handle the request received from the server and send a response with the rendered doodos map.
@@ -66,7 +93,7 @@ _Doods Map based on Google Maps API:_
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
 
 
-_Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
+_Doodos Shop Cart Cgecj based on PayPal-rest-SDK:_
 * Reference: https://github.com/paypal/PayPal-node-SDK
 * In creating paypal function, firstly, a paypal-rest-sdk, which contains packages and functions needed to execute payment with paypal. * After installation, developer needs to log in paypal developer with their personal account
 * Then, create a sandbox account
