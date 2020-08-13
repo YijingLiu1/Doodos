@@ -61,8 +61,8 @@ router.get('/checkout/pay', auth, async (req, res) => {
         payment_method: 'paypal',
       },
       redirect_urls: {
-        return_url: 'http://localhost:8000/success/',
-        cancel_url: 'http://localhost:8000/cancel/',
+        return_url: process.env.returnUrl,
+        cancel_url: process.env.cancelUrl,
       },
       transactions: [
         {
