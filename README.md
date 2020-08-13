@@ -42,33 +42,33 @@ _Store:_
 
 _Screenshots:_
 * Liked posts would be shown with a colored heart icon. If open in a modal, it would show "Liked" instead of "Like";
-![Like](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG).
+![Like](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Like.JPG).
 * Users can check all of his/her liked posts under "Likes" tab on profile/dashboard page;
-![Likes](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG).
+![Likes](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Likes.JPG).
 * Post items now would show edit & delete button on Dashboard;
-![Edit Delete](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Edit Delete](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Post%20Edit1.JPG)
 * Posts can now be edited through Edit page access from Edit button on Dashboard page;
-![Post Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Post Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Post%20Edit2.JPG)
 * Profile can now be edited through Profile Edit page;
-![Profile Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Profile Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Profile%20Edit.JPG)
 * Dashboard would show user's following on "Following" tab. When directing to followed user's profile, "Followed" would show instead of "Follow". Click on the button to follow/unfollow.
-![Follow](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Follow](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Follow.JPG)
 * Loacation & Category modification is added to Post Add feature.
-![Post Add](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Post Add](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Post%20Add.JPG)
 * Users now can click on "Join" to join/quit the event. Joined users would be displayed on "Attenders" tab;
-![Join Event](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Join Event](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Join%20Event.JPG)
 * Click on the sign up link under sign in modal to switch to sign up modal;
-![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Sign Up](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Sign%20Up.JPG)
 * DoodleMaps page now show a GoogleMaps app with posts listed by location;
-![DoodleMaps](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![DoodleMaps](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/DoodleMaps.JPG)
 * Before add to cart, user can either modify the quantity directly or click "+"/"-" button;
-![Add to Cart](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Add to Cart](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Add%20to%20Cart.JPG)
 * Users can check items in cart by clicking the cart icon on NavBar, as well as remove items in cart;
-![Remove Items](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Remove Items](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Remove%20Items.JPG)
 * By clcking on "Checkout", user would be directed to a Paypal page with purchase feature;
-![Checkout](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Checkout](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Checkout.JPG)
 * Click "Continue" to checkout or "Cancel..." below to get back to store;
-![Continue or Cancel](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%202/Discover.JPG)
+![Continue or Cancel](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Continue%20or%20Cancel.JPG)
 
 
 ### API - Haoran Yu
