@@ -92,6 +92,9 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * After clicking the checkout button, user will be redirect to paypal login page, he/she could see the shop's information, and after entering their info, they can complish the payment with paypal. Finally, user will be able to complete the payment, and the money will be shipped from his/her account to doodos official business account.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-view-the-pay-info.png)
 
+* If the payment is completed successfully, user will be redirect to this success page to get informed that they have successfully paid the cart, then their cart will be emptied. Or, if failed, user will be redirect to a page writing cancelled to get informed that the payment is not completed, and the cart will remain the same as before.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/paypal-checkout-page-payment-success.png)
+
 
 ## Iter 2
 
