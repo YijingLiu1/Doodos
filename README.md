@@ -39,6 +39,8 @@ _Store:_
 
 ### API - Haoran Yu
 
+__Progess in Iter 3:__ <br/>
+
 _New Package Installed:_
 * New packages installed: "ejs": "^3.1.3", "paypal-rest-sdk": "^1.8.1", "request": "^2.88.2".
 "ejs" is a backend server render package which could rend the page and send it to the browser directly from the API side. Doodos map is created with the help of this package. 
@@ -65,6 +67,7 @@ _Doods Map based on Google Maps API:_
 
 
 _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
+* Reference: https://github.com/paypal/PayPal-node-SDK
 * In creating paypal function, firstly, a paypal-rest-sdk, which contains packages and functions needed to execute payment with paypal. * After installation, developer needs to log in paypal developer with their personal account
 * Then, create a sandbox account
 * Then create a business account and a personal account, the personal account is set to simulate the customer account, and the business account is set to simulate the doodos official account.
@@ -80,8 +83,11 @@ _Doods Shop Cart Cgecj based on PayPal-rest-SDK:_
 * Each account will have 5000 dollars funding by default, which will change after each transaction.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/doodos-online-store-backend.png)
 
-* doodos-map-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions).
-![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/click-an-icon-to-see-more-info.png)
+* In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
+
+* In the test stage, after logging the payment_json to the console, it is easy to find how paypal use json object to store the transaction infos.
+![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/paypal/payment-info.png)
 
 * Loop through the posts in the mongo database, if the post has no valid lat and lng (default 0) then skip, else extract necessary informations from the post and create marker, info window for that post. Finally, user could see their post (if created with valid geo info) on the doodos map. On click, they could browse the image and other informaation. They could open multiple windows at the same time, and need to click close to close it.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodos-map-set-up02.png)
