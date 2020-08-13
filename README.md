@@ -10,7 +10,7 @@ __Contribution on Project:__
 
 __Progress since Iter 2:__<br/>
 By the end of Iteration 2, most UI components connects to data on MongoDB through APIs, but most edit features have not been added. <br/>
-After Iteration 3, all intended edit features have been implemented on App. Now the Doodos App is a website where users can:
+After Iteration 3, all intended edit features have been implemented on App. Now Doodos is a Web App where users can:
 * View posts on Discover page sorted by modified time, Category page filtered by user's favorite categories/selected category, or DoodleMaps page listed by location.
 * Sign in or Sign up and get authorization for all implemented functions.
 * Add posts after signed in, with the "+" button on NavBar.
