@@ -204,6 +204,21 @@ router.post(
   }
 );
 
+// @route   DELETE api/cart/clear
+// @desc    Delete all products in the cart
+// @access  Private
+router.delete('/clear', auth, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user.id });
+    cart.products = [];
+
+    await cart.save();
+    res.json(cart);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 // @route   DELETE api/cart/:id/:product_id
 // @desc    Delete a product from the cart
 // @access  Private
