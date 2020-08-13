@@ -4,6 +4,22 @@ Team Member: Yijing Liu, Haoran Yu
 
 ## Iter 3
 
+__Contribution on Project:__
+* UI/Deployment - Yijing Liu
+* API - Haoran Yu
+
+__Progress since Iter 2:__<br/>
+By the end of Iteration 2, most UI components connects to data on MongoDB through APIs, but most edit features have not been added. <br/>
+After Iteration 3, all intended edit features have been implemented on App. Now the Doodos App is a website where users can:
+* View posts on Discover page sorted by modified time, Category page filtered by user's favorite categories/selected category, or DoodleMaps page listed by location.
+* Sign in or Sign up and get authorization for all implemented functions.
+* Add posts after signed in, with the "+" button on NavBar.
+* Access Dashboard page to edit user profile or edit/delete posts.
+* Like posts, join events, follow other users.
+* View liked posts, following users on user profile/dashboard.
+* View items in store, add to cart, and checkout.
+
+More details included in UI & API breakdown.
 
 ### UI - Yijing Liu
 
@@ -53,7 +69,7 @@ _Screenshots:_
 ![Profile Edit](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Profile%20Edit.JPG)
 * Dashboard would show user's following on "Following" tab. When directing to followed user's profile, "Followed" would show instead of "Follow". Click on the button to follow/unfollow.
 ![Follow](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Follow.JPG)
-* Loacation & Category modification is added to Post Add feature.
+* Location & Category modification is added to Post Add feature.
 ![Post Add](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Post%20Add.JPG)
 * Users now can click on "Join" to join/quit the event. Joined users would be displayed on "Attenders" tab;
 ![Join Event](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/ui/readme_images/Iter%203/Join%20Event.JPG)
@@ -90,10 +106,10 @@ _DoodleMaps based on Google Maps API:_
 * Activate google maps jsvascript api for this app and generate api-key, then save it in the .env file.
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/api-key-created.png)
 
-* doodo-maps-set-up01 (connect to google maps api, and created a map view at fixed size).
+* DoodleMaps-set-up01 (connect to google maps api, and created a map view at fixed size).
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/doodo-maps-set-up01.png)
 
-* doodos-map-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions).
+* DoodleMaps-set-up02 (create one marker on the map, and changed the marker from default red location icon to small flag, and create info window containing title, image and descriptions).
 ![register-user-da-vincci-and-get-token](https://github.ccs.neu.edu/NEU-CS5610-SU20/GroupProject-ArchiTech/blob/master/api/readme-images/google-maps/click-an-icon-to-see-more-info.png)
 
 * Loop through the posts in the mongo database, if the post has no valid lat and lng (default 0) then skip, else extract necessary informations from the post and create marker, info window for that post. Finally, user could see their post (if created with valid geo info) on the doodos map. On click, they could browse the image and other informaation. They could open multiple windows at the same time, and need to click close to close it.
