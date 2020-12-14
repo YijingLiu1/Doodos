@@ -1,9 +1,10 @@
 const Post = require('../models/Post');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 try {
   mongoose.connect(
-    'mongodb+srv://haoranyu:12345677654321@mern-shopping-list.bzwhf.mongodb.net/mern-shopping-list?retryWrites=true&w=majority'
+      process.env.mongoURI
   );
   const posts = [
     new Post({

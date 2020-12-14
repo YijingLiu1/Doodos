@@ -1,10 +1,11 @@
 const Event = require('../models/Event');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 try {
   // connect database
   mongoose.connect(
-    'mongodb+srv://haoranyu:12345677654321@mern-shopping-list.bzwhf.mongodb.net/mern-shopping-list?retryWrites=true&w=majority',
+    process.env.mongoURI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   );
   const events = [
